@@ -30,7 +30,7 @@
 		name:'blog',
 		data (){
 			return{
-				title:'contact'
+				title:'contacsssst'
 			}
 		}
 	}
