@@ -61,12 +61,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.row img{
-  max-height: 15em;
-  width: 100%;
 
-}
-.row h3{
-  cursor:pointer;
-}
 </style>

@@ -1,77 +1,121 @@
 <template>
-  <div id="app">
-      <!-- navbar -->
-      <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-        <div class="container">
-        <router-link to="/" class="navbar-brand">Home</router-link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav">
-      
-            <li class="nav-item">
-              <router-link class="nav-link" to="/blog">Blog</router-link>
-            </li>
-            <li class="nav-item">
-            <router-link class="nav-link" to="/services">Services</router-link>
-            </li>
-            <li class="nav-item">
-             <router-link class="nav-link" to="/contact">contact</router-link>
-            </li>
-          </ul>
-        </div>
-        </div>
-      </div>
-      <div class="container">
+  <div class="app">      
+      <div class="main_body">
        <transition name="moveInUp">
          <router-view/>
        </transition>
-        
       </div>
-    
+
+
+      <div class="navbar">
+            <div class="nav-item">
+              <router-link to="/" class="navbar-brand"><img src="./assets/navbar_icons/home.svg"></img><span>Главная</span></router-link>
+            </div>
+            <div class="nav-item">
+              <router-link  to="/blog"><img src="./assets/navbar_icons/categoryes.svg"><span>Категории</span></router-link>
+            </div>
+            <div class="nav-item nav-item-basket">
+              <router-link class="nav-link" to="/services"><img src="./assets/navbar_icons/basket.svg"><span></span></router-link>
+            </div>
+            <div class="nav-item">
+             <router-link class="nav-link" to="/contact"><img src="./assets/navbar_icons/search.svg"><span>Поиск</span></router-link>
+            </div>
+            <div class="nav-item">
+             <router-link class="nav-link" to="/help"><img src="./assets/navbar_icons/help.svg"><span>Инфо</span></router-link>
+            </div>
+      </div>
+
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data ()
+  {
+    return {
+      
+    }
+  },
+  methods:
+  {
+    showAlert()
+    {
+      alert(111)
+    },
+    showAlert2()
+    {
+      alert(222)
+    }
+  },
+  computed :{
+    FIRST_COMPUTED_VALUE(){
+      return this.$store.state.first_value
+    }
+  },
+
+  watch:{
+    FIRST_COMPUTED_VALUE(val,old_val){
+      console.log(val,old_val)
+    }
+  },
+  mounted(){
+    console.log('component mounted');
+    //this.showAlert();
+    //this.showAlert2();
+    console.log(this.FIRST_COMPUTED_VALUE)
+    this.$store.dispatch("SET_TO",  ["first_value", 23455])
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.moveInUp-enter-active{
-  animation: fadeIn 2s ease-in;
-}
-@keyframes fadeIn{
-  0%{
-    opacity: 0;
+  body{
+    margin:0;
+    padding:0;
+    font-family: 'Roboto', sans-serif;
   }
-  50%{
-    opacity: 0.5;
+  .app{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 100vh;
+    overflow: hidden;
   }
-  100%{
-    opacity: 1;
+  .main_body{
+    flex: 2;
+    overflow: scroll;
+    height: 100px;
+    height: -webkit-fill-available;
+    height: 100%;
   }
-}
-
-.moveInUp-leave-active{
-  animation: moveInUp .3s ease-in;
-}
-@keyframes moveInUp{
- 0%{
-  transform: translateY(0);
- }
-  100%{
-  transform: translateY(-400px);
- }
-}
+  .navbar{
+    flex: 1;
+    max-height: 60px;
+    min-height: 60px;
+    display:flex;
+    justify-content:space-around;
+    
+  }
+  .nav-item{
+    padding : 10px;
+    text-align:center;
+    
+  }
+  .nav-item a{
+    text-decoration:none;
+  }
+  .nav-item img{
+    height : 25px;
+  }
+  .nav-item-basket{
+    background: linear-gradient(232.84deg, #FF0099 -162.71%, #FF4D00 163.83%);
+    border-radius: 20px;
+    height:
+  }
+  router-link{
+    display:flex;
+    flex-direction:column;
+  }
 </style>

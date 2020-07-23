@@ -1,15 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Axios from 'axios';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
     todos: null,
-    title: "sss"
-
-
+    title: "sss",
+    first_value : true
 
 
 
@@ -30,6 +28,12 @@ export const store = new Vuex.Store({
     ADD_TODO: (state, payload) => {
       state.todos.push(payload);
     },
+    FIRST_ACTION: (state,payload) => {
+      state.first_value = payload; 
+    },
+    SET_TO: (state,payload) => {
+      state[payload[0]] = payload[1]; 
+    }
   },
 
   actions: {
@@ -42,5 +46,12 @@ export const store = new Vuex.Store({
       let {data} = await Axios.post('http://yourwebsite.com/api/todo');
       context.commit('ADD_TODO', payload);
     },
+    FIRST_ACTION: (context,payload) => {
+       context.commit('FIRST_ACTION',payload) 
+    },
+
+    SET_TO: (context,payload) =>{
+      context.commit('SET_TO',payload) 
+    }
   },
 });

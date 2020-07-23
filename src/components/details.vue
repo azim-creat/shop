@@ -53,7 +53,12 @@
 				]
 				 
 			}
-		}
+		},
+		computed :{
+			FIRST_COMPUTED_VALUE(){
+			return this.$store.state.first_value
+			}
+		},
 		
 	}
 </script>
