@@ -12,20 +12,18 @@
               <router-link to="/" class="navbar-brand"><img src="./assets/navbar_icons/home.svg"></img><span>Главная</span></router-link>
             </div>
             <div class="nav-item">
-              <router-link  to="/blog"><img src="./assets/navbar_icons/categoryes.svg"><span>Категории</span></router-link>
+              <router-link  to="/categoryes"><img src="./assets/navbar_icons/categoryes.svg"><span>Категории</span></router-link>
             </div>
             <div class="nav-item nav-item-basket">
               <router-link class="nav-link" to="/services"><img src="./assets/navbar_icons/basket.svg"><span></span></router-link>
             </div>
             <div class="nav-item">
-             <router-link class="nav-link" to="/contact"><img src="./assets/navbar_icons/search.svg"><span>Поиск</span></router-link>
+             <router-link class="nav-link" to="/search"><img src="./assets/navbar_icons/search.svg"><span>Поиск</span></router-link>
             </div>
             <div class="nav-item">
              <router-link class="nav-link" to="/help"><img src="./assets/navbar_icons/help.svg"><span>Инфо</span></router-link>
             </div>
       </div>
-
-
   </div>
 </template>
 
@@ -96,7 +94,7 @@ export default {
     min-height: 60px;
     display:flex;
     justify-content:space-around;
-    
+    padding:15px 0px;
   }
   .nav-item{
     padding : 10px;
@@ -112,7 +110,6 @@ export default {
   .nav-item-basket{
     background: linear-gradient(232.84deg, #FF0099 -162.71%, #FF4D00 163.83%);
     border-radius: 20px;
-    height:
   }
   router-link{
     display:flex;

@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
-import blog from '@/components/blog'
 import services from '@/components/services'
-import contact from '@/components/contact'
 import details from '@/components/details'
-
+import categoryes from '@/components/categoryes'
+import search from '@/components/search'
 Vue.use(Router)
 
 export default new Router({
@@ -16,14 +15,9 @@ export default new Router({
       component: home
     },
     {
-      path: '/home',
-      name: 'home',
-      component: home
-    },
-    {
-      path: '/blog',
-      name: 'blog',
-      component: blog
+      path: '/categoryes',
+      name: 'categoryes',
+      component: categoryes
     },
     {
       path: '/services',
@@ -31,9 +25,9 @@ export default new Router({
       component: services
     },
     {
-      path: '/contact',
-      name: 'contact',
-      component: contact
+      path: '/search',
+      name: 'search',
+      component: search
     },
     {
       path: '/details/:Pid',
