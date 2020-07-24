@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
-import details from '@/components/details'
+import product from '@/components/product'
 import categoryes from '@/components/categoryes'
 import search from '@/components/search'
 import info from '@/components/info'
@@ -30,9 +30,9 @@ export default new Router({
       component: search
     },
     {
-      path: '/details/:Pid',
-      name: 'details',
-      component: details
+      path: '/product',
+      name: 'product',
+      component: product
     }
   ]
 })

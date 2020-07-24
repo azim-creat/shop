@@ -9,6 +9,9 @@
 
       <div class="navbar">
             <div class="nav-item">
+              <router-link to="/product" class="navbar-brand"><span>TO PRODUCT</span></router-link>
+            </div>
+            <div class="nav-item">
               <router-link to="/" class="navbar-brand"><img src="./assets/navbar_icons/home.svg"><span>Главная</span></router-link>
             </div>
             <div class="nav-item">
@@ -83,7 +86,7 @@ export default {
   }
   .main_body{
     flex: 2;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 100px;
     height: -webkit-fill-available;
     height: 100%;

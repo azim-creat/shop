@@ -14,6 +14,15 @@
                 <a class="info_container__addrBtn"><i class="fa fa-map-marker" style="color:black;margin-right:10px"></i></i><span>{{company_info.company_address}}</span></a>
             </div>
         </div>
+        <div>
+            <div class="info_images__item" v-for="(data,index) in products">
+                <img :src="data.image">
+            </div>
+        </div>
+
+        <div class="info_images" >
+            
+        </div>
 	</div>
 </template>
 <script>
@@ -28,7 +37,39 @@
                 company_tel : '+7 777 777 77 77',
                 company_image : require('../assets/company_icon/company_icon.svg'),
                 company_tel_icon : require('../assets/company_icon/company_tel_icon.svg')
-            } 
+            },
+            products:[
+            {
+                productTitle:"ABCN",
+                image       : require('../assets/images/product1.png'),
+                productId:1
+            },
+            {
+                productTitle:"KARMA",
+                image       : require('../assets/images/product2.png'),
+                productId:2
+            },
+            {
+                productTitle:"Tino",
+                image       : require('../assets/images/product3.png'),
+                productId:3
+            },
+            {
+                productTitle:"EFG",
+                image       : require('../assets/images/product4.png'),
+                productId:4
+            },
+            {
+                productTitle:"MLI",
+                image       : require('../assets/images/product5.png'),
+                productId:5
+            },
+            {
+                productTitle:"Banans",
+                image       : require('../assets/images/product6.png'),
+                productId:6
+            }
+            ] 
         }
     },
 	}
@@ -137,6 +178,22 @@
         text-transform: uppercase;
         align-items: center;
         justify-content: center;
+    }
+    .info_images{
+        
+        width:100%;
+    }
+    .info_images__item{
+        max-height:60vh;
+        width:50%;
+        padding:5px 0px;
+        overflow: hidden;
+        display:flex;
+    }
+    .info_images__item img{
+        margin-left: -50%;
+        min-height: 100% !important;
+
     }
     
 </style>

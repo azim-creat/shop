@@ -1,13 +1,21 @@
 <template>
 	<div class="categoryes">
 		<h1 class="name_category">Категории</h1>
-        <div class="category-item" v-for="(item,index) in products" :key="index">
+        <div class="category-item__parent" v-if="parent" @click="backToParent(item,index)">
+            <span class="category-item__arrow-right__parent_arrow"></span>
+            <span class="category-item__title">
+                <h3>{{parent.productTitle}}</h3>
+                <h5>{{parent.count}} товаров</h5>
+            </span>
+        </div>
+
+        <div class="category-item" v-for="(item,index) in childs" :key="index" @click="setParent(item,index)">
             <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
             <span class="category-item__title">
                 <h3>{{item.productTitle}}</h3>
                 <h5>{{item.count}} товаров</h5>
             </span>
-            <span class="category-item__arrow-right"></span>
+            <span class="category-item__arrow-right parent_arrow"></span>
         </div>
 	</div>
 </template>
@@ -15,38 +23,92 @@
 	export default{
 		name:'categoryes',
 		data () {
-        return {
-            title: 'Home',
-            products:[
-                {
-                    productTitle:"Серьги",
-                    count   :   1245,
-                    image       : require('../assets/images/product1.png'),
-                    productId:1
-                },
-                {
-                    productTitle:"Кольца",
-                    count   :   562,
-                    image       : require('../assets/images/product2.png'),
-                    productId:2
-                },
-                {
-                    productTitle:"Брaслеты",
-                    count   :   896,
-                    image       : require('../assets/images/product3.png'),
-                    productId:3
-                }
-            ]
+            return {
+                title: 'Home',
+                parent: false,
+                childs: {},
+                products:[
+                    {
+                        productTitle:"Серьги",
+                        count   :   1245,
+                        image       : require('../assets/images/product1.png'),
+                        productId:1,
+                        childs :
+                        [
+                            {
+                                productTitle:"Серьга 1",
+                                count   :   124,
+                                image       : require('../assets/images/product1.png'),
+                                productId:4,
+                                childs :   
+                                [
+                                    {
+                                        productTitle:"Серьга 2",
+                                        count   :   12,
+                                        image       : require('../assets/images/product1.png'),
+                                        productId:6,
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        productTitle:"Кольца",
+                        count   :   562,
+                        image       : require('../assets/images/product2.png'),
+                        productId:2
+                    },
+                    {
+                        productTitle:"Брaслеты",
+                        count   :   896,
+                        image       : require('../assets/images/product3.png'),
+                        productId:3
+                    }
+                ]
+            }
+        },
+        
+        methods : {
+            setParent(item,index){
+                this.parent = item
+                this.childs = item.childs
+            },
+            backToParent(item,index)
+            {
+
+            }
+        },
+        mounted(){
+            this.childs = this.products;
+            console.log('mounted')
         }
-    },
 	}
 </script>
     
 <style scoped>
-    
+    .category-item__parent{
+          display:flex;
+          margin:10px;
+          background: #000000;
+          border-radius: 12px;
+          overflow:hidden;
+          height:100px; 
+          color:#FFFFFF;
+    }
+    .category-item__arrow-right__parent_arrow{
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top:10%;
+        margin-left:5%;
+        border-top: 2px solid #FFFFFF;
+        border-left: 2px solid #FFFFFF;
+        transform: rotate(-45deg);
+        text-align:right;
+    }
     .category-item{
           display:flex;
-          justify-content:space-between;
+          justify-content: space-between;
           margin:10px;
           background: #000000;
           border-radius: 12px;
@@ -60,11 +122,7 @@
         background-size: cover;
         background-position: center;
     }
-    .category-item span{
-        display:flex;
-        flex-direction:column;
-        margin-left:20px
-    }
+    
 	.name_category
     {
         margin-top:70px;
@@ -72,6 +130,9 @@
         font-family: 'Comfortaa', cursive;
     }
     .category-item__title{
+        display:flex;
+        flex-direction:column;
+        margin-left:20px;
         font-family: 'Roboto';
         font-style: normal;
         font-size: 18px;
