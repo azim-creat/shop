@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
-import services from '@/components/services'
 import details from '@/components/details'
 import categoryes from '@/components/categoryes'
 import search from '@/components/search'
+import info from '@/components/info'
 Vue.use(Router)
 
 export default new Router({
@@ -20,9 +20,9 @@ export default new Router({
       component: categoryes
     },
     {
-      path: '/services',
-      name: 'services',
-      component: services
+      path: '/info',
+      name: 'info',
+      component: info
     },
     {
       path: '/search',

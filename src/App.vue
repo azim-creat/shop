@@ -9,7 +9,7 @@
 
       <div class="navbar">
             <div class="nav-item">
-              <router-link to="/" class="navbar-brand"><img src="./assets/navbar_icons/home.svg"></img><span>Главная</span></router-link>
+              <router-link to="/" class="navbar-brand"><img src="./assets/navbar_icons/home.svg"><span>Главная</span></router-link>
             </div>
             <div class="nav-item">
               <router-link  to="/categoryes"><img src="./assets/navbar_icons/categoryes.svg"><span>Категории</span></router-link>
@@ -21,7 +21,7 @@
              <router-link class="nav-link" to="/search"><img src="./assets/navbar_icons/search.svg"><span>Поиск</span></router-link>
             </div>
             <div class="nav-item">
-             <router-link class="nav-link" to="/help"><img src="./assets/navbar_icons/help.svg"><span>Инфо</span></router-link>
+             <router-link class="nav-link" to="/info"><img src="./assets/navbar_icons/help.svg"><span>Инфо</span></router-link>
             </div>
       </div>
   </div>
