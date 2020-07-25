@@ -9,9 +9,6 @@
 
       <div class="navbar">
             <div class="nav-item">
-              <router-link to="/product" class="navbar-brand"><span>TO PRODUCT</span></router-link>
-            </div>
-            <div class="nav-item">
               <router-link to="/" class="navbar-brand"><img src="./assets/navbar_icons/home.svg"><span>Главная</span></router-link>
             </div>
             <div class="nav-item">
@@ -98,12 +95,11 @@ export default {
     height: 100%;
   }
   .navbar{
-    flex: 1;
-    max-height: 60px;
-    min-height: 60px;
-    display:flex;
-    justify-content:space-around;
-    padding:15px 0px;
+    flex: 0;
+    max-height: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
   }
   .nav-item{
     padding : 10px;
