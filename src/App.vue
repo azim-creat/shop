@@ -73,10 +73,16 @@ export default {
 
 <style>
   body{
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    box-sizing: border-box;
+
   }
+
   .app{
     display: flex;
     flex-direction: column;
@@ -106,16 +112,27 @@ export default {
   }
   .nav-item a{
     text-decoration:none;
+    font-size: 14px;
+    color: #000;
   }
+  .nav-item a:visited {
+    color: #000;
+  }
+
   .nav-item img{
     height : 25px;
   }
+
   .nav-item-basket{
     background: linear-gradient(232.84deg, #FF0099 -162.71%, #FF4D00 163.83%);
-    border-radius: 20px;
+    border-radius: 100px;
+    height: fit-content;
+    padding: 10px 20px;
   }
+
   router-link{
     display:flex;
     flex-direction:column;
   }
+
 </style>

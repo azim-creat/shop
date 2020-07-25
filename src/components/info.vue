@@ -11,11 +11,14 @@
                 <a class="info_container__whatsapp"><i class="fa fa-whatsapp" style="color:white"></i></a>
             </div>
             <div>
-                <a class="info_container__addrBtn"><i class="fa fa-map-marker" style="color:black;margin-right:10px"></i></i><span>{{company_info.company_address}}</span></a>
+                <a class="info_container__addrBtn">
+                    <i class="fa fa-map-marker" style="color:black;margin-right:10px"></i>
+                    <span>{{company_info.company_address}}</span>
+                </a>
             </div>
         </div>
         <div>
-            <div class="info_images__item" v-for="(data,index) in products">
+            <div class="info_images__item" v-for="(data,index) in products" :key="index">
                 <img :src="data.image">
             </div>
         </div>

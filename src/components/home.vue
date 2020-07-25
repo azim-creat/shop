@@ -2,10 +2,12 @@
   <div class="home">
     <h1>{{title}}</h1>
     <div class="row">
-      <div class="col-md-4 col-lg4" v-for="(data,index) in products" :key="index">
+
+
+      <router-link class="col-md-4 col-lg4" v-for="(data,index) in products" :key="index" to="/product">
         <img :src="data.image" class="img-fluid">
          <h3 @click="goTodetail(data.productId)" >{{data.productTitle}}</h3>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

@@ -4,12 +4,12 @@
         <h4 class="product_price">{{product_info.product_price}} $</h4>
         <div class="product_img" :style="`background-image: url(.${main_image || product_info.product_image[0]})`"></div>
         <div class="product_add_images">
-            <div class="product_add_img" v-for="product_img in product_info.product_image" :style="`background-image: url(.${product_img})`"></div>
+            <div class="product_add_img" v-for="(product_img, index) in product_info.product_image" :key="index" :style="`background-image: url(.${product_img})`"></div>
         </div>
         <div class="product_choose">
             <div class="product_choose_size">
                 <div class="product_choose_size__items">
-                    <span class="product_choose_size__item" v-for="item_size in product_info.product_item_sizes">{{item_size}}</span>
+                    <span class="product_choose_size__item" v-for="(item_size, index) in product_info.product_item_sizes" :key="index">{{item_size}}</span>
                 </div>
                 <div class="product_choose_item__count">
                     <span class="product_choose_item_count__minus">-</span>
@@ -21,7 +21,7 @@
         <div class="product_description">
             <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
             <ul>
-                <li v-for="descrip in product_info.description">{{descrip}}</li>
+                <li v-for="(descrip, index) in product_info.description" :key="index">{{descrip}}</li>
             </ul>       
         </div>  
     </div>
