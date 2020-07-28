@@ -32,42 +32,71 @@ export default {
       title: "Home",
       parent: false,
       childs: {},
-      products: [
-        {
-          productTitle: "Серьги",
+      path: [],
+      products: {
+        "01_1": {
+          id: "01_1",
+          productTitle: "Категория 1",
           count: 1245,
+          parent_id: false,
           image: require("../assets/images/product1.png"),
-          productId: 1,
-          childs: [
-            {
-              productTitle: "Серьга 1",
-              count: 124,
+          childs: {
+            "01_1_1": {
+              id: "01_1_1",
+              productTitle: "К1 Категория 1",
+              count: 1245,
               image: require("../assets/images/product1.png"),
-              productId: 4,
-              childs: [
-                {
-                  productTitle: "Серьга 2",
-                  count: 12,
+              parent_id: "01_1",
+              childs: {
+                "01_1_1_1": {
+                  id: "01_1_1_1",
+                  productTitle: "К1 К2 Категория 1",
+                  count: 1245,
                   image: require("../assets/images/product1.png"),
-                  productId: 6
-                }
-              ]
-            }
-          ]
+                  parent_id: "01_1_1",
+                  childs: {
+                    "01_1_1_1_1": {
+                      id: "01_1_1_1_1",
+                      productTitle: "К1 К2 К3 Категория 1",
+                      count: 1245,
+                      image: require("../assets/images/product1.png"),
+                      parent_id: "01_1_1_1",
+                    },
+                    "01_1_1_1_2": {
+                      id: "01_1_1_1_1",
+                      productTitle: "К1 К2 К3 Категория 1",
+                      count: 1245,
+                      image: require("../assets/images/product1.png"),
+                      parent_id: "01_1_1_1",
+                    },
+                    "01_1_1_1_3": {
+                      id: "01_1_1_1_1",
+                      productTitle: "К1 К2 К3 Категория 1",
+                      count: 1245,
+                      image: require("../assets/images/product1.png"),
+                      parent_id: "01_1_1_1",
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
-        {
-          productTitle: "Кольца",
+        "01_2": {
+          id: 10002,
+          productTitle: "Категория 2",
           count: 562,
+          parent_id: false,
           image: require("../assets/images/product2.png"),
-          productId: 2
         },
-        {
-          productTitle: "Брaслеты",
+        "01_3": {
+          id: 10003,
+          productTitle: "Категория 3",
           count: 896,
+          parent_id: false,
           image: require("../assets/images/product3.png"),
-          productId: 3
-        }
-      ]
+        },
+      },
     };
   },
 
@@ -81,28 +110,31 @@ export default {
     },
     backToParent() {
       //   this.childs = this.childs.parent_id;
-      let clone = {}
+      let clone = this.products;
 
-    //   for (let index = 0; index < this.path.length; index++) {
+      if (this.path.length === 1) {
+        this.path = [];
+        this.parent = false;
+        this.childs = clone;
 
-    //       clone
-          
-    //   }
-    function index(obj,is, value) {
-        if (typeof is == 'string')
-            return index(obj,is.split('.'), value);
-        else if (is.length==1 && value!==undefined)
-            return obj[is[0]] = value;
-        else if (is.length==0)
-            return obj;
-        else
-            return index(obj[is[0]],is.slice(1), value);
-    }
+      } else {
+        for (let index = 0; index < this.path.length; index++) {
+          if (index === 0) {
+            clone = clone[this.path[index]];
+          } else if (this.path.length - 1 === index) {
+            continue;
+          } else {
+            clone = clone.childs[this.path[index]];
+          }
+        }
 
+        this.path.pop();
+        this.parent = clone;
+        this.childs = clone.childs;
 
-    console.log(index(this.products,this.path ))
+      }
 
-
+   
     },
   },
   mounted() {

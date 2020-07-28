@@ -59,11 +59,11 @@ export default {
     }
   },
   mounted(){
-    console.log('component mounted');
-    //this.showAlert();
-    //this.showAlert2();
-    console.log(this.FIRST_COMPUTED_VALUE)
-    this.$store.dispatch("SET_TO",  ["first_value", 23455])
+    // console.log('component mounted');
+    // //this.showAlert();
+    // //this.showAlert2();
+    // console.log(this.FIRST_COMPUTED_VALUE)
+    // this.$store.dispatch("SET_TO",  ["first_value", 23455])
   }
 }
 </script>
