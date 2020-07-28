@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <div class="view-wrapper single" :class="view_mode">
+      <div class="view-wrapper" :class="view_mode">
         <div :id="title" v-for="(data,index) in products" :key="index">
           <ProductGrid
             @click="goTodetail(data.productId)"
