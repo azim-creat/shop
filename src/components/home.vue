@@ -99,12 +99,25 @@
         </div>
       </div>
 
-      <div class="view-wrapper view-mode-single">
+      <div class="view-wrapper single" :class="view_mode">
         <div :id="title" v-for="(data,index) in products" :key="index">
+          <ProductGrid
+            @click="goTodetail(data.productId)"
+            :title="data.productTitle"
+            :image="data.image"
+            v-if=" view_mode === 'grid'"
+          />
           <ProductSingle
             @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
+            v-else-if="view_mode === 'single'"
+          />
+          <ProductList
+            @click="goTodetail(data.productId)"
+            :title="data.productTitle"
+            :image="data.image"
+            v-else
           />
         </div>
       </div>
@@ -205,7 +218,7 @@ export default {
 }
 
 /* режим вида - сетка */
-.view-wrapper.view-mode-grid {
+.grid {
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
@@ -215,9 +228,10 @@ export default {
   justify-items: stretch;
 }
 
-.view-mode-single {
+/* режим вида - по одному */
+.single {
   display: grid;
   gap: 10px;
-  grid-auto-columns: 1fr ;
+  grid-auto-columns: 1fr;
 }
 </style>
