@@ -9,17 +9,6 @@
       </span>
     </div>
 
-<<<<<<< HEAD
-    <div v-for="(item,index) in childs" :key="index">
-      <div class="category-item" @click="setParent(item,index)">
-        <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
-        <span class="category-item__title">
-          <h3>{{item.productTitle}}</h3>
-          <h5>{{item.count}} товаров</h5>
-        </span>
-        <span class="category-item__arrow-right parent_arrow"></span>
-      </div>
-=======
     <div
       class="category-item"
       v-for="(item,index) in childs"
@@ -32,7 +21,6 @@
         <h5>{{item.count}} товаров</h5>
       </span>
       <span class="category-item__arrow-right parent_arrow"></span>
->>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
     </div>
   </div>
 </template>
@@ -44,57 +32,6 @@ export default {
       title: "Home",
       parent: false,
       childs: {},
-<<<<<<< HEAD
-      path: [],
-
-      products: {
-        1001: {
-          id: 10001,
-          productTitle: "Серьги",
-          count: 1245,
-          image: require("../assets/images/product1.png"),
-          childs: {
-            1001001: {
-              id: 1001001,
-              productTitle: "Серьги21",
-              count: 1245,
-              image: require("../assets/images/product1.png"),
-              parent_id: 10001,
-              childs: {
-                100100103: {
-                  id: 100100103,
-                  productTitle: "Серьги13",
-                  count: 1245,
-                  image: require("../assets/images/product1.png"),
-                  parent_id: 1001001,
-                  childs: {
-                    10010010304: {
-                      id: 10010010304,
-                      productTitle: "Серьги134",
-                      count: 1245,
-                      image: require("../assets/images/product1.png"),
-                      parent_id: 100100103,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-        1002: {
-          id: 10002,
-          productTitle: "Кольца",
-          count: 562,
-          image: require("../assets/images/product2.png"),
-        },
-        1003: {
-          id: 10003,
-          productTitle: "Брaслеты",
-          count: 896,
-          image: require("../assets/images/product3.png"),
-        },
-      },
-=======
       products: [
         {
           productTitle: "Серьги",
@@ -131,7 +68,6 @@ export default {
           productId: 3
         }
       ]
->>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
     };
   },
 
@@ -139,7 +75,6 @@ export default {
     setParent(item, index) {
       this.parent = item;
       this.childs = item.childs;
-<<<<<<< HEAD
       if (item.id) {
         this.path.push(item.id);
       }
@@ -169,21 +104,11 @@ export default {
 
 
     },
-=======
-    },
-    backToParent() {
-      this.childs = this.parent.childs;
-    }
->>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
   },
   mounted() {
     this.childs = this.products;
     console.log("mounted");
-<<<<<<< HEAD
   },
-=======
-  }
->>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
 };
 </script>
     

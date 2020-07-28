@@ -109,12 +109,12 @@
 </template>
 
 <script>
-import ProdictList from "@/components/ProductItems/ProductList";
+import ProductList from "@/components/ProductItems/ProductList";
 
 export default {
   name: "home",
   components: {
-    ProdictList
+    ProductList
   },
   data() {
     return {
