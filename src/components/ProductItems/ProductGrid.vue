@@ -1,42 +1,41 @@
 <template>
-  <div class="product-item list-item">
-    <img :src="data.image" />
-    <div class="product-title list-item">
-      <h3 @click="goTodetail(data.productId)">{{data.productTitle}}</h3>
+  <div class="product-item">
+    <img :src="image" />
+    <div class="product-title">
+      <h3>{{title}}</h3>
     </div>
   </div>
 </template>
 
 <script>
+export default {
+  name: "ProductGrid",
+  props: { title: String, image: String }
+};
 </script> 
 
-<style lang="scss" scoped>
-.view-wrapper.view-mode-grid {
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-  grid-auto-rows: min-content;
-  align-items: stretch;
-  justify-items: stretch;
-}
-
-.product-item.grid-item {
+<style scoped>
+.product-item {
   position: relative;
   border-radius: 3px;
 }
-.product-title.grid-item {
+.product-title {
   width: 100%;
-  padding: 6px;
   margin: 0;
+  
   position: absolute;
   background: transparent;
-  bottom: 0%;
+  bottom: 0;
+  backdrop-filter: blur(10px);
+  min-height: 25px;
+  max-height: 50px;
 }
-.product-title.grid-item h3 {
+h3 {
   margin: 0;
+  color: white;
+  padding-left: 7px;
 }
-.product-item.grid-item img {
+.product-item img {
   display: block;
   border-radius: 3px;
   width: 100%;
