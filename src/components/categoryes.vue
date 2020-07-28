@@ -9,6 +9,7 @@
       </span>
     </div>
 
+<<<<<<< HEAD
     <div v-for="(item,index) in childs" :key="index">
       <div class="category-item" @click="setParent(item,index)">
         <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
@@ -18,6 +19,20 @@
         </span>
         <span class="category-item__arrow-right parent_arrow"></span>
       </div>
+=======
+    <div
+      class="category-item"
+      v-for="(item,index) in childs"
+      :key="index"
+      @click="setParent(item,index)"
+    >
+      <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
+      <span class="category-item__title">
+        <h3>{{item.productTitle}}</h3>
+        <h5>{{item.count}} товаров</h5>
+      </span>
+      <span class="category-item__arrow-right parent_arrow"></span>
+>>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
     </div>
   </div>
 </template>
@@ -29,6 +44,7 @@ export default {
       title: "Home",
       parent: false,
       childs: {},
+<<<<<<< HEAD
       path: [],
 
       products: {
@@ -78,6 +94,44 @@ export default {
           image: require("../assets/images/product3.png"),
         },
       },
+=======
+      products: [
+        {
+          productTitle: "Серьги",
+          count: 1245,
+          image: require("../assets/images/product1.png"),
+          productId: 1,
+          childs: [
+            {
+              productTitle: "Серьга 1",
+              count: 124,
+              image: require("../assets/images/product1.png"),
+              productId: 4,
+              childs: [
+                {
+                  productTitle: "Серьга 2",
+                  count: 12,
+                  image: require("../assets/images/product1.png"),
+                  productId: 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          productTitle: "Кольца",
+          count: 562,
+          image: require("../assets/images/product2.png"),
+          productId: 2
+        },
+        {
+          productTitle: "Брaслеты",
+          count: 896,
+          image: require("../assets/images/product3.png"),
+          productId: 3
+        }
+      ]
+>>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
     };
   },
 
@@ -85,6 +139,7 @@ export default {
     setParent(item, index) {
       this.parent = item;
       this.childs = item.childs;
+<<<<<<< HEAD
       if (item.id) {
         this.path.push(item.id);
       }
@@ -114,11 +169,21 @@ export default {
 
 
     },
+=======
+    },
+    backToParent() {
+      this.childs = this.parent.childs;
+    }
+>>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
   },
   mounted() {
     this.childs = this.products;
     console.log("mounted");
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> d23eff33d75ba40a7e3b54fb4721a89ee7c86a3d
 };
 </script>
     
