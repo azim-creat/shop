@@ -195,6 +195,7 @@ export default {
   font-style: normal;
   font-size: 18px;
   line-height: 21px;
+  justify-content: center;
 }
 .category-item__title h3 {
   margin-bottom: 5px;
