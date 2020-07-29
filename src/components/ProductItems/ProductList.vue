@@ -16,9 +16,9 @@
       </div>
     </div>
     <div class="controls">
-      <input type="button" value="-" />
-      <span>1</span>
-      <input type="button" value="+" />
+      <input type="button" value="-" @click="decrease(itemId)" />
+      <span>{{quantity|| 0}}</span>
+      <input type="button" value="+" @click="increase(itemId)" />
     </div>
   </div>
 </template>
@@ -26,7 +26,17 @@
 <script>
 export default {
   name: "ProductList",
-  props: { title: String, image: String }
+  props: {
+    title: String,
+    image: String,
+    add: Function,
+    itemId: Number,
+    quantity: Number,
+    increase: Function,
+    decrease: Function,
+    price: Number
+  },
+  methods: {}
 };
 </script>
 
