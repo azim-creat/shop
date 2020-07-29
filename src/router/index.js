@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
 import product from '@/components/product'
+import basket from '@/components/Basket'
 import categoryes from '@/components/categoryes'
 import search from '@/components/search'
 import info from '@/components/info'
@@ -18,6 +19,11 @@ export default new Router({
       path: '/categoryes',
       name: 'categoryes',
       component: categoryes
+    },
+    {
+      path: '/basket',
+      name: 'basket',
+      component: basket
     },
     {
       path: '/info',

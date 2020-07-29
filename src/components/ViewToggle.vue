@@ -69,8 +69,13 @@ export default {
     view_mode: String
   },
   data() {
-    view_mode: this.view_mode;
-  }
+   return{
+    //  "view_mode": this.view_mode,
+   } 
+  },
+  mounted() {
+    // this.view_mode
+  },
 };
 </script>
 

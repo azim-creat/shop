@@ -1,10 +1,10 @@
 <template>
   <div class="app">
     <div class="main_body">
-      <transition name="moveInUp">
+      
         <router-view />
-        <Basket />
-      </transition>
+        <!-- <Basket /> -->
+      
     </div>
 
     <div class="navbar">
@@ -21,7 +21,7 @@
         </router-link>
       </div>
       <div class="nav-item nav-item-basket" :class="{'active':(acive_menu_item === 'basket') }" @click="setActive('basket')" id="basket">
-        <router-link class="noSelect" to="/services">
+        <router-link class="noSelect" to="/basket">
           <img src="./assets/navbar_icons/basket.svg" />
           <span>{{46}}</span>
         </router-link>
@@ -106,7 +106,6 @@ body {
   overflow: hidden;
   box-sizing: border-box;
 }
-<<<<<<< HEAD
 .noSelect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -124,8 +123,6 @@ body {
   display: none;
 }
 
-=======
->>>>>>> sultan
 
 .app {
   display: flex;
@@ -133,10 +130,7 @@ body {
   height: 100%;
   max-height: 100vh;
   overflow: hidden;
-<<<<<<< HEAD
   margin: 0 1rem ;
-=======
->>>>>>> sultan
 }
 .main_body {
   flex: 2;
@@ -151,7 +145,6 @@ body {
   height: fit-content;
   display: flex;
   justify-content: space-around;
-<<<<<<< HEAD
   border-top: 2px solid #b3b3b3;
   align-items: center;
   position: fixed;
@@ -160,8 +153,6 @@ body {
   left: 0;
   padding: 5px 0;
   width: 100%;
-=======
->>>>>>> sultan
 }
 .nav-item {
   padding: 10px;
@@ -169,22 +160,16 @@ body {
 }
 .nav-item a {
   text-decoration: none;
-<<<<<<< HEAD
   font-size: 12px;
   color: #000;
   height: fit-content;
   display: block;
-=======
-  font-size: 14px;
-  color: #000;
->>>>>>> sultan
 }
 .nav-item a:visited {
   color: #000;
 }
 
 .nav-item img {
-<<<<<<< HEAD
   height: 15px;
 }
 .nav-item a span {
@@ -225,9 +210,6 @@ body {
   to{
     width: 0;
   }
-=======
-  height: 25px;
->>>>>>> sultan
 }
 
 .nav-item-basket {
@@ -235,7 +217,6 @@ body {
   border-radius: 100px;
   height: fit-content;
   padding: 10px 20px;
-<<<<<<< HEAD
   position: relative;
 }
 .nav-item-basket img {
@@ -250,8 +231,6 @@ body {
   top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
-=======
->>>>>>> sultan
 }
 
 router-link {

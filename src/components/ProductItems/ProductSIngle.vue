@@ -7,7 +7,7 @@
       <div class="details">
         <div>
           <h3 @click="goTodetail(data.productId)">{{title}}</h3>
-          <span class="price">{{price || '1000' }} USD</span>
+          <span class="price">{{ '15566'|| '1000' }} USD</span>
         </div>
         <div class="sizes">
           <span class="size">S</span>
