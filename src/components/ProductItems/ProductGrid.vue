@@ -1,10 +1,12 @@
 <template>
-  <div class="product-item">
-    <img :src="image" />
-    <div class="product-title">
-      <h3>{{title}}</h3>
+  <router-link to="/product">
+    <div class="product-item">
+      <img :src="image" />
+      <div class="product-title">
+        <h3>{{title}}</h3>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -18,11 +20,12 @@ export default {
 .product-item {
   position: relative;
   border-radius: 3px;
+  height: 100%;
 }
 .product-title {
   width: 100%;
   margin: 0;
-  
+
   position: absolute;
   background: transparent;
   bottom: 0;
@@ -39,6 +42,7 @@ h3 {
   display: block;
   border-radius: 3px;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

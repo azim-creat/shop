@@ -1,6 +1,8 @@
 <template>
   <div class="product-item">
-    <img :src="image" />
+    <router-link to="/product">
+      <img :src="image" />
+    </router-link>
     <div class="overlay">
       <div class="details">
         <div>
@@ -35,6 +37,7 @@ export default {
 .product-item {
   position: relative;
   padding: 0;
+  min-height: 150px;
 }
 
 img {
@@ -62,6 +65,7 @@ h3 {
   margin: 0;
   font-size: 14px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .price {
