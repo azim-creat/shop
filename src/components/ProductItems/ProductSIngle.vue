@@ -1,6 +1,8 @@
 <template>
   <div class="product-item">
-    <img :src="image" />
+    <router-link to="/product">
+      <img :src="image" />
+    </router-link>
     <div class="overlay">
       <div class="details">
         <div>
@@ -62,6 +64,7 @@ h3 {
   margin: 0;
   font-size: 14px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .price {

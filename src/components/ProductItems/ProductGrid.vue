@@ -1,10 +1,12 @@
 <template>
-  <div class="product-item">
-    <img :src="image" />
-    <div class="product-title">
-      <h3>{{title}}</h3>
+  <router-link to="/product">
+    <div class="product-item">
+      <img :src="image" />
+      <div class="product-title">
+        <h3>{{title}}</h3>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -22,7 +24,7 @@ export default {
 .product-title {
   width: 100%;
   margin: 0;
-  
+
   position: absolute;
   background: transparent;
   bottom: 0;
