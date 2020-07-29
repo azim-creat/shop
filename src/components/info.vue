@@ -17,15 +17,12 @@
                 </a>
             </div>
         </div>
-        <div>
+        <div class="info_images">
             <div class="info_images__item" v-for="(data,index) in products" :key="index">
                 <img :src="data.image">
             </div>
         </div>
-
-        <div class="info_images" >
-            
-        </div>
+     
 	</div>
 </template>
 <script>
@@ -183,16 +180,21 @@
         justify-content: center;
     }
     .info_images{
-        
-        width:100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 16px 0;
     }
     .info_images__item{
         max-height:60vh;
-        width:50%;
-        padding:5px 0px;
         overflow: hidden;
         display:flex;
+        width: 100%;
+        flex: 0 48% ;
+        padding-bottom: 10px;
     }
+   .info_images__item:nth-child(2n+1){
+       margin-right: 10px;
+   }
     .info_images__item img{
         margin-left: -50%;
         min-height: 100% !important;
