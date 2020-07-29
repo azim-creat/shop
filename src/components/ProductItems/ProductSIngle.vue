@@ -37,6 +37,7 @@ export default {
 .product-item {
   position: relative;
   padding: 0;
+  min-height: 150px;
 }
 
 img {

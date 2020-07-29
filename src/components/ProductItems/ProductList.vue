@@ -42,7 +42,7 @@ export default {
 img {
   width: 100px;
   height: 100px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 3px;
 }
 h3 {
