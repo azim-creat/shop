@@ -13,10 +13,19 @@
         />
       </li>
     </ul>
-    <div>
-      <h3>общее кол-во элементов {{Total}}</h3>
-      <button @click="addItem(products[1])">Добавить Товар</button>
-      <h3>Цена корзины {{TotalPrice}}</h3>
+    <hr color="#DADADA" width="100%" />
+    <div class="CartControls">
+      <div class="CartFlexContainer">
+        <div>
+          <p>количество:</p>
+          <span>{{Total}} единиц</span>
+        </div>
+        <div>
+          <p>сумма:</p>
+          <span>{{TotalPrice}}</span>
+        </div>
+      </div>
+      <button>Заказать</button>
     </div>
   </div>
 </template>
@@ -56,12 +65,33 @@ export default {
   justify-content: space-between;
   padding: 5px;
 }
-button {
-  background-color: blueviolet;
-  height: 100px;
+.CartControls {
+  padding: 20px;
+}
+.CartFlexContainer {
+  display: flex;
+  justify-content: space-between;
 }
 ul {
   list-style: none;
   padding: 0;
+}
+p {
+  margin: 0;
+}
+span {
+  font-weight: bold;
+}
+button {
+  width: 100%;
+  background: #000000;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 6px;
+  color: white;
+  padding: 19px 0;
+  margin: 22px 0;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 </style>
