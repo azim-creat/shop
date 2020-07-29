@@ -100,9 +100,7 @@ export default {
     
 <style scoped>
 
-.info {
-  margin: 0px 20px;
-}
+
 .info_container {
   width: 100%;
   height: 300px;
@@ -206,7 +204,7 @@ a:visited.info_btn_black {
   width: 100%;
   height: 44px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
   background: #ffffff;
   border: 2px solid #000000;
   box-sizing: border-box;
