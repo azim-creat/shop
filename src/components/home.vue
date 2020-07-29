@@ -99,10 +99,27 @@
         </div>
       </div>
 
-      <div class="view-wrapper view-mode-list">
-        <router-link :id="title" v-for="(data,index) in products" :key="index" to="/product">
-          <ProductList @click="goTodetail(data.productId)" :title="data.productTitle" />
-        </router-link>
+      <div class="view-wrapper" :class="view_mode">
+        <div :id="title" v-for="(data,index) in products" :key="index">
+          <ProductGrid
+            @click="goTodetail(data.productId)"
+            :title="data.productTitle"
+            :image="data.image"
+            v-if=" view_mode === 'grid'"
+          />
+          <ProductSingle
+            @click="goTodetail(data.productId)"
+            :title="data.productTitle"
+            :image="data.image"
+            v-else-if="view_mode === 'single'"
+          />
+          <ProductList
+            @click="goTodetail(data.productId)"
+            :title="data.productTitle"
+            :image="data.image"
+            v-else
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -110,11 +127,14 @@
 
 <script>
 import ProductList from "@/components/ProductItems/ProductList";
-
+import ProductGrid from "@/components/ProductItems/ProductGrid";
+import ProductSingle from "@/components/ProductItems/ProductSingle";
 export default {
   name: "home",
   components: {
-    ProductList
+    ProductList,
+    ProductGrid,
+    ProductSingle
   },
   data() {
     return {
@@ -197,10 +217,8 @@ export default {
   background-color: black;
 }
 
-/* контейнер с товарами */
-
 /* режим вида - сетка */
-.view-wrapper.view-mode-grid {
+.grid {
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
@@ -210,25 +228,10 @@ export default {
   justify-items: stretch;
 }
 
-.product-item.grid-item {
-  position: relative;
-  border-radius: 3px;
-}
-.product-title.grid-item {
-  width: 100%;
-  padding: 6px;
-  margin: 0;
-  position: absolute;
-  background: transparent;
-  bottom: 0%;
-}
-.product-title.grid-item h3 {
-  margin: 0;
-}
-.product-item.grid-item img {
-  display: block;
-  border-radius: 3px;
-  width: 100%;
-  height: auto;
+/* режим вида - по одному */
+.single {
+  display: grid;
+  gap: 10px;
+  grid-auto-columns: 1fr;
 }
 </style>
