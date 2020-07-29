@@ -20,6 +20,7 @@ export default {
 .product-item {
   position: relative;
   border-radius: 3px;
+  height: 100%;
 }
 .product-title {
   width: 100%;
@@ -41,6 +42,7 @@ h3 {
   display: block;
   border-radius: 3px;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 </style>
