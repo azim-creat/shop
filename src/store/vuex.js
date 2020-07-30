@@ -65,7 +65,7 @@ export const store = new Vuex.Store({
   mutations: {
     NEW_CART_ITEM: (state, itemId) => {
       let clone = { ...state.storeItems[itemId] };
-      clone.quantity++;
+      // clone.quantity++;
       state.cartItems[itemId] = clone;
     },
     REMOVE_CART_ITEM: (state, itemId) => {
@@ -118,6 +118,7 @@ export const store = new Vuex.Store({
       // если элемента нет в корзине - добавляем
       if (!getters.CartItems[id]) {
         commit("NEW_CART_ITEM", id);
+        commit("INCREASE_ITEM_QUANTITY", id);
       }
       commit("SET_SIZE", { size, id });
     }
