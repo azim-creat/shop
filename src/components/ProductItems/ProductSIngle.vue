@@ -10,10 +10,10 @@
           <span class="price">{{ price|| 'Цена не указана' }} USD</span>
         </div>
         <div class="sizes">
-          <span class="size" :class="{active:(size == 's')}">S</span>
-          <span class="size" :class="{active:(size == 'm')}">M</span>
-          <span class="size" :class="{active:(size =='l')}">L</span>
-          <span class="size" :class="{active:(size =='xxl')}">XL</span>
+          <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
+          <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
+          <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
+          <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
         </div>
       </div>
       <div class="controls">
@@ -38,6 +38,19 @@ export default {
     decrease: Function,
     price: Number,
     size: String,
+  },
+  data() {
+    return { id: this.itemId };
+  },
+  methods: {
+    SET_SIZE(size) {
+      const id = this.id;
+      this.$store.dispatch("SET_SIZE", { id, size });
+    },
+    getCurrentSize(sizeToCheck) {
+      const size = this.size;
+      return sizeToCheck == size;
+    },
   },
 };
 </script>

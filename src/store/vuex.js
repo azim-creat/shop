@@ -65,10 +65,6 @@ export const store = new Vuex.Store({
   mutations: {
     NEW_CART_ITEM: (state, itemId) => {
       state.cartItems[itemId] = { ...state.storeItems[itemId] };
-      console.log(
-        "OBJECT IS",
-        Object.is(state.cartItems[itemId], state.storeItems[itemId])
-      );
     },
     REMOVE_CART_ITEM: (state, itemId) => {
       delete state.cartItems[itemId];
@@ -85,7 +81,9 @@ export const store = new Vuex.Store({
       state.totalPrice -= state.cartItems[itemId].price;
     },
     SET_SIZE: (state, { size, id }) => {
-      state.cartItems[id].size = size;
+      let clone = { ...state.cartItems };
+      clone[id].size = size;
+      state.cartItems = clone;
     }
   },
 
