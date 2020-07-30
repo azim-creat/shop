@@ -64,7 +64,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5px;
 }
 .CartControls {
   padding: 20px;
