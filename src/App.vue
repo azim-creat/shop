@@ -1,38 +1,59 @@
 <template>
   <div class="app">
     <div class="main_body">
-      
-        <router-view />
-        <!-- <Basket /> -->
-      
+      <router-view />
     </div>
-
     <div class="navbar">
-      <div class="nav-item" :class="{'active':(acive_menu_item === 'home') }" @click="setActive('home')" id="home">
+      <div
+        class="nav-item"
+        :class="{'active':(acive_menu_item === 'home') }"
+        @click="setActive('home')"
+        id="home"
+      >
         <router-link to="/" class="noSelect">
           <img src="./assets/navbar_icons/home.svg" />
           <span>Главная</span>
         </router-link>
       </div>
-      <div class="nav-item" :class="{'active':(acive_menu_item === 'categoryes') }" @click="setActive('categoryes')" id="categoryes">
+      <div
+        class="nav-item"
+        :class="{'active':(acive_menu_item === 'categoryes') }"
+        @click="setActive('categoryes')"
+        id="categoryes"
+      >
         <router-link to="/categoryes" class="noSelect">
           <img src="./assets/navbar_icons/categoryes.svg" />
           <span>Категории</span>
         </router-link>
       </div>
-      <div class="nav-item nav-item-basket" :class="{'active':(acive_menu_item === 'basket') }" @click="setActive('basket')" id="basket">
+      <div
+        class="nav-item nav-item-basket"
+        :class="{'active':(acive_menu_item === 'basket') }"
+        @click="setActive('basket')"
+        id="basket"
+      >
         <router-link class="noSelect" to="/basket">
           <img src="./assets/navbar_icons/basket.svg" />
           <span>{{46}}</span>
         </router-link>
       </div>
-      <div class="nav-item" :class="{'active':(acive_menu_item === 'search') }" @click="setActive('search')" id="search">
+      <div
+        class="nav-item"
+        :class="{'active':(acive_menu_item === 'search') }"
+        @click="setActive('search')"
+        id="search"
+      >
         <router-link class="noSelect" to="/search">
           <img src="./assets/navbar_icons/search.svg" />
           <span>Поиск</span>
         </router-link>
       </div>
-      <div class="nav-item" :class="{'active':(acive_menu_item === 'info') }" @click="setActive('info')" id="info">
+      <div
+        class="nav-item"
+        :class="{'active':(acive_menu_item === 'info') }"
+        @click="setActive('info')"
+        id="info"
+      >
         <router-link class="noSelect" to="/info">
           <img src="./assets/navbar_icons/help.svg" />
           <span>Инфо</span>
@@ -43,35 +64,30 @@
 </template>
 
 <script>
-import { types } from "@/store/vuex.js";
 import Basket from "@/components/Basket";
-
-
 
 export default {
   name: "App",
   components: {
-    Basket
+    Basket,
   },
   data() {
     return {
-      acive_menu_item: 'categoryes',
+      acive_menu_item: "categoryes",
     };
   },
   methods: {
-    setActive(id){
-      const self = this
-      let element = document.querySelector(`#${self.acive_menu_item}`)
-      element.classList.add('active-out')
-
+    setActive(id) {
+      const self = this;
+      let element = document.querySelector(`#${self.acive_menu_item}`);
+      element.classList.add("active-out");
 
       // element.classList.remove('active')
 
       setTimeout(() => {
-        self.acive_menu_item = id
+        self.acive_menu_item = id;
       }, 200);
-
-    }
+    },
   },
   computed: {
     FIRST_COMPUTED_VALUE() {
@@ -91,8 +107,7 @@ export default {
     // console.log(this.FIRST_COMPUTED_VALUE)
     // this.$store.dispatch("SET_TO",  ["first_value", 23455])
   },
-// import func from "../../vue-temp/vue-editor-bridge";
-
+  // import func from "../../vue-temp/vue-editor-bridge";
 };
 </script>
 
@@ -123,14 +138,13 @@ body {
   display: none;
 }
 
-
 .app {
   display: flex;
   flex-direction: column;
   height: 100%;
   max-height: 100vh;
   overflow: hidden;
-  margin: 0 1rem ;
+  padding: 5px;
 }
 .main_body {
   flex: 2;
@@ -174,41 +188,41 @@ body {
   height: 15px;
 }
 .nav-item a span {
-   position: relative;
-   display: block;
+  position: relative;
+  display: block;
 }
 .nav-item.active a span:before {
-    display: block;
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background:  linear-gradient(232.84deg, #ff0099 -162.71%, #ff4d00 163.83%);;
-    bottom: -4px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    border-radius: 2px;
-    animation: nav-item-in .4s forwards;
-    /* animation: nav-item-out .4s forwards; */
+  display: block;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(232.84deg, #ff0099 -162.71%, #ff4d00 163.83%);
+  bottom: -4px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 2px;
+  animation: nav-item-in 0.4s forwards;
+  /* animation: nav-item-out .4s forwards; */
 }
 
-.nav-item.active-out a span:before{
-    animation: nav-item-out .4s forwards;
+.nav-item.active-out a span:before {
+  animation: nav-item-out 0.4s forwards;
 }
 
 @keyframes nav-item-in {
-  from{
+  from {
     width: 0%;
   }
-  to{
+  to {
     width: 100%;
   }
 }
 @keyframes nav-item-out {
-  from{
+  from {
     width: 100%;
   }
-  to{
+  to {
     width: 0;
   }
 }

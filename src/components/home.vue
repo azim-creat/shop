@@ -2,25 +2,41 @@
   <div class="home">
     <h1>{{title}}</h1>
     <div>
-      <ViewToggle :setViewMode='setViewMode' :view_mode='view_mode' />
+      <ViewToggle :setViewMode="setViewMode" :view_mode="view_mode" />
       <div class="view-wrapper" :class="view_mode">
-        <div :id="title" v-for="(data,index) in products" :key="index">
+        <div :id="title" v-for="(data,index) in StoreItems" :key="index">
           <ProductGrid
             @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
+            :itemId="data.id"
+            :price="data.price"
+            :increase="increaseQuantity"
+            :decrease="decreaseQuantity"
             v-if=" view_mode === 'grid'"
           />
           <ProductSingle
             @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
+            :itemId="data.id"
+            :price="data.price"
+            :size="data.size"
+            :quantity="data.quantity"
+            :increase="increaseQuantity"
+            :decrease="decreaseQuantity"
             v-else-if="view_mode === 'single'"
           />
           <ProductList
             @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
+            :itemId="data.id"
+            :price="data.price"
+            :size="data.size"
+            :quantity="data.quantity"
+            :increase="increaseQuantity"
+            :decrease="decreaseQuantity"
             v-else
           />
         </div>
@@ -34,6 +50,7 @@ import ProductList from "@/components/ProductItems/ProductList";
 import ProductGrid from "@/components/ProductItems/ProductGrid";
 import ProductSingle from "@/components/ProductItems/ProductSingle";
 import ViewToggle from "@/components/ViewToggle";
+import { mapGetters } from "vuex";
 
 export default {
   name: "home",
@@ -41,7 +58,7 @@ export default {
     ProductList,
     ProductGrid,
     ProductSingle,
-    ViewToggle
+    ViewToggle,
   },
   data() {
     return {
@@ -50,35 +67,35 @@ export default {
         {
           productTitle: "ABCN",
           image: require("../assets/images/product1.png"),
-          productId: 1
+          productId: 1,
         },
         {
           productTitle: "KARMA",
           image: require("../assets/images/product2.png"),
-          productId: 2
+          productId: 2,
         },
         {
           productTitle: "Tino",
           image: require("../assets/images/product3.png"),
-          productId: 3
+          productId: 3,
         },
         {
           productTitle: "EFG",
           image: require("../assets/images/product4.png"),
-          productId: 4
+          productId: 4,
         },
         {
           productTitle: "MLI",
           image: require("../assets/images/product5.png"),
-          productId: 5
+          productId: 5,
         },
         {
           productTitle: "Banans",
           image: require("../assets/images/product6.png"),
-          productId: 6
-        }
+          productId: 6,
+        },
       ],
-      view_mode: "grid"
+      view_mode: "grid",
     };
   },
   methods: {
@@ -88,8 +105,21 @@ export default {
     },
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;
-    }
-  }
+    },
+    addItem(item) {
+      this.$store.dispatch("ADD_CART_ITEM", item);
+    },
+    removeItem(item) {
+      this.$store.dispatch("DELETE_CART_ITEM", item);
+    },
+    increaseQuantity(itemId) {
+      this.$store.dispatch("INCREASE_ITEM_QUANTITY", itemId);
+    },
+    decreaseQuantity(itemId) {
+      this.$store.dispatch("DECREASE_ITEM_QUANTITY", itemId);
+    },
+  },
+  computed: mapGetters(["StoreItems"]),
 };
 </script>
 

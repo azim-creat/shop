@@ -9,21 +9,23 @@
         <span class="price">{{price || '1000' }}</span>
       </div>
       <div class="sizes">
-        <span class="size">S</span>
-        <span class="size">M</span>
-        <span class="size">L</span>
-        <span class="size">XL</span>
+        <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
+        <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
+        <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
+        <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
       </div>
     </div>
     <div class="controls">
       <input type="button" value="-" @click="decrease(itemId)" />
-      <span>{{quantity|| 0}}</span>
+      <span>{{getQuantity()}}</span>
       <input type="button" value="+" @click="increase(itemId)" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "ProductList",
   props: {
@@ -31,12 +33,34 @@ export default {
     image: String,
     add: Function,
     itemId: Number,
-    quantity: Number,
     increase: Function,
     decrease: Function,
-    price: Number
+    price: Number,
   },
-  methods: {}
+  data() {
+    return { id: this.itemId };
+  },
+  methods: {
+    SET_SIZE(size) {
+      const id = this.id;
+      this.$store.dispatch("SET_SIZE", { id, size });
+    },
+    getCurrentSize(sizeToCheck) {
+      if (this.CartItems[this.id]) {
+        return this.CartItems[this.id].size == sizeToCheck;
+      }
+    },
+    getQuantity() {
+      if (this.CartItems[this.id]) {
+        return this.CartItems[this.id].quantity;
+      } else {
+        return 0;
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["CartItems"]),
+  },
 };
 </script>
 
@@ -74,6 +98,11 @@ h3 {
   padding: 2px 5px;
   border-radius: 3px;
   font-size: 10px;
+}
+.size.active {
+  background-color: black;
+  color: white;
+  border: 1px black solid;
 }
 
 input {
