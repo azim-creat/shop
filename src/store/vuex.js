@@ -109,7 +109,10 @@ export const store = new Vuex.Store({
       commit("INCREASE_ITEM_QUANTITY", itemId);
     },
     DECREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
-      commit("DECREASE_ITEM_QUANTITY", itemId);
+      if (!getters.CartItems[itemId]){
+        return
+      }
+       commit("DECREASE_ITEM_QUANTITY", itemId);
       if (getters.CartItems[itemId].quantity == 0) {
         commit("REMOVE_CART_ITEM", itemId);
       }
