@@ -71,12 +71,16 @@ export const store = new Vuex.Store({
     },
 
     INCREASE_ITEM_QUANTITY: (state, itemId) => {
-      state.cartItems[itemId].quantity++;
+      let clone = { ...state.cartItems };
+      clone[itemId].quantity++;
+      state.cartItems = clone;
       state.total++;
       state.totalPrice += state.cartItems[itemId].price;
     },
     DECREASE_ITEM_QUANTITY: (state, itemId) => {
-      state.cartItems[itemId].quantity--;
+      let clone = { ...state.cartItems };
+      clone[itemId].quantity--;
+      state.cartItems = clone;
       state.total--;
       state.totalPrice -= state.cartItems[itemId].price;
     },

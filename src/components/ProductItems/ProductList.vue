@@ -17,7 +17,7 @@
     </div>
     <div class="controls">
       <input type="button" value="-" @click="decrease(itemId)" />
-      <span>{{quantity|| 0}}</span>
+      <span>{{getQuantity()}}</span>
       <input type="button" value="+" @click="increase(itemId)" />
     </div>
   </div>
@@ -33,9 +33,7 @@ export default {
     image: String,
     add: Function,
     itemId: Number,
-    quantity: Number,
     increase: Function,
-    size: String,
     decrease: Function,
     price: Number,
   },
@@ -51,6 +49,16 @@ export default {
       const size = this.size;
       return sizeToCheck == size;
     },
+    getQuantity() {
+      if (this.CartItems[this.id]) {
+        return this.CartItems[this.id].quantity;
+      } else {
+        return 0;
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["CartItems"]),
   },
 };
 </script>
