@@ -18,7 +18,7 @@
       </div>
       <div class="controls">
         <input type="button" value="-" @click="decrease(itemId)" />
-        <span>{{quantity|| 0}}</span>
+        <span>{{getQuantity()}}</span>
         <input type="button" value="+" @click="increase(itemId)" />
       </div>
     </div>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "ProductSingle",
   props: {
@@ -33,11 +34,9 @@ export default {
     image: String,
     add: Function,
     itemId: Number,
-    quantity: Number,
     increase: Function,
     decrease: Function,
     price: Number,
-    size: String,
   },
   data() {
     return { id: this.itemId };
@@ -48,10 +47,19 @@ export default {
       this.$store.dispatch("SET_SIZE", { id, size });
     },
     getCurrentSize(sizeToCheck) {
-      const size = this.size;
-      return sizeToCheck == size;
+      if (this.CartItems[this.id]) {
+        return this.CartItems[this.id].size == sizeToCheck;
+      }
+    },
+    getQuantity() {
+      if (this.CartItems[this.id]) {
+        return this.CartItems[this.id].quantity;
+      } else {
+        return 0;
+      }
     },
   },
+  computed: { ...mapGetters(["CartItems"]) },
 };
 </script>
 

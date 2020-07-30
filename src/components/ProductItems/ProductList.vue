@@ -46,8 +46,9 @@ export default {
       this.$store.dispatch("SET_SIZE", { id, size });
     },
     getCurrentSize(sizeToCheck) {
-      const size = this.size;
-      return sizeToCheck == size;
+      if (this.CartItems[this.id]) {
+        return this.CartItems[this.id].size == sizeToCheck;
+      }
     },
     getQuantity() {
       if (this.CartItems[this.id]) {

@@ -64,7 +64,9 @@ export const store = new Vuex.Store({
   // мутирует стейт. не дергается на прямую
   mutations: {
     NEW_CART_ITEM: (state, itemId) => {
-      state.cartItems[itemId] = { ...state.storeItems[itemId] };
+      let clone = { ...state.storeItems[itemId] };
+      clone.quantity++;
+      state.cartItems[itemId] = clone;
     },
     REMOVE_CART_ITEM: (state, itemId) => {
       delete state.cartItems[itemId];
@@ -91,7 +93,7 @@ export const store = new Vuex.Store({
     }
   },
 
-  // штуки для управления стейтом. дергает мутации, закидывает в них пейлоады
+  // штуки для управления мутациями. дергает мутации, закидывает в них пейлоады
   actions: {
     ADD_CART_ITEM: ({ commit }, payload) => {
       commit("NEW_CART_ITEM", payload);
