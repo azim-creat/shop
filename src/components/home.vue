@@ -101,7 +101,7 @@ export default {
   methods: {
     goTodetail(prodId) {
       let proId = prodId;
-      this.$router.push({ name: "details", params: { Pid: proId } });
+      this.$router.push({ name: "products", params: { Pid: proId } });
     },
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;

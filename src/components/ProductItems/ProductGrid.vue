@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/product">
+  <router-link :to="`/product/${itemId}`">
     <div class="product-item">
       <img :src="image" />
       <div class="product-title">
@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "ProductGrid",
-  props: { title: String, image: String }
+  props: { title: String, image: String, itemId: Number },
 };
 </script> 
 

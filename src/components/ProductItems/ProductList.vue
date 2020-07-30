@@ -1,6 +1,6 @@
 <template>
   <div class="product-item">
-    <router-link to="/product">
+    <router-link :to="`/product/${itemId}`">
       <img :src="image" />
     </router-link>
     <div class="description">
@@ -57,6 +57,10 @@ export default {
         return 0;
       }
     },
+    ...mapActions({
+      increace: "INCREASE_ITEM_QUANTITY",
+      decreace: "DECREASE_ITEM_QUANTITY",
+    }),
   },
   computed: {
     ...mapGetters(["CartItems"]),
