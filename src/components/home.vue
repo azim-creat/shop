@@ -63,45 +63,13 @@ export default {
   data() {
     return {
       title: "Home",
-      products: [
-        {
-          productTitle: "ABCN",
-          image: require("../assets/images/product1.png"),
-          productId: 1,
-        },
-        {
-          productTitle: "KARMA",
-          image: require("../assets/images/product2.png"),
-          productId: 2,
-        },
-        {
-          productTitle: "Tino",
-          image: require("../assets/images/product3.png"),
-          productId: 3,
-        },
-        {
-          productTitle: "EFG",
-          image: require("../assets/images/product4.png"),
-          productId: 4,
-        },
-        {
-          productTitle: "MLI",
-          image: require("../assets/images/product5.png"),
-          productId: 5,
-        },
-        {
-          productTitle: "Banans",
-          image: require("../assets/images/product6.png"),
-          productId: 6,
-        },
-      ],
       view_mode: "grid",
     };
   },
   methods: {
     goTodetail(prodId) {
       let proId = prodId;
-      this.$router.push({ name: "details", params: { Pid: proId } });
+      this.$router.push({ name: "products", params: { Pid: proId } });
     },
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;
@@ -125,9 +93,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home {
-  padding: 5px;
-}
 
 /* режим вида - сетка */
 .grid {

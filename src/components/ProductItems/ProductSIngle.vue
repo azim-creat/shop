@@ -1,6 +1,6 @@
 <template>
   <div class="product-item">
-    <router-link to="/product">
+    <router-link :to="`/product/${itemId}`">
       <img :src="image" />
     </router-link>
     <div class="overlay">
