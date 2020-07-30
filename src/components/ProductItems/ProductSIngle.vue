@@ -6,20 +6,20 @@
     <div class="overlay">
       <div class="details">
         <div>
-          <h3 @click="goTodetail(data.productId)">{{title}}</h3>
-          <span class="price">{{ '15566'|| '1000' }} USD</span>
+          <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
+          <span class="price">{{ price|| 'Цена не указана' }} USD</span>
         </div>
         <div class="sizes">
-          <span class="size">S</span>
-          <span class="size">M</span>
-          <span class="size">L</span>
-          <span class="size">XL</span>
+          <span class="size" :class="{active:(size == 's')}">S</span>
+          <span class="size" :class="{active:(size == 'm')}">M</span>
+          <span class="size" :class="{active:(size =='l')}">L</span>
+          <span class="size" :class="{active:(size =='xxl')}">XL</span>
         </div>
       </div>
       <div class="controls">
-        <input type="button" value="-" />
-        <span>1</span>
-        <input type="button" value="+" />
+        <input type="button" value="-" @click="decrease(itemId)" />
+        <span>{{quantity|| 0}}</span>
+        <input type="button" value="+" @click="increase(itemId)" />
       </div>
     </div>
   </div>
@@ -28,7 +28,17 @@
 <script>
 export default {
   name: "ProductSingle",
-  props: { title: String, image: String }
+  props: {
+    title: String,
+    image: String,
+    add: Function,
+    itemId: Number,
+    quantity: Number,
+    increase: Function,
+    decrease: Function,
+    price: Number,
+    size: String,
+  },
 };
 </script>
 
@@ -87,7 +97,11 @@ h3 {
   border-radius: 3px;
   font-size: 10px;
 }
-
+.size.active {
+  background-color: black;
+  color: white;
+  border: 1px black solid;
+}
 .controls > * {
   margin: 0 3px;
 }

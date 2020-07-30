@@ -1,12 +1,8 @@
 <template>
   <div class="app">
     <div class="main_body">
-      
         <router-view />
-        <!-- <Basket /> -->
-      
     </div>
-
     <div class="navbar">
       <div class="nav-item" :class="{'active':(acive_menu_item === 'home') }" @click="setActive('home')" id="home">
         <router-link to="/" class="noSelect">
@@ -43,7 +39,6 @@
 </template>
 
 <script>
-import { types } from "@/store/vuex.js";
 import Basket from "@/components/Basket";
 
 

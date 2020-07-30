@@ -8,100 +8,114 @@ export const types = {
 };
 
 export const store = new Vuex.Store({
-         state: {
-           cartItems: {
-             1: {
-               id: 1,
-               productTitle: "ABCN",
-               image: require("../assets/images/product1.png"),
-               productCode: 2,
-               size: "xxxxl",
-               price: 14,
-               quantity: 0
-             },
-             2: {
-               id: 2,
-               productTitle: "dgngr",
-               image: require("../assets/images/product2.png"),
-               productCode: 3,
-               size: "l",
-               price: 333,
-               quantity: 0
-             },
-             3: {
-               id: 3,
-               productTitle: "shvsrtghbvca",
-               image: require("../assets/images/product3.png"),
-               productCode: 4,
-               size: "s",
-               price: 107,
-               quantity: 0
-             },
-             4: {
-               id: 4,
-               productTitle: "htresdfgt",
-               image: require("../assets/images/product4.png"),
-               productCode: 5,
-               type: "red",
-               price: 3562,
-               quantity: 0
-             }
-           },
-           // общее количество товаров в корзине и их цена
-           total: 0,
-           totalPrice: 0
-         },
+  state: {
+    cartItems: {},
+    storeItems: {
+      1: {
+        id: 1,
+        productTitle: "ABCN",
+        image: require("../assets/images/product1.png"),
+        productCode: 2,
+        size: "",
+        price: 14,
+        quantity: 0
+      },
+      2: {
+        id: 2,
+        productTitle: "dgngr",
+        image: require("../assets/images/product2.png"),
+        productCode: 3,
+        size: "",
+        price: 333,
+        quantity: 0
+      },
+      3: {
+        id: 3,
+        productTitle: "shvsrtghbvca",
+        image: require("../assets/images/product3.png"),
+        productCode: 4,
+        size: "",
+        price: 107,
+        quantity: 0
+      },
+      4: {
+        id: 4,
+        productTitle: "htresdfgt",
+        image: require("../assets/images/product4.png"),
+        productCode: 5,
+        size: "",
+        price: 3562,
+        quantity: 0
+      }
+    },
+    // общее количество товаров в корзине и их цена
+    total: 0,
+    totalPrice: 0
+  },
 
-         getters: {
-           CartItems: state => state.cartItems,
-           Total: state => state.total,
-           TotalPrice: state => state.totalPrice
-         },
+  getters: {
+    CartItems: state => state.cartItems,
+    StoreItems: state => state.storeItems,
+    Total: state => state.total,
+    TotalPrice: state => state.totalPrice
+  },
 
-         // похож на reducer
-         // мутирует стейт. не дергается на прямую
-         mutations: {
-           NEW_CART_ITEM: (state, payload) => {
-             state.cartItems(payload);
-             state.total++;
-             state.totalPrice += payload.price;
-           },
-           REMOVE_CART_ITEM: (state, payload) => {
-             state.cartItems.push(payload);
-             state.total--;
-             state.totalPrice = payload.price;
-           },
-           INCREASE_ITEM_QUANTITY: (state, itemId) => {
-             state.cartItems[itemId].quantity++;
-             state.total++;
-             state.totalPrice += state.cartItems[itemId].price;
-           },
-           DECREASE_ITEM_QUANTITY: (state, itemId) => {
-             if (
-               state.cartItems[itemId].quantity === 0 
-               
-             ) {
-               return;
-             }
-             state.cartItems[itemId].quantity--;
-             state.total--;
-             state.totalPrice -= state.cartItems[itemId].price;
-           }
-         },
+  // похож на reducer
+  // мутирует стейт. не дергается на прямую
+  mutations: {
+    NEW_CART_ITEM: (state, itemId) => {
+      state.cartItems[itemId] = { ...state.storeItems[itemId] };
+      console.log(
+        "OBJECT IS",
+        Object.is(state.cartItems[itemId], state.storeItems[itemId])
+      );
+    },
+    REMOVE_CART_ITEM: (state, itemId) => {
+      delete state.cartItems[itemId];
+    },
 
-         // штуки для управления стейтом. дергает мутации, закидывает в них пейлоады
-         actions: {
-           ADD_CART_ITEM: (context, payload) => {
-             context.commit("NEW_CART_ITEM", payload);
-           },
-           DELETE_CART_ITEM: (context, payload) => {
-             context.commit("REMOVE_CART_ITEM", payload);
-           },
-           INCREASE_ITEM_QUANTITY: (context, itemId) => {
-             context.commit("INCREASE_ITEM_QUANTITY", itemId);
-           },
-           DECREASE_ITEM_QUANTITY: (context, itemId) => {
-             context.commit("DECREASE_ITEM_QUANTITY", itemId);
-           }
-         }
-       });
+    INCREASE_ITEM_QUANTITY: (state, itemId) => {
+      state.cartItems[itemId].quantity++;
+      state.total++;
+      state.totalPrice += state.cartItems[itemId].price;
+    },
+    DECREASE_ITEM_QUANTITY: (state, itemId) => {
+      state.cartItems[itemId].quantity--;
+      state.total--;
+      state.totalPrice -= state.cartItems[itemId].price;
+    },
+    SET_SIZE: (state, { size, id }) => {
+      state.cartItems[id].size = size;
+    }
+  },
+
+  // штуки для управления стейтом. дергает мутации, закидывает в них пейлоады
+  actions: {
+    ADD_CART_ITEM: ({ commit }, payload) => {
+      commit("NEW_CART_ITEM", payload);
+    },
+    DELETE_CART_ITEM: (context, payload) => {
+      context.commit("REMOVE_CART_ITEM", payload);
+    },
+    INCREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
+      // добавляем новый товар при отсутствии его в корзине
+      if (!getters.CartItems[itemId]) {
+        commit("NEW_CART_ITEM", itemId);
+      }
+      commit("INCREASE_ITEM_QUANTITY", itemId);
+    },
+    DECREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
+      commit("DECREASE_ITEM_QUANTITY", itemId);
+      if (getters.CartItems[itemId].quantity == 0) {
+        commit("REMOVE_CART_ITEM", itemId);
+      }
+    },
+    SET_SIZE: ({ commit, getters }, { size, id }) => {
+      // если элемента нет в корзине - добавляем
+      if (!getters.CartItems[id]) {
+        commit("NEW_CART_ITEM", id);
+      }
+      commit("SET_SIZE", { size, id });
+    }
+  }
+});

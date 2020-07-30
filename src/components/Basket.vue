@@ -6,8 +6,9 @@
           :title="data.productTitle"
           :image="data.image"
           :itemId="data.id"
-          :quantity="data.quantity"
           :price="data.price"
+          :size="data.size"
+          :quantity="data.quantity"
           :increase="increaseQuantity"
           :decrease="decreaseQuantity"
         />
@@ -37,7 +38,7 @@ import ProductList from "@/components/ProductItems/ProductList";
 export default {
   name: "Basket",
   components: {
-    ProductList
+    ProductList,
   },
   methods: {
     addItem(item) {
@@ -51,9 +52,9 @@ export default {
     },
     decreaseQuantity(itemId) {
       this.$store.dispatch("DECREASE_ITEM_QUANTITY", itemId);
-    }
+    },
   },
-  computed: mapGetters(["CartItems", "Total", "TotalPrice"])
+  computed: mapGetters(["CartItems", "Total", "TotalPrice"]),
 };
 </script>
 
