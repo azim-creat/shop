@@ -1,7 +1,9 @@
 <template>
   <div class="app">
     <div class="main_body">
+       <router-view /> 
       <router-view />
+       <router-view /> 
     </div>
     <div class="navbar">
       <div
@@ -64,7 +66,7 @@
 </template>
 
 <script>
-import Complete from "@/components/Complete";
+import SizeCheckerPopup from "@/components/SizeCheckerPopup";
 
 export default {
   name: "App",
