@@ -1,8 +1,7 @@
 <template>
   <div class="app">
     <div class="main_body">
-      <Checkout />
-      <!-- <router-view /> -->
+      <router-view />
     </div>
     <div class="navbar">
       <div
@@ -65,13 +64,10 @@
 </template>
 
 <script>
-import Checkout from "@/components/Checkout";
+import Complete from "@/components/Complete";
 
 export default {
   name: "App",
-  components: {
-    Checkout,
-  },
   data() {
     return {
       acive_menu_item: "categoryes",
