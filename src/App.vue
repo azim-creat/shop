@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import Basket from "@/components/Basket";
+import LoggedOut from "@/components/LoggedOut";
 
 export default {
   name: "App",
   components: {
-    Basket,
+    LoggedOut,
   },
   data() {
     return {
