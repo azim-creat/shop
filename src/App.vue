@@ -1,7 +1,8 @@
 <template>
   <div class="app">
     <div class="main_body">
-      <router-view />
+      <Checkout />
+      <!-- <router-view /> -->
     </div>
     <div class="navbar">
       <div
@@ -64,12 +65,12 @@
 </template>
 
 <script>
-import LoggedOut from "@/components/LoggedOut";
+import Checkout from "@/components/Checkout";
 
 export default {
   name: "App",
   components: {
-    LoggedOut,
+    Checkout,
   },
   data() {
     return {
