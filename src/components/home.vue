@@ -6,7 +6,6 @@
       <div class="view-wrapper" :class="view_mode">
         <div :id="title" v-for="(data,index) in StoreItems" :key="index">
           <ProductGrid
-            @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
             :itemId="data.id"
@@ -16,7 +15,6 @@
             v-if=" view_mode === 'grid'"
           />
           <ProductSingle
-            @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
             :itemId="data.id"
@@ -28,7 +26,6 @@
             v-else-if="view_mode === 'single'"
           />
           <ProductList
-            @click="goTodetail(data.productId)"
             :title="data.productTitle"
             :image="data.image"
             :itemId="data.id"
@@ -67,10 +64,6 @@ export default {
     };
   },
   methods: {
-    goTodetail(prodId) {
-      let proId = prodId;
-      this.$router.push({ name: "products", params: { Pid: proId } });
-    },
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;
     },
@@ -93,7 +86,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 /* режим вида - сетка */
 .grid {
   display: grid;

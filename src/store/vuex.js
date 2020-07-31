@@ -3,10 +3,6 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export const types = {
-  ADD_CART_ITEM: "ADD_CART_ITEM"
-};
-
 export const store = new Vuex.Store({
   state: {
     cartItems: {},
@@ -18,7 +14,27 @@ export const store = new Vuex.Store({
         productCode: 2,
         size: "",
         price: 14,
-        quantity: 0
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png")
+        ],
+        description: [
+          "Описание подтягивется из store",
+          "Каждый пункт -- отдельная строка в массиве",
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
       },
       2: {
         id: 2,
@@ -27,7 +43,21 @@ export const store = new Vuex.Store({
         productCode: 3,
         size: "",
         price: 333,
-        quantity: 0
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product3.png"),
+          require("../assets/images/product1.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product4.png")
+        ],
+        description: [
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
       },
       3: {
         id: 3,
@@ -36,7 +66,21 @@ export const store = new Vuex.Store({
         productCode: 4,
         size: "",
         price: 107,
-        quantity: 0
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product3.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product3.png")
+        ],
+        description: [
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
       },
       4: {
         id: 4,
@@ -45,7 +89,21 @@ export const store = new Vuex.Store({
         productCode: 5,
         size: "",
         price: 3562,
-        quantity: 0
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product1.png"),
+          require("../assets/images/product3.png")
+        ],
+        description: [
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
       }
     },
     // общее количество товаров в корзине и их цена
@@ -65,7 +123,6 @@ export const store = new Vuex.Store({
   mutations: {
     NEW_CART_ITEM: (state, itemId) => {
       let clone = { ...state.storeItems[itemId] };
-      // clone.quantity++;
       state.cartItems[itemId] = clone;
     },
     REMOVE_CART_ITEM: (state, itemId) => {
@@ -109,10 +166,10 @@ export const store = new Vuex.Store({
       commit("INCREASE_ITEM_QUANTITY", itemId);
     },
     DECREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
-      if (!getters.CartItems[itemId]){
-        return
+      if (!getters.CartItems[itemId]) {
+        return;
       }
-       commit("DECREASE_ITEM_QUANTITY", itemId);
+      commit("DECREASE_ITEM_QUANTITY", itemId);
       if (getters.CartItems[itemId].quantity == 0) {
         commit("REMOVE_CART_ITEM", itemId);
       }

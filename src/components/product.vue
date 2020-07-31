@@ -6,9 +6,9 @@
     <div class="product_add_images">
       <div
         class="product_add_img"
-        v-for="(product_img, index) in StoreItems[prodID].image"
+        v-for="(product_img, index) in StoreItems[prodID].product_img"
         :key="index"
-        :style="`background-image: url(.${StoreItems[prodID].image})`"
+        :style="`background-image: url(.${product_img})`"
       ></div>
     </div>
     <div class="product_choose">
@@ -29,7 +29,9 @@
     <div class="product_description">
       <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
       <ul>
-        <!-- <li v-for="(descrip, index) in product_info.description" :key="index">{{descrip}}</li> -->
+        <li v-for="(descrip, index) in StoreItems[prodID].description" :key="index">
+          <span>{{descrip}}</span>
+        </li>
       </ul>
     </div>
   </div>
@@ -89,8 +91,8 @@ export default {
 }
 .product {
   height: 100%;
-  width: 100%;
-  margin: 10px 16px;
+  /* width: 100%; */
+  margin: 10px auto;
 }
 .product_img {
   height: 60vw;
@@ -98,8 +100,10 @@ export default {
   background-size: cover;
   background-position: center;
   border-radius: 12px;
+  margin: auto;
 }
 .product_add_images {
+  margin: auto;
   margin-top: 16px;
   height: 20vw;
   width: calc(100vw - 36px);
@@ -109,10 +113,11 @@ export default {
 }
 .product_add_img {
   height: 20vw;
-  width: 30%;
+  min-width: 30%;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
+  margin: 0 10px;
 }
 .product_choose_size {
   margin-top: 16px;
@@ -148,7 +153,12 @@ export default {
   border-radius: 30px;
   background: linear-gradient(246.58deg, #ff0099 -162.71%, #ff4d00 163.83%);
 }
-
+.product_description li {
+  color: #ff4d00;
+}
+.product_description span {
+  color: black;
+}
 .size {
   display: inline-block;
   border: 1px black solid;
