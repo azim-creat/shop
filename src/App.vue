@@ -2,8 +2,6 @@
   <div class="app">
     <div class="main_body">
        <router-view /> 
-      <router-view />
-       <router-view /> 
     </div>
     <div class="navbar">
       <div
