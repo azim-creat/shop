@@ -15,6 +15,12 @@ export const store = new Vuex.Store({
         size: "",
         price: 14,
         quantity: 0,
+        sizes: {
+          // amount of each size
+          23: { size: 23, quantity: 0 },
+          24: { size: 24, quantity: 0 },
+          25: { size: 25, quantity: 0 }
+        },
         product_img: [
           require("../assets/images/product3.png"),
           require("../assets/images/product2.png"),
@@ -43,6 +49,12 @@ export const store = new Vuex.Store({
         productCode: 3,
         size: "",
         price: 333,
+        sizes: {
+          // amount of each size
+          23: { size: 23, quantity: 0 },
+          24: { size: 24, quantity: 0 },
+          25: { size: 25, quantity: 0 }
+        },
         quantity: 0,
         product_img: [
           require("../assets/images/product3.png"),
@@ -66,6 +78,12 @@ export const store = new Vuex.Store({
         productCode: 4,
         size: "",
         price: 107,
+        sizes: {
+          // amount of each size
+          23: { size: 23, quantity: 0 },
+          24: { size: 24, quantity: 0 },
+          25: { size: 25, quantity: 0 }
+        },
         quantity: 0,
         product_img: [
           require("../assets/images/product3.png"),
@@ -89,6 +107,12 @@ export const store = new Vuex.Store({
         productCode: 5,
         size: "",
         price: 3562,
+        sizes: {
+          // amount of each size
+          23: { size: 23, quantity: 0 },
+          24: { size: 24, quantity: 0 },
+          25: { size: 25, quantity: 0 }
+        },
         quantity: 0,
         product_img: [
           require("../assets/images/product2.png"),
