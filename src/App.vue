@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="main_body">
-      <router-view />
+       <router-view /> 
     </div>
     <div class="navbar">
       <div
@@ -64,13 +64,10 @@
 </template>
 
 <script>
-import Basket from "@/components/Basket";
+import SizeCheckerPopup from "@/components/SizeCheckerPopup";
 
 export default {
   name: "App",
-  components: {
-    Basket,
-  },
   data() {
     return {
       acive_menu_item: "categoryes",
