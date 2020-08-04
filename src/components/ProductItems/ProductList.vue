@@ -69,15 +69,17 @@ export default {
   max-height: 100px;
   height: 100px;
   display: flex;
-  margin: 10px 0;
   align-items: center;
   justify-content: space-between;
 }
 img {
+  flex: 0;
+  margin-right: 10px;
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 12px;
+  display: block;
 }
 h3 {
   margin: 0;
@@ -87,16 +89,20 @@ h3 {
 .description {
   height: 100%;
   display: flex;
+  flex: 2;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 }
 
+.sizes .size:first-child{
+  margin-left: 0;
+}
 .size {
   display: inline-block;
   border: 1px black solid;
   margin: 0 5px;
   padding: 2px 5px;
-  border-radius: 3px;
+  border-radius: 6px;
   font-size: 10px;
 }
 .size.active {
@@ -118,6 +124,12 @@ input[value="-"] {
 input[value="+"] {
   background: linear-gradient(246.58deg, #ff0099 -162.71%, #ff4d00 163.83%);
   color: white;
+}
+.controls {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
 }
 .controls > * {
   margin: 0 3px;
