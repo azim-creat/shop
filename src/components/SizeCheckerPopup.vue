@@ -2,8 +2,7 @@
   <div class="size-checker__background">
     <div class="size-checker">
       <h2>Выберите вид товара</h2>
-      <button @click="setShow">закрыть</button>
-      <button @click="addToCart">сохранить</button>
+
       <div class="prod-preview">
         <img :src="cproduct.image" />
         <div class="description">
@@ -41,6 +40,7 @@
           <span class="total-amount__value">{{totalPrice}} USD</span>
         </p>
       </div>
+      <button @click="addToCart">СОХРАНИТЬ</button>
     </div>
   </div>
 </template>
@@ -106,7 +106,6 @@ export default {
   position: absolute;
   height: 105vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.212);
   top: 0;
   bottom: 0;
   left: 0;
@@ -213,5 +212,16 @@ p span {
 .total-amount__value {
   font-weight: bold;
   font-size: 14px;
+}
+button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin: 4px 0;
+  border: solid black 3px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  background-color: black;
 }
 </style>
