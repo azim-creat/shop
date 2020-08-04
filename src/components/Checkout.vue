@@ -4,28 +4,62 @@
     <div class="checkout__inputs">
       <label>
         <span>имя</span>
-        <input type="text" />
+        <input id="name" v-model="name" type="text" name="name" :class="{valid: validateName()}" />
       </label>
       <label>
         <span>телефон</span>
-        <input type="text" />
+        <input type="num" v-model="phone" :class="{valid: validatePhone()}" />
       </label>
       <label>
         <span>адрес доставки</span>
-        <input type="text" />
+        <input type="text" v-model="address" :class="{valid: validateAddress()}" />
       </label>
       <label>
         <span>способ оплаты</span>
-        <input type="text" />
+        <vSelect class="style-chooser" :options="paymentOptions" />
       </label>
-      <button class="save_btn">ОТПРАВИТЬ</button>
+      <button class="save_btn" @click="validateName">ОТПРАВИТЬ</button>
     </div>
   </div>
 </template>
 
 <script>
+import vSelect from "vue-select";
 name: "Checkout";
-export default {};
+export default {
+  components: {
+    vSelect,
+  },
+  data() {
+    return {
+      name: "",
+      phone: "",
+      address: "",
+      payment: "",
+      paymentOptions: ["наличка", "перевод", "что-то еще"],
+    };
+  },
+  methods: {
+    validatePhone: function () {
+      const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+      return re.test(this.phone);
+    },
+    validateName: function () {
+      if (this.name == "") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    validateAddress: function () {
+      if (this.address == "") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -69,5 +103,43 @@ input,
   text-align: center;
   color: white;
   background-color: black;
+}
+input.valid {
+  background-color: rgba(0, 255, 0, 0.26);
+}
+</style>
+
+<style>
+/* стили для дропдауна */
+
+.vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle {
+  border: none;
+  color: black;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+.vs__dropdown-toggle {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+}
+#vs1__listbox.vs__dropdown-menu {
+  list-style: none;
+  padding: 0;
+}
+
+#vs1__listbox.vs__dropdown-menu li {
+  margin: 5px 0;
+}
+.vs__search,
+.vs__clear {
+  display: none;
+}
+.style-chooser {
+  padding: 22px 17px 12px;
+  width: 85%;
+  border: solid black 2px;
+  font-weight: 600;
 }
 </style>
