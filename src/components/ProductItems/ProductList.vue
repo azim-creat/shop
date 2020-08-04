@@ -57,6 +57,14 @@ export default {
         return 0;
       }
     },
+    increaseQuantity(itemId) {
+      this.currentId = itemId;
+      this.show_modal = true;
+    },
+    decreaseQuantity(itemId) {
+      this.currentId = itemId;
+      this.show_modal = true;
+    },
     ...mapActions({
       increace: "INCREASE_ITEM_QUANTITY",
       decreace: "DECREASE_ITEM_QUANTITY",
@@ -98,7 +106,7 @@ h3 {
   justify-content: center;
 }
 
-.sizes .size:first-child{
+.sizes .size:first-child {
   margin-left: 0;
 }
 .size {

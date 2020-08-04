@@ -67,8 +67,12 @@
 import SizeCheckerPopup from "@/components/SizeCheckerPopup";
 import Request from "./request/request";
 
+import Checkout from "@/components/Checkout";
 export default {
   name: "App",
+  components:{
+    Checkout
+  },
   data() {
     return {
       acive_menu_item: "categoryes",

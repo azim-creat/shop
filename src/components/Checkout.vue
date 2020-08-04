@@ -18,7 +18,7 @@
         <span>способ оплаты</span>
         <input type="text" />
       </label>
-      <button>ОТПРАВИТЬ</button>
+      <button class="save_btn">ОТПРАВИТЬ</button>
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@ input,
   border: solid black 2px;
   font-weight: 600;
 }
-button {
+.save_btn {
   display: block;
   padding: 19px 0;
   margin: 4px 0;

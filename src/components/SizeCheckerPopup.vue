@@ -1,94 +1,138 @@
 <template>
-  <div class="size-checker">
-    <h2>Выберите вид товара</h2>
-    <div class="prod-preview">
-      <img :src="product.image" />
-      <div class="description">
-        <h3>{{ product.title }}</h3>
-        <span class="price">{{product.price || '1000' }} USD</span>
-      </div>
-    </div>
+  <div class="size-checker__background">
+    <div class="size-checker">
+      <h2>Выберите вид товара</h2>
 
-    <div class="size-list">
-      <ul>
-        <li v-for="(item, index) in product.sizes" :key="index">
-          <div class="list-item">
-            <span>{{item.size}} размер кольца</span>
-            <div class="controls">
-              <input
-                type="button"
-                value="-"
-                @click="decrease(item.size)"
-                v-show="item.quantity !== 0"
+      <div class="prod-preview">
+        <img :src="cproduct.image" />
+        <div class="description">
+          <h3>{{ cproduct.title }}</h3>
+          <span class="price">{{cproduct.price || '1000' }} USD</span>
+        </div>
+      </div>
+
+      <div class="size-list">
+        <ul v-if="cproduct.sizes">
+          <li  v-for="(item, index) in cproduct.sizes" :key="index">
+            <div class="list-item">
+              <span>{{item.size}} размер кольца</span>
+              <QuantityControls
+                :increase="increase"
+                :decrease="decrease"
+                :toIncrease="StoreItems[currentId].sizes[item.size].quantity"
+                :size="item.size"
+                :itemId="currentId"
               />
-              <span>{{item.quantity}}</span>
-              <input type="button" value="+" @click="increase(item.size)" />
             </div>
-          </div>
-          <hr class="list-item-divider" width="150px" color="#E5E5E5" />
-        </li>
-      </ul>
-    </div>
-    <hr width="100%" color="#E5E5E5" />
-    <div class="total-info">
-      <p class="total-amount">
-        <span class="total-amount__description">количество</span>
-        <span class="total-amount__value">{{totalAmount}} единиц</span>
-      </p>
-      <p class="price">
-        <span class="total-amount__description">цена</span>
-        <span class="total-amount__value">{{product.price}} USD</span>
-      </p>
-      <p class="total-price">
-        <span class="total-amount__description">сумма</span>
-        <span class="total-amount__value">{{totalPrice}} USD</span>
-      </p>
+          </li>
+        </ul>
+      </div>
+      <div class="total-info">
+        <p class="total-amount">
+          <span class="total-amount__description">количество</span>
+          <span class="total-amount__value">{{totalAmount}} единиц</span>
+        </p>
+        <p class="price">
+          <span class="total-amount__description">цена</span>
+          <span class="total-amount__value">{{cproduct.price}} USD</span>
+        </p>
+        <p class="total-price">
+          <span class="total-amount__description">сумма</span>
+          <span class="total-amount__value">{{totalPrice}} USD</span>
+        </p>
+      </div>
+      <button @click="addToCart">СОХРАНИТЬ</button>
     </div>
   </div>
 </template>
 
 <script>
+import QuantityControls from "@/components/QuantityControls";
+import { mapGetters, mapActions } from "vuex";
+import { store } from "@/store/vuex";
 export default {
+  name: "SizeChecker",
+  props: {
+    currentId: Number || Null,
+    cproduct: Object,
+    setShow: Function,
+  },
+  components: {
+    QuantityControls,
+  },
+  store: store,
   data() {
     return {
-      product: {
-        title: "Diamond rings",
-        price: 15000,
-        image: require("../assets/images/product3.png"),
-        id: 10,
-        sizes: {
-          // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 },
-        },
-      },
-      totalAmount: 0,
       totalPrice: 0,
     };
   },
 
   methods: {
+    ...mapActions(["ADD_TO_CART_FROM_POPUP"]),
     increase(size) {
-      this.product.sizes[size].quantity++;
-      this.totalAmount++;
-      this.totalPrice += this.product.price;
+      this.cproduct.sizes[size].quantity++;
+      this.cproduct.quantity++;
+      this.totalPrice += this.cproduct.price;
     },
     decrease(size) {
-      this.product.sizes[size].quantity--;
-      this.totalAmount--;
-      this.totalPrice -= this.product.price;
+      this.cproduct.sizes[size].quantity--;
+      this.cproduct.quantity--;
+      this.totalPrice -= this.cproduct.price;
+    },
+    addToCart() {
+      this.setShow();
+      this.ADD_TO_CART_FROM_POPUP(this.cproduct);
+      
+    },
+  },
+
+  computed: {
+    ...mapGetters(["StoreItems"]),
+    totalAmount: function () {
+      let items = Object.values(this.cproduct.sizes);
+      let accum = 0;
+      items.forEach((item) => {
+        accum += item.quantity;
+      });
+      return accum;
     },
   },
 };
 </script>
 
 <style scoped>
+.size-checker__background {
+  position: absolute;
+  height: 105vh;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
+}
+.size-checker__background.active {
+  visibility: visible;
+  opacity: 1;
+}
 .size-checker {
-  /* background-color: red; */
-  height: 300px;
-  border-radius: 50px;
-  padding: 5px;
+  padding: 15px;
+  width: 90vw;
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* 52 - высота нижнего навбара */
+  bottom: 52px;
+  background-color: rgb(255, 255, 255);
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  margin: auto;
+}
+.size-checker h2 {
+  font-family: "Comfortaa";
 }
 img {
   width: 80px;
@@ -119,6 +163,14 @@ li {
   display: flex;
   justify-content: space-between;
 }
+.size-list li::after {
+  content: "";
+  display: inline-block;
+  width: 150px;
+  height: 3px;
+  background-color: #e5e5e5;
+}
+
 .list-item-divider {
   float: left;
   margin: 0;
@@ -159,5 +211,16 @@ p span {
 .total-amount__value {
   font-weight: bold;
   font-size: 14px;
+}
+button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin: 4px 0;
+  border: solid black 3px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  background-color: black;
 }
 </style>
