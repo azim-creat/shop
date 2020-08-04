@@ -11,9 +11,9 @@
         </div>
       </div>
       <div class="controls">
-        <input type="button" value="-"  />
-        <span>{{getQuantity()}}</span>
-        <input type="button" value="+"  />
+        <input v-show="getQuantity()" type="button" value="-"  @click="decrease(itemId)"/>
+        <span v-show="getQuantity()">{{getQuantity()}}</span>
+        <input type="button" value="+"  @click="increase(itemId)"/>
       </div>
     </div>
   </router-link>
@@ -30,6 +30,8 @@ export default {
     itemId: Number,
     tags: Object,
     price: Number,
+    decrease: Function,
+    increase: Function,
   },
   data() {
     return { id: this.itemId };

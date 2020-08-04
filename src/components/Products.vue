@@ -18,6 +18,8 @@
           :price="data.price"
           :tags="data.tags"
           :quantity="data.quantity"
+          :decrease="decreaseItem"
+          :increase="increaseItem"
         />
         <ProductList
           v-else
@@ -27,6 +29,8 @@
           :price="data.price"
           :tags="data.tags"
           :quantity="data.quantity"
+          :decrease="decreaseItem"
+          :increase="increaseItem"
         />
       </div>
     </div>
@@ -57,6 +61,12 @@ export default {
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;
     },
+    decreaseItem(id){
+      this.$store.dispatch("DECREASE", id)
+    },
+    increaseItem(id){
+      this.$store.dispatch("INCREASE", id)
+    }
   }
 };
 </script> 
