@@ -142,20 +142,18 @@ export const store = new Vuex.Store({
     TotalPrice: state => state.totalPrice
   },
 
-  // похож на reducer
-  // мутирует стейт. не дергается на прямую
   mutations: {
     NEW_CART_ITEM: (state, itemId) => {
       let clone = { ...state.storeItems[itemId] };
       state.cartItems[itemId] = clone;
     },
-    ADD_TO_CART_FROM_POPUP: (state, newItem) => {
+    ADD_TO_CART_FROM_POPUP_mut: (state, newItem) => {
       const itemId = newItem.id;
       let clone = {
         ...newItem
       };
       state.cartItems[itemId] = clone;
-      state.total = +clone.quantity;
+      state.total += clone.quantity;
       state.totalPrice = clone.price * clone.quantity;
     },
     REMOVE_CART_ITEM: (state, itemId) => {
@@ -183,7 +181,6 @@ export const store = new Vuex.Store({
     }
   },
 
-  // штуки для управления мутациями. дергает мутации, закидывает в них пейлоады
   actions: {
     ADD_CART_ITEM: ({ commit }, payload) => {
       commit("NEW_CART_ITEM", payload);
@@ -199,7 +196,11 @@ export const store = new Vuex.Store({
         accum += item.quantity;
       });
       payload.quantity = accum;
-      commit("ADD_TO_CART_FROM_POPUP", payload);
+      if (payload.quantity == 0) {
+        commit("REMOVE_CART_ITEM", payload.id);
+        return;
+      }
+      commit("ADD_TO_CART_FROM_POPUP_mut", payload);
     },
     INCREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
       // добавляем новый товар при отсутствии его в корзине

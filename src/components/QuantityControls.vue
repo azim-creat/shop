@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "QuantityControls",
   props: {
@@ -14,6 +15,10 @@ export default {
     decrease: Function,
     toIncrease: Number,
     size: Number,
+    itemId: Number,
+  },
+  computed: {
+    ...mapGetters(["StoreItems"]),
   },
 };
 </script>

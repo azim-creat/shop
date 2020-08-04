@@ -19,8 +19,9 @@
               <QuantityControls
                 :increase="increase"
                 :decrease="decrease"
-                :toIncrease="item.quantity"
+                :toIncrease="StoreItems[currentId].sizes[item.size].quantity"
                 :size="item.size"
+                :itemId="currentId"
               />
             </div>
           </li>
@@ -80,15 +81,13 @@ export default {
     },
     addToCart() {
       this.setShow();
-      if (this.cproduct.quantity === 0) {
-        return;
-      }
       this.ADD_TO_CART_FROM_POPUP(this.cproduct);
+      
     },
   },
 
   computed: {
-    ...mapGetters["StoreItems"],
+    ...mapGetters(["StoreItems"]),
     totalAmount: function () {
       let items = Object.values(this.cproduct.sizes);
       let accum = 0;
