@@ -4,7 +4,7 @@
     <div>
       <ViewToggle :setViewMode="setViewMode" :view_mode="view_mode" />
       <div class="view-wrapper" :class="view_mode">
-        <div :id="title" v-for="(data,index) in StoreItems" :key="index">
+        <div v-for="(data,index) in StoreItems" :key="index">
           <ProductGrid
             :title="data.productTitle"
             :image="data.image"
@@ -126,10 +126,91 @@ export default {
   justify-items: stretch;
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  grid-auto-rows: 1fr;
+}
+
+.grid::before {
+  content: "";
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.grid > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+/* Just to make the grid visible */
+
+.grid > * {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px white solid;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
 /* режим вида - по одному */
 .single {
   display: grid;
   gap: 10px;
-  grid-auto-columns: 1fr;
+  /* grid-auto-columns: 1fr; */
+  grid-template-columns: repeat(auto-fill, minmax(60vh, 1fr));
+  grid-auto-rows: 1fr;
+
 }
+
+.single::before {
+  content: '';
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.single > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+/* Just to make the grid visible */
+
+.single > * {
+  background: rgba(0,0,0,0.1);
+  border-radius: 12px;
+  border: 1px white solid;
+}
+
+
+
+/* режим вида - по одному */
+.list {
+  display: grid;
+  gap: 10px;
+  /* grid-auto-columns: 1fr; */
+  grid-template-columns: repeat(auto-fill, minmax(60vh, 1fr));
+  grid-auto-rows: 1fr;
+
+}
+
+
+
+.list > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+/* Just to make the grid visible */
+
+.list > * {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px white solid;
+}
+
+
 </style>

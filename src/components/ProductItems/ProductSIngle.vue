@@ -1,8 +1,5 @@
 <template>
-  <div class="product-item">
-    <router-link :to="`/product/${itemId}`">
-      <img :src="image" />
-    </router-link>
+  <router-link to="/product" class="product-item" :style="`background-image: url(${image})`">
     <div class="overlay">
       <div class="details">
         <div>
@@ -22,7 +19,7 @@
         <input type="button" value="+" @click="increase(itemId)" />
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -66,14 +63,23 @@ export default {
 
 <style scoped>
 .product-item {
+  display: block;
   position: relative;
   padding: 0;
   min-height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 img {
   width: 100%;
   height: auto;
+  display: block;
 }
 .overlay {
   box-sizing: border-box;

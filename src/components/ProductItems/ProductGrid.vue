@@ -25,18 +25,21 @@ export default {
 .product-title {
   width: 100%;
   margin: 0;
-
   position: absolute;
   background: transparent;
   bottom: 0;
   backdrop-filter: blur(10px);
-  min-height: 25px;
-  max-height: 50px;
+  line-height: 1;
+  padding: 10px;
+  border-radius: 6px;
 }
 h3 {
   margin: 0;
   color: white;
-  padding-left: 7px;
+  max-width: 90%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .product-item img {
   display: block;

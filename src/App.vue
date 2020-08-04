@@ -149,6 +149,7 @@ body {
   height: 100px;
   height: -webkit-fill-available;
   height: 100%;
+  padding-bottom: 70px;
 }
 .navbar {
   flex: 0;
