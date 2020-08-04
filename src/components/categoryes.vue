@@ -9,18 +9,19 @@
       </span>
     </div>
 
-    <div
-      class="category-item"
-      v-for="(item,index) in childs"
-      :key="index"
-      @click="setParent(item,index)"
-    >
-      <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
-      <span class="category-item__title">
-        <h3>{{item.productTitle}}</h3>
-        <h5>{{item.count}} товаров</h5>
-      </span>
-      <span class="category-item__arrow-right parent_arrow"></span>
+    <div class="category-items">
+      <div
+        class="category-item"
+        v-for="(item,index) in childs"
+        :key="index"
+        @click="setParent(item,index)"
+      >
+        <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
+        <span class="category-item__title">
+          <h3>{{item.productTitle}}</h3>
+          <h5>{{item.count}} товаров</h5>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -116,7 +117,6 @@ export default {
         this.path = [];
         this.parent = false;
         this.childs = clone;
-
       } else {
         for (let index = 0; index < this.path.length; index++) {
           if (index === 0) {
@@ -131,10 +131,7 @@ export default {
         this.path.pop();
         this.parent = clone;
         this.childs = clone.childs;
-
       }
-
-   
     },
   },
   mounted() {
@@ -147,6 +144,8 @@ export default {
 <style scoped>
 .category-item__parent {
   display: flex;
+  align-items: center;
+  padding-left: 25px;
   margin: 10px;
   background: #000000;
   border-radius: 12px;
@@ -158,22 +157,44 @@ export default {
   display: block;
   width: 20px;
   height: 20px;
-  margin-top: 10%;
-  margin-left: 5%;
+
   border-top: 2px solid #ffffff;
   border-left: 2px solid #ffffff;
   transform: rotate(-45deg);
   text-align: right;
 }
+
+
+.category-items {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(60vh, 1fr));
+  grid-auto-rows: 1fr;
+}
+
+.category-items > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.category-items > * {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px white solid;
+}
+
+
 .category-item {
   display: flex;
-  justify-content: space-between;
+  flex: 1;
   margin: 10px;
   background: #000000;
   border-radius: 12px;
   overflow: hidden;
   height: 100px;
   color: #ffffff;
+  align-items: center;
+  padding-right: 25px;
 }
 .category-item__img {
   height: 100%;
@@ -189,6 +210,7 @@ export default {
 }
 .category-item__title {
   display: flex;
+  flex: 1;
   flex-direction: column;
   margin-left: 20px;
   font-family: "Roboto";
@@ -205,16 +227,5 @@ export default {
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
-}
-.category-item__arrow-right {
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin-top: 10%;
-  margin-right: 5%;
-  border-top: 2px solid #ffffff;
-  border-left: 2px solid #ffffff;
-  transform: rotate(135deg);
-  text-align: right;
 }
 </style>
