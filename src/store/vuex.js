@@ -15,12 +15,12 @@ export const store = new Vuex.Store({
         size: "",
         price: 14,
         quantity: 0,
-        sizes: {
-          // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
-        },
+        // sizes: {
+        //   // amount of each size
+        //   23: { size: 23, quantity: 0 },
+        //   24: { size: 24, quantity: 0 },
+        //   25: { size: 25, quantity: 0 }
+        // },
         product_img: [
           require("../assets/images/product3.png"),
           require("../assets/images/product2.png"),
@@ -225,6 +225,6 @@ export const store = new Vuex.Store({
         commit("INCREASE_ITEM_QUANTITY", id);
       }
       commit("SET_SIZE", { size, id });
-    }
+    },
   }
 });

@@ -83,16 +83,6 @@ export default {
     removeItem(item) {
       this.$store.dispatch("DELETE_CART_ITEM", item);
     },
-    increaseQuantity(itemId) {
-      this.currentId = itemId;
-      this.show_modal = true;
-      this.$store.dispatch("INCREASE_ITEM_QUANTITY", itemId);
-    },
-    decreaseQuantity(itemId) {
-      this.currentId = itemId;
-      this.show_modal = true;
-      this.$store.dispatch("DECREASE_ITEM_QUANTITY", itemId);
-    },
     setCurrentId(itemId) {
       this.currentId = itemId;
       this.showModal();

@@ -12,8 +12,8 @@
       </div>
 
       <div class="size-list">
-        <ul>
-          <li v-for="(item, index) in cproduct.sizes" :key="index">
+        <ul v-if="cproduct.sizes">
+          <li  v-for="(item, index) in cproduct.sizes" :key="index">
             <div class="list-item">
               <span>{{item.size}} размер кольца</span>
               <QuantityControls
