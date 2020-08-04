@@ -155,6 +155,11 @@ export default {
   border-radius: 12px;
   border: 1px white solid;
 }
+@media (max-width: 500px) {
+  .single {
+    grid-template-columns: repeat(auto-fill, minmax(60vw, 1fr));
+  }
+}
 
 
 
@@ -168,6 +173,11 @@ export default {
 
 }
 
+@media (max-width: 500px) {
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(60vw, 1fr));
+  }
+}
 
 
 .list > *:first-child {

@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="main_body">
-       <router-view /> 
+      <router-view />
     </div>
     <div class="navbar">
       <div
@@ -65,6 +65,7 @@
 
 <script>
 import SizeCheckerPopup from "@/components/SizeCheckerPopup";
+import Request from "./request/request";
 
 export default {
   name: "App",
@@ -85,6 +86,73 @@ export default {
         self.acive_menu_item = id;
       }, 200);
     },
+    getSales() {
+      const self = this;
+      return
+      Request({
+        task: "profiles.getRows",
+        testik: 1,
+        user_id: 674,
+        key: "mcTnaftuzoHzWJV",
+        type_id: 14,
+        fields_ids: "[468,863,865,868,111,866,1000012]",
+        filter: [
+          {
+            field: 468,
+            cond: ["FULL"],
+          },
+          {
+            field: 863,
+            cond: ["FULL"],
+          },
+          {
+            field: 865,
+            cond: ["FULL"],
+          },
+          {
+            field: 111,
+            cond: ["FULL"],
+          },
+          {
+            field: 866,
+            cond: ["FULL"],
+          },
+          {
+            field: 1000012,
+            cond: ["FULL"],
+          },
+        ],
+
+        // 468 цена
+        // 863 группа
+        // 865подгруппа тип
+        // 868 размер
+        // 111
+        // 866 цвет
+        // 1000012 проба
+      })
+        .then((ans) => {
+          console.log(ans);
+          // let offers_new = {};
+
+          // for (var i in ans.data.value) {
+          //   let offer = ans.data.value[i];
+          //   if (offer.field_127) {
+          //     offer.duration = Math.round(Math.random() * 10000000);
+          //     offers_new[i] = offer;
+          //   }
+          // }
+
+          // offers_new = self.recalcDistance(offers_new);
+
+          // self.$store.dispatch("setTo", ["offers", offers_new]);
+
+          // self.getResult(30);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    },
   },
   computed: {
     FIRST_COMPUTED_VALUE() {
@@ -98,6 +166,7 @@ export default {
     },
   },
   mounted() {
+    this.getSales();
     // console.log('component mounted');
     // //this.showAlert();
     // //this.showAlert2();
