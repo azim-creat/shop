@@ -1,12 +1,5 @@
 <template>
-<<<<<<< HEAD
-  <div class="product-item">
-    <router-link :to="`/product/${itemId}`">
-      <img :src="image" />
-    </router-link>
-=======
   <router-link to="/product" class="product-item" :style="`background-image: url(${image})`">
->>>>>>> azim
     <div class="overlay">
       <div class="details">
         <div>

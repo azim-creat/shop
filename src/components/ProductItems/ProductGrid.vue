@@ -12,11 +12,7 @@
 <script>
 export default {
   name: "ProductGrid",
-<<<<<<< HEAD
   props: { title: String, image: String, itemId: Number },
-=======
-  props: { title: String, image: String },
->>>>>>> azim
 };
 </script> 
 
