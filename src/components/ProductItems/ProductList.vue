@@ -8,17 +8,14 @@
         <h3>{{ title }}</h3>
         <span class="price">{{price || '1000' }}</span>
       </div>
-      <div class="sizes">
-        <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
-        <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
-        <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
-        <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
+      <div class="tags">
+        <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
       </div>
     </div>
     <div class="controls">
-      <input type="button" value="-" @click="decrease(itemId)" />
+      <input type="button" value="-"  />
       <span>{{getQuantity()}}</span>
-      <input type="button" value="+" @click="increase(itemId)" />
+      <input type="button" value="+"  />
     </div>
   </div>
 </template>
@@ -33,18 +30,13 @@ export default {
     image: String,
     add: Function,
     itemId: Number,
-    increase: Function,
-    decrease: Function,
     price: Number,
+    tags: Object,
   },
   data() {
     return { id: this.itemId };
   },
   methods: {
-    SET_SIZE(size) {
-      const id = this.id;
-      this.$store.dispatch("SET_SIZE", { id, size });
-    },
     getCurrentSize(sizeToCheck) {
       if (this.CartItems[this.id]) {
         return this.CartItems[this.id].size == sizeToCheck;
@@ -106,10 +98,10 @@ h3 {
   justify-content: center;
 }
 
-.sizes .size:first-child {
+.tags .tag:first-child {
   margin-left: 0;
 }
-.size {
+.tag {
   display: inline-block;
   border: 1px black solid;
   margin: 0 5px;
@@ -117,11 +109,7 @@ h3 {
   border-radius: 6px;
   font-size: 10px;
 }
-.size.active {
-  background-color: black;
-  color: white;
-  border: 1px black solid;
-}
+
 
 input {
   height: 30px;
@@ -151,7 +139,7 @@ input[value="+"] {
 }
 
 @media (max-width: 320px) {
-  .size {
+  .tag {
     margin: 0 2px;
   }
 }

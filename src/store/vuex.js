@@ -49,11 +49,11 @@ export const store = new Vuex.Store({
         productCode: 3,
         size: "",
         price: 333,
-        sizes: {
+        tags: {
           // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
         },
         quantity: 0,
         product_img: [
@@ -78,11 +78,11 @@ export const store = new Vuex.Store({
         productCode: 4,
         size: "",
         price: 107,
-        sizes: {
+        tags: {
           // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
         },
         quantity: 0,
         product_img: [
@@ -107,11 +107,11 @@ export const store = new Vuex.Store({
         productCode: 5,
         size: "",
         price: 3562,
-        sizes: {
+        tags: {
           // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
         },
         quantity: 0,
         product_img: [

@@ -13,7 +13,7 @@
 
       <div class="size-list">
         <ul v-if="cproduct.sizes">
-          <li  v-for="(item, index) in cproduct.sizes" :key="index">
+          <li v-for="(item, index) in cproduct.sizes" :key="index">
             <div class="list-item">
               <span>{{item.size}} размер кольца</span>
               <QuantityControls
@@ -30,7 +30,7 @@
       <div class="total-info">
         <p class="total-amount">
           <span class="total-amount__description">количество</span>
-          <span class="total-amount__value">{{totalAmount}} единиц</span>
+          <span class="total-amount__value">{{ 0}} единиц</span>
         </p>
         <p class="price">
           <span class="total-amount__description">цена</span>
@@ -82,20 +82,19 @@ export default {
     addToCart() {
       this.setShow();
       this.ADD_TO_CART_FROM_POPUP(this.cproduct);
-      
     },
   },
 
   computed: {
     ...mapGetters(["StoreItems"]),
-    totalAmount: function () {
-      let items = Object.values(this.cproduct.sizes);
-      let accum = 0;
-      items.forEach((item) => {
-        accum += item.quantity;
-      });
-      return accum;
-    },
+    // totalAmount () {
+      // let items = Object.values(this.cproduct.sizes);
+      // let accum = 0;
+      // items.forEach((item) => {
+      //   accum += item.quantity;
+      // });
+      // return accum;
+    // },
   },
 };
 </script>
