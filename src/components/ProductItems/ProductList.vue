@@ -45,11 +45,20 @@ export default {
       }
     },
     getQuantity() {
-      if (this.CartItems[this.id]) {
-        return this.CartItems[this.id].quantity;
-      } else {
-        return 0;
+      let item_in_cart = this.CartItems[this.itemId]
+      if( typeof item_in_cart === "number"){
+        return item_in_cart
       }
+      else if(typeof item_in_cart === "object"){
+        var sum = 0;
+        for( var el in item_in_cart ) {
+          if( item_in_cart.hasOwnProperty( el ) ) {
+            sum += parseFloat( item_in_cart[el] );
+          }
+        }
+        return sum;
+      }
+
     },
     increaseQuantity(itemId) {
       this.currentId = itemId;

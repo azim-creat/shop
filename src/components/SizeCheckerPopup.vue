@@ -4,25 +4,29 @@
       <h2>Выберите вид товара</h2>
 
       <div class="prod-preview">
-        <img :src="cproduct.image" />
+        <img :src="item.image" />
         <div class="description">
-          <h3>{{ cproduct.title }}</h3>
-          <span class="price">{{cproduct.price || '1000' }} USD</span>
+          <h3>{{ item.title}}</h3>
+          <span class="price">{{ item.price}}</span>
         </div>
       </div>
 
       <div class="size-list">
-        <ul v-if="cproduct.sizes">
-          <li v-for="(item, index) in cproduct.sizes" :key="index">
+        <ul>
+          <li v-for="(tag, tag_index) of item.tags" :key="tag_index">
             <div class="list-item">
-              <span>{{item.size}} размер кольца</span>
-              <QuantityControls
-                :increase="increase"
-                :decrease="decrease"
-                :toIncrease="StoreItems[currentId].sizes[item.size].quantity"
-                :size="item.size"
-                :itemId="currentId"
-              />
+              <span>{{tag.title}}</span>
+
+              <div class="controls">
+                <input
+                  type="button"
+                  value="-"
+                  @click="decrease(tag_index)"
+                  v-show="getQuantityInCart(tag_index)"
+                />
+                <span>{{getQuantityInCart(tag_index)}}</span>
+                <input type="button" value="+" @click="increase(tag_index)" />
+              </div>
             </div>
           </li>
         </ul>
@@ -30,18 +34,18 @@
       <div class="total-info">
         <p class="total-amount">
           <span class="total-amount__description">количество</span>
-          <span class="total-amount__value">{{ 0}} единиц</span>
+          <span class="total-amount__value">{{"totalAmount"}} единиц</span>
         </p>
         <p class="price">
           <span class="total-amount__description">цена</span>
-          <span class="total-amount__value">{{cproduct.price}} USD</span>
+          <span class="total-amount__value">{{"cproduct.price"}} USD</span>
         </p>
         <p class="total-price">
           <span class="total-amount__description">сумма</span>
-          <span class="total-amount__value">{{totalPrice}} USD</span>
+          <span class="total-amount__value">{{"totalPrice"}} USD</span>
         </p>
       </div>
-      <button @click="addToCart">СОХРАНИТЬ</button>
+      <button @click="clousePopUp">ГОТОВО</button>
     </div>
   </div>
 </template>
@@ -53,9 +57,7 @@ import { store } from "@/store/vuex";
 export default {
   name: "SizeChecker",
   props: {
-    currentId: Number || Null,
-    cproduct: Object,
-    setShow: Function,
+    item: Object,
   },
   components: {
     QuantityControls,
@@ -68,38 +70,52 @@ export default {
   },
 
   methods: {
-    ...mapActions(["ADD_TO_CART_FROM_POPUP"]),
-    increase(size) {
-      this.cproduct.sizes[size].quantity++;
-      this.cproduct.quantity++;
-      this.totalPrice += this.cproduct.price;
+    increase(tag_id) {
+      this.$store.dispatch("INCREASE_FROM_POP_UP", tag_id);
     },
-    decrease(size) {
-      this.cproduct.sizes[size].quantity--;
-      this.cproduct.quantity--;
-      this.totalPrice -= this.cproduct.price;
+    decrease(tag_id) {
+      this.$store.dispatch("DECREASE_FROM_POP_UP", tag_id);
     },
-    addToCart() {
-      this.setShow();
-      this.ADD_TO_CART_FROM_POPUP(this.cproduct);
+    clousePopUp() {
+      this.$store.dispatch("CLOUSE_POP_UP", {});
+    },
+    getQuantityInCart(tag_index) {
+      if (this.CartItems[this.item.id] === undefined) {
+        return 0;
+      } else {
+        return this.CartItems[this.item.id][tag_index];
+      }
     },
   },
 
   computed: {
-    ...mapGetters(["StoreItems"]),
-    // totalAmount () {
-      // let items = Object.values(this.cproduct.sizes);
-      // let accum = 0;
-      // items.forEach((item) => {
-      //   accum += item.quantity;
-      // });
-      // return accum;
-    // },
+    ...mapGetters(["StoreItems", "CartItems"]),
   },
 };
 </script>
 
 <style scoped>
+input {
+  height: 30px;
+  width: 30px;
+  border-radius: 26px;
+  border: none;
+}
+input[value="-"] {
+  background-color: #dadada;
+  color: black;
+}
+input[value="+"] {
+  background: linear-gradient(246.58deg, #ff0099 -162.71%, #ff4d00 163.83%);
+  color: white;
+}
+.controls > * {
+  margin: 0 3px;
+}
+.controls span {
+  font-size: 12px;
+}
+
 .size-checker__background {
   position: absolute;
   height: 105vh;
@@ -112,19 +128,17 @@ export default {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.3s;
-}
-.size-checker__background.active {
   visibility: visible;
   opacity: 1;
 }
+
 .size-checker {
   padding: 15px;
   width: 90vw;
   position: fixed;
   left: 0;
   right: 0;
-  /* 52 - высота нижнего навбара */
-  bottom: 52px;
+  bottom: 0px;
   background-color: rgb(255, 255, 255);
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;

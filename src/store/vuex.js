@@ -5,7 +5,13 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    cartItems: {},
+    cartItems: {
+      // 1: 2,
+      2: {
+        23: 2,
+        24: 6
+      },
+    },
     storeItems: {
       1: {
         id: 1,
@@ -241,6 +247,7 @@ export const store = new Vuex.Store({
       }
     },
     // общее количество товаров в корзине и их цена
+    popUpItem: {},
     total: 0,
     totalPrice: 0
   },
@@ -288,6 +295,87 @@ export const store = new Vuex.Store({
       let clone = { ...state.cartItems };
       clone[id].size = size;
       state.cartItems = clone;
+    },
+
+    INCREASE: (state, id) => {
+      let item = state.storeItems[id]
+      if (item.tags) {
+        state.popUpItem = item
+      }
+
+      else {
+        if (state.cartItems[id]) {
+          ++state.cartItems[id];
+        }
+        else {
+          state.cartItems[id] = 1
+        }
+
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+    },
+
+    DECREASE: (state, id) => {
+      let item = state.storeItems[id]
+      if (item.tags) {
+        state.popUpItem = item
+      }
+
+      else {
+        if (state.cartItems[id]) {
+          --state.cartItems[id];
+        }
+        else {
+          state.cartItems[id] = 0
+        }
+
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+
+    },
+    INCREASE_FROM_POP_UP: (state, tag_id) => {
+      let item_in_pop_up = state.popUpItem
+
+      if(state.cartItems[item_in_pop_up.id]){
+        if (state.cartItems[item_in_pop_up.id][tag_id]) {
+          ++state.cartItems[item_in_pop_up.id][tag_id];
+        }
+        else {
+          state.cartItems[item_in_pop_up.id][tag_id] = 1
+        }
+      }
+      else{
+        state.cartItems[item_in_pop_up.id] = {}
+        state.cartItems[item_in_pop_up.id][tag_id] = 1
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+    },
+
+    DECREASE_FROM_POP_UP: (state, tag_id) => {
+      let item_in_pop_up = state.popUpItem
+
+      if(state.cartItems[item_in_pop_up.id]){
+        if (state.cartItems[item_in_pop_up.id][tag_id]) {
+          --state.cartItems[item_in_pop_up.id][tag_id];
+        }
+        else {
+          state.cartItems[item_in_pop_up.id][tag_id] = 0
+        }
+      }
+      else{
+        state.cartItems[item_in_pop_up.id] = {}
+        state.cartItems[item_in_pop_up.id][tag_id] = 0
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+
+    },
+
+    CLOUSE_POP_UP: (state, obj) => {
+      state.popUpItem = obj
     }
   },
 
@@ -338,25 +426,22 @@ export const store = new Vuex.Store({
     },
 
     INCREASE: ({ commit, getters }, itemId) => {
-      // добавляем новый товар при отсутствии его в корзине
-      console.log(itemId)
-
-      // if (!getters.CartItems[itemId]) {
-      //   commit("NEW_CART_ITEM", itemId);
-      // }
-      // commit("INCREASE_ITEM_QUANTITY", itemId);
+      commit("INCREASE", itemId)
     },
     DECREASE: ({ commit, getters }, itemId) => {
-      console.log(itemId)
-      // добавляем новый товар при отсутствии его в корзине
-      // if (!getters.CartItems[itemId]) {
-      //   commit("NEW_CART_ITEM", itemId);
-      // }
-      // commit("INCREASE_ITEM_QUANTITY", itemId);
+      commit("DECREASE", itemId)
+    },
+    INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
+      commit("INCREASE_FROM_POP_UP", tagId)
+    },
+    DECREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
+      commit("DECREASE_FROM_POP_UP", tagId)
     },
 
 
-
+    CLOUSE_POP_UP: ({ commit, getters }, obj) => {
+      commit("CLOUSE_POP_UP", obj)
+    },
 
   }
 });

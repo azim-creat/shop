@@ -2,31 +2,24 @@
   <div class="home">
     <h1>{{title}}</h1>
     <Products :render_list="StoreItems"/>
-    <SizeCheckerPopup
-      :setShow="showModal"
-      :currentId="currentId"
-      :cproduct="currentProd"
-      :class="{active:show_modal}"
-    />
+    
   </div>
 </template>
 
 <script>
 import Products from "./Products";
-import SizeCheckerPopup from "@/components/SizeCheckerPopup";
 import { mapGetters } from "vuex";
 
 export default {
   name: "home",
   components: {
     Products,
-    SizeCheckerPopup,
   },
   data() {
     return {
       title: "Home",
       view_mode: "grid",
-      show_modal: false,
+      show_modal: true,
       currentId: 4,
     };
   },
