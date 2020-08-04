@@ -149,6 +149,15 @@ export const store = new Vuex.Store({
       let clone = { ...state.storeItems[itemId] };
       state.cartItems[itemId] = clone;
     },
+    ADD_TO_CART_FROM_POPUP: (state, newItem) => {
+      const itemId = newItem.id;
+      let clone = {
+        ...newItem
+      };
+      state.cartItems[itemId] = clone;
+      state.total = +clone.quantity;
+      state.totalPrice = clone.price * clone.quantity;
+    },
     REMOVE_CART_ITEM: (state, itemId) => {
       delete state.cartItems[itemId];
     },
@@ -181,6 +190,16 @@ export const store = new Vuex.Store({
     },
     DELETE_CART_ITEM: (context, payload) => {
       context.commit("REMOVE_CART_ITEM", payload);
+    },
+
+    ADD_TO_CART_FROM_POPUP: ({ commit }, payload) => {
+      let items = Object.values(payload.sizes);
+      let accum = 0;
+      items.forEach(item => {
+        accum += item.quantity;
+      });
+      payload.quantity = accum;
+      commit("ADD_TO_CART_FROM_POPUP", payload);
     },
     INCREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
       // добавляем новый товар при отсутствии его в корзине

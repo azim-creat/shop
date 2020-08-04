@@ -21,8 +21,8 @@
             :price="data.price"
             :size="data.size"
             :quantity="data.quantity"
-            :increase="showModal"
-            :decrease="showModal"
+            :increase="setCurrentId"
+            :decrease="setCurrentId"
             v-else-if="view_mode === 'single'"
           />
           <ProductList
@@ -32,8 +32,8 @@
             :price="data.price"
             :size="data.size"
             :quantity="data.quantity"
-            :increase="showModal"
-            :decrease="showModal"
+            :increase="setCurrentId"
+            :decrease="setCurrentId"
             v-else
           />
         </div>
@@ -92,6 +92,10 @@ export default {
       this.currentId = itemId;
       this.show_modal = true;
       this.$store.dispatch("DECREASE_ITEM_QUANTITY", itemId);
+    },
+    setCurrentId(itemId) {
+      this.currentId = itemId;
+      this.showModal();
     },
     showModal() {
       this.show_modal = !this.show_modal;
