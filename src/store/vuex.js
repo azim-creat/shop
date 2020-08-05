@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
       2: {
         23: 2,
         24: 6
-      },
+      }
     },
     storeItems: {
       1: {
@@ -256,7 +256,10 @@ export const store = new Vuex.Store({
     CartItems: state => state.cartItems,
     StoreItems: state => state.storeItems,
     Total: state => state.total,
-    TotalPrice: state => state.totalPrice
+    TotalPrice: state => state.totalPrice,
+    getStoreItemsById: state => id => {
+      return state.storeItems[id];
+    }
   },
 
   mutations: {
@@ -298,84 +301,70 @@ export const store = new Vuex.Store({
     },
 
     INCREASE: (state, id) => {
-      let item = state.storeItems[id]
+      let item = state.storeItems[id];
       if (item.tags) {
-        state.popUpItem = item
-      }
-
-      else {
+        state.popUpItem = item;
+      } else {
         if (state.cartItems[id]) {
           ++state.cartItems[id];
+        } else {
+          state.cartItems[id] = 1;
         }
-        else {
-          state.cartItems[id] = 1
-        }
-
       }
-      let clone = { ...state.cartItems }
-      state.cartItems = clone
+      let clone = { ...state.cartItems };
+      state.cartItems = clone;
     },
 
     DECREASE: (state, id) => {
-      let item = state.storeItems[id]
+      let item = state.storeItems[id];
       if (item.tags) {
-        state.popUpItem = item
-      }
-
-      else {
+        state.popUpItem = item;
+      } else {
         if (state.cartItems[id]) {
           --state.cartItems[id];
+        } else {
+          state.cartItems[id] = 0;
         }
-        else {
-          state.cartItems[id] = 0
-        }
-
       }
-      let clone = { ...state.cartItems }
-      state.cartItems = clone
-
+      let clone = { ...state.cartItems };
+      state.cartItems = clone;
     },
     INCREASE_FROM_POP_UP: (state, tag_id) => {
-      let item_in_pop_up = state.popUpItem
+      let item_in_pop_up = state.popUpItem;
 
-      if(state.cartItems[item_in_pop_up.id]){
+      if (state.cartItems[item_in_pop_up.id]) {
         if (state.cartItems[item_in_pop_up.id][tag_id]) {
           ++state.cartItems[item_in_pop_up.id][tag_id];
+        } else {
+          state.cartItems[item_in_pop_up.id][tag_id] = 1;
         }
-        else {
-          state.cartItems[item_in_pop_up.id][tag_id] = 1
-        }
+      } else {
+        state.cartItems[item_in_pop_up.id] = {};
+        state.cartItems[item_in_pop_up.id][tag_id] = 1;
       }
-      else{
-        state.cartItems[item_in_pop_up.id] = {}
-        state.cartItems[item_in_pop_up.id][tag_id] = 1
-      }
-      let clone = { ...state.cartItems }
-      state.cartItems = clone
+      let clone = { ...state.cartItems };
+      state.cartItems = clone;
     },
 
     DECREASE_FROM_POP_UP: (state, tag_id) => {
-      let item_in_pop_up = state.popUpItem
+      let item_in_pop_up = state.popUpItem;
 
-      if(state.cartItems[item_in_pop_up.id]){
+      if (state.cartItems[item_in_pop_up.id]) {
         if (state.cartItems[item_in_pop_up.id][tag_id]) {
           --state.cartItems[item_in_pop_up.id][tag_id];
+        } else {
+          state.cartItems[item_in_pop_up.id][tag_id] = 0;
         }
-        else {
-          state.cartItems[item_in_pop_up.id][tag_id] = 0
-        }
+      } else {
+        state.cartItems[item_in_pop_up.id] = {};
+        state.cartItems[item_in_pop_up.id][tag_id] = 0;
       }
-      else{
-        state.cartItems[item_in_pop_up.id] = {}
-        state.cartItems[item_in_pop_up.id][tag_id] = 0
-      }
-      let clone = { ...state.cartItems }
-      state.cartItems = clone
-
+      let clone = { ...state.cartItems };
+      state.cartItems = clone;
     },
 
     CLOUSE_POP_UP: (state, obj) => {
-      state.popUpItem = obj
+      state.popUpItem = obj;
     }
   },
 
@@ -426,22 +415,20 @@ export const store = new Vuex.Store({
     },
 
     INCREASE: ({ commit, getters }, itemId) => {
-      commit("INCREASE", itemId)
+      commit("INCREASE", itemId);
     },
     DECREASE: ({ commit, getters }, itemId) => {
-      commit("DECREASE", itemId)
+      commit("DECREASE", itemId);
     },
     INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
-      commit("INCREASE_FROM_POP_UP", tagId)
+      commit("INCREASE_FROM_POP_UP", tagId);
     },
     DECREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
-      commit("DECREASE_FROM_POP_UP", tagId)
+      commit("DECREASE_FROM_POP_UP", tagId);
     },
-
 
     CLOUSE_POP_UP: ({ commit, getters }, obj) => {
-      commit("CLOUSE_POP_UP", obj)
-    },
-
+      commit("CLOUSE_POP_UP", obj);
+    }
   }
 });

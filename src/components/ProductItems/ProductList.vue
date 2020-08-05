@@ -13,9 +13,9 @@
       </div>
     </div>
     <div class="controls">
-      <input v-show="getQuantity()" type="button" value="-"  @click="decrease(itemId)"/>
-      <span v-show="getQuantity()" >{{getQuantity()}}</span>
-      <input type="button" value="+" @click="increase(itemId)"/>
+      <input v-show="getQuantity()" type="button" value="-" @click="decrease(itemId)" />
+      <span v-show="getQuantity()">{{getQuantity()}}</span>
+      <input type="button" value="+" @click="increase(itemId)" />
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
     title: String,
     image: String,
     add: Function,
-    itemId: Number,
+    itemId: String,
     price: Number,
     tags: Object,
     decrease: Function,
@@ -45,20 +45,18 @@ export default {
       }
     },
     getQuantity() {
-      let item_in_cart = this.CartItems[this.itemId]
-      if( typeof item_in_cart === "number"){
-        return item_in_cart
-      }
-      else if(typeof item_in_cart === "object"){
+      let item_in_cart = this.CartItems[parseInt(this.itemId, 10)];
+      if (typeof item_in_cart === "number") {
+        return item_in_cart;
+      } else if (typeof item_in_cart === "object") {
         var sum = 0;
-        for( var el in item_in_cart ) {
-          if( item_in_cart.hasOwnProperty( el ) ) {
-            sum += parseFloat( item_in_cart[el] );
+        for (var el in item_in_cart) {
+          if (item_in_cart.hasOwnProperty(el)) {
+            sum += parseFloat(item_in_cart[el]);
           }
         }
         return sum;
       }
-
     },
     increaseQuantity(itemId) {
       this.currentId = itemId;
@@ -120,7 +118,6 @@ h3 {
   border-radius: 6px;
   font-size: 10px;
 }
-
 
 input {
   height: 30px;
