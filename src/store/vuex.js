@@ -277,6 +277,8 @@ export const store = new Vuex.Store({
     },
     REMOVE_CART_ITEM: (state, itemId) => {
       delete state.cartItems[itemId];
+      const stateClone = { ...state };
+      state = stateClone;
     },
 
     INCREASE_ITEM_QUANTITY: (state, itemId) => {
@@ -426,15 +428,37 @@ export const store = new Vuex.Store({
       commit("DECREASE_FROM_POP_UP", tagId);
     },
 
-    CLEAN_EMPTY_CART_ITEMS: ({ commit, state }) => {
+    CLEAN_EMPTY_CART_ITEMS: ({ commit, state, dispatch }) => {
       const CartItems = state.cartItems;
+      console.log("CartItems", CartItems);
       for (const item in CartItems) {
         if (CartItems.hasOwnProperty(item)) {
+          // берем id товара
+          console.log("Item", item);
+
+          const q = CartItems[item];
+          // создаем два массива. первый массив состоит из значениий количества каждого из тегов.
+          // вытаскиваем все нули из первого массива.
+          // если длины обоих массивов одинаковы, значит все элементы первого равны нулю
+          const firstArr = Object.values(q)
+            .sort()
+            .reverse();
+          const secondArr = firstArr.filter(elem => {
+            if (elem === 0) {
+              return true;
+            }
+          });
+
+          if (firstArr.length == secondArr.length) {
+            dispatch("DELETE_CART_ITEM", item);
+            delete CartItems[item];
+          }
         }
       }
     },
-    CLOUSE_POP_UP: ({ commit, getters }, obj) => {
+    CLOUSE_POP_UP: ({ commit, dispatch }, obj) => {
       commit("CLOUSE_POP_UP", obj);
+      dispatch("CLEAN_EMPTY_CART_ITEMS");
     }
   }
 });
