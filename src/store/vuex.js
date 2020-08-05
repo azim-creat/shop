@@ -6,7 +6,6 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     cartItems: {
-      // 1: 2,
       2: {
         23: 2,
         24: 6
@@ -427,6 +426,13 @@ export const store = new Vuex.Store({
       commit("DECREASE_FROM_POP_UP", tagId);
     },
 
+    CLEAN_EMPTY_CART_ITEMS: ({ commit, state }) => {
+      const CartItems = state.cartItems;
+      for (const item in CartItems) {
+        if (CartItems.hasOwnProperty(item)) {
+        }
+      }
+    },
     CLOUSE_POP_UP: ({ commit, getters }, obj) => {
       commit("CLOUSE_POP_UP", obj);
     }

@@ -94,7 +94,10 @@ export default {
     },
     getSales() {
       const self = this;
-      return;
+      // return
+
+
+
       Request({
         task: "profiles.getRows",
         testik: 1,
@@ -102,36 +105,36 @@ export default {
         key: "mcTnaftuzoHzWJV",
         type_id: 14,
         fields_ids: "[468,863,865,868,111,866,1000012]",
-        filter: [
-          {
-            field: 468,
-            cond: ["FULL"],
-          },
-          {
-            field: 863,
-            cond: ["FULL"],
-          },
-          {
-            field: 865,
-            cond: ["FULL"],
-          },
+        filter: JSON.stringify([
+          // {
+          //   field: 468,
+          //   cond: "[FULL]",
+          // },
+          // {
+          //   field: 863,
+          //   cond: "[FULL]",
+          // },
+          // {
+          //   field: 865,
+          //   cond: "[FULL]",
+          // },
           {
             field: 111,
-            cond: ["FULL"],
+            cond: "[FULL]",
           },
-          {
-            field: 866,
-            cond: ["FULL"],
-          },
-          {
-            field: 1000012,
-            cond: ["FULL"],
-          },
-        ],
+          // {
+          //   field: 866,
+          //   cond: "[FULL]",
+          // },
+          // {
+          //   field: 1000012,
+          //   cond: "[FULL]",
+          // },
+        ]),
 
         // 468 цена
         // 863 группа
-        // 865подгруппа тип
+        // 865 подгруппа тип
         // 868 размер
         // 111
         // 866 цвет
@@ -139,6 +142,7 @@ export default {
       })
         .then((ans) => {
           console.log(ans);
+          
           // let offers_new = {};
 
           // for (var i in ans.data.value) {
