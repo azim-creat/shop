@@ -61,8 +61,7 @@
       </div>
     </div>
 
-    <SizeCheckerPopup :item="POP_UP_ITEM" v-show="Object.entries(POP_UP_ITEM).length"/>
-
+    <SizeCheckerPopup :item="POP_UP_ITEM" v-show="Object.entries(POP_UP_ITEM).length" />
   </div>
 </template>
 
@@ -72,9 +71,9 @@ import Request from "./request/request";
 import Checkout from "@/components/Checkout";
 export default {
   name: "App",
-  components:{
+  components: {
     Checkout,
-    SizeCheckerPopup
+    SizeCheckerPopup,
   },
   data() {
     return {

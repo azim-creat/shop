@@ -4,21 +4,32 @@
     <div class="checkout__inputs">
       <label>
         <span>имя</span>
-        <input id="name" v-model="name" type="text" name="name" :class="{valid: validateName()}" />
+        <input
+          id="name"
+          v-model="contacts.name"
+          type="text"
+          name="name"
+          :class="{valid: validateName()}"
+        />
       </label>
       <label>
         <span>телефон</span>
-        <input type="num" v-model="phone" :class="{valid: validatePhone()}" />
+        <input type="num" v-model="contacts.phone" :class="{valid: validatePhone()}" />
       </label>
       <label>
         <span>адрес доставки</span>
-        <input type="text" v-model="address" :class="{valid: validateAddress()}" />
+        <input type="text" v-model="contacts.address" :class="{valid: validateAddress()}" />
       </label>
       <label>
         <span>способ оплаты</span>
-        <vSelect class="style-chooser" :options="paymentOptions" />
+        <vSelect
+          class="style-chooser"
+          :options="paymentOptions"
+          v-model="contacts.payment"
+          :class="{valid: validatePayment()}"
+        />
       </label>
-      <button class="save_btn" @click="validateName">ОТПРАВИТЬ</button>
+      <button class="save_btn" @click="send">ОТПРАВИТЬ</button>
     </div>
   </div>
 </template>
@@ -32,30 +43,59 @@ export default {
   },
   data() {
     return {
-      name: "",
-      phone: "",
-      address: "",
-      payment: "",
-      paymentOptions: ["наличка", "перевод", "что-то еще"],
+      contacts: {
+        name: "",
+        phone: "",
+        address: "",
+        payment: "",
+      },
+      paymentOptions: ["наличка", "перевод", "карта"],
     };
   },
   methods: {
     validatePhone: function () {
       const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-      return re.test(this.phone);
+      return re.test(this.contacts.phone);
     },
     validateName: function () {
-      if (this.name == "") {
+      if (this.contacts.name == "") {
         return false;
       } else {
         return true;
       }
     },
     validateAddress: function () {
-      if (this.address == "") {
+      if (this.contacts.address == "") {
         return false;
       } else {
         return true;
+      }
+    },
+    validatePayment: function () {
+      if (this.contacts.payment == "") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    send: function () {
+      // если все поля заполнены правильно - в массиве будут только true
+      const isGood = [];
+      isGood.push(this.validatePhone());
+      isGood.push(this.validateName());
+      isGood.push(this.validateAddress());
+      isGood.push(this.validatePayment());
+      // ищем false внутри массива. если не находим - allFilledCorrectly остается undefined
+      const allFilledCorrectly = isGood.find((elem) => {
+        if (elem == false) {
+          return true;
+        }
+      });
+      // если allFilledCorrectly == false - некоторое поле не заполнено правильно
+      if (allFilledCorrectly == undefined) {
+        console.log(this.contacts);
+      } else {
+        alert("Вы неправильно заполнили контактные данные");
       }
     },
   },
@@ -130,6 +170,7 @@ input.valid {
 }
 
 #vs1__listbox.vs__dropdown-menu li {
+  list-style: none;
   margin: 5px 0;
 }
 .vs__search,
@@ -141,5 +182,9 @@ input.valid {
   width: 85%;
   border: solid black 2px;
   font-weight: 600;
+}
+.style-chooser.valid,
+.style-chooser.valid > * {
+  background-color: #bdffbd;
 }
 </style>

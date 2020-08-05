@@ -1,16 +1,16 @@
 <template>
   <div class="Cart">
     <ul>
-      <li v-for="(data,index) in CartItems" :key="index">
+      <li v-for="(data,index) in Object.entries(CartItems)" :key="index">
+        {{data}}
         <ProductList
-          :title="data.productTitle"
-          :image="data.image"
-          :itemId="data.id"
-          :price="data.price"
-          :size="data.size"
-          :quantity="data.quantity"
-          :increase="increaseQuantity"
-          :decrease="decreaseQuantity"
+          :title="getStoreItemsById(data[0]).productTitle"
+          :image="getStoreItemsById(data[0]).image"
+          :itemId="data[0]"
+          :price="getStoreItemsById(data[0]).price"
+          :size="getStoreItemsById(data[0]).size"
+          :increase="function (){increaseItem(data[0])}"
+          :decrease="function (){decreaseItem(data[0])}"
         />
       </li>
     </ul>
@@ -47,14 +47,17 @@ export default {
     removeItem(item) {
       this.$store.dispatch("DELETE_CART_ITEM", item);
     },
-    increaseQuantity(itemId) {
-      this.$store.dispatch("INCREASE_ITEM_QUANTITY", itemId);
+    decreaseItem(id) {
+      this.$store.dispatch("DECREASE", id);
     },
-    decreaseQuantity(itemId) {
-      this.$store.dispatch("DECREASE_ITEM_QUANTITY", itemId);
+    increaseItem(id) {
+      this.$store.dispatch("INCREASE", id);
     },
   },
-  computed: mapGetters(["CartItems", "Total", "TotalPrice"]),
+  computed: {
+    ...mapGetters(["CartItems", "Total", "TotalPrice", "getStoreItemsById"]),
+    // mergedItems: ,
+  },
 };
 </script>
 
