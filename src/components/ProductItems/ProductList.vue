@@ -29,7 +29,7 @@ export default {
     title: String,
     image: String,
     add: Function,
-    itemId: String,
+    itemId: Number,
     price: Number,
     tags: Object,
     decrease: Function,

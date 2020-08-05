@@ -6,7 +6,7 @@
         <ProductList
           :title="getStoreItemsById(data[0]).productTitle"
           :image="getStoreItemsById(data[0]).image"
-          :itemId="data[0]"
+          :itemId="parseInt(data[0], 10) "
           :price="getStoreItemsById(data[0]).price"
           :size="getStoreItemsById(data[0]).size"
           :increase="function (){increaseItem(data[0])}"
