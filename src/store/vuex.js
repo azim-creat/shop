@@ -451,14 +451,13 @@ export const store = new Vuex.Store({
 
           if (firstArr.length == secondArr.length) {
             dispatch("DELETE_CART_ITEM", item);
-            delete CartItems[item];
           }
         }
       }
     },
     CLOUSE_POP_UP: ({ commit, dispatch }, obj) => {
-      commit("CLOUSE_POP_UP", obj);
       dispatch("CLEAN_EMPTY_CART_ITEMS");
+      commit("CLOUSE_POP_UP", obj);
     }
   }
 });
