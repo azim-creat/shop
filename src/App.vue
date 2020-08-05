@@ -1,7 +1,8 @@
 <template>
   <div class="app">
+    <Checkout />
     <div class="main_body">
-      <router-view />
+      <!-- <router-view /> -->
     </div>
     <div class="navbar">
       <div
@@ -70,8 +71,8 @@ import Request from "./request/request";
 import Checkout from "@/components/Checkout";
 export default {
   name: "App",
-  components:{
-    Checkout
+  components: {
+    Checkout,
   },
   data() {
     return {
@@ -92,7 +93,7 @@ export default {
     },
     getSales() {
       const self = this;
-      return
+      return;
       Request({
         task: "profiles.getRows",
         testik: 1,

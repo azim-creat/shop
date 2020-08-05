@@ -130,6 +130,7 @@ input.valid {
 }
 
 #vs1__listbox.vs__dropdown-menu li {
+  list-style: none;
   margin: 5px 0;
 }
 .vs__search,
