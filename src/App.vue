@@ -61,18 +61,21 @@
         </router-link>
       </div>
     </div>
+
+    <SizeCheckerPopup :item="POP_UP_ITEM" v-show="Object.entries(POP_UP_ITEM).length"/>
+
   </div>
 </template>
 
 <script>
 import SizeCheckerPopup from "@/components/SizeCheckerPopup";
 import Request from "./request/request";
-
 import Checkout from "@/components/Checkout";
 export default {
   name: "App",
-  components: {
+  components:{
     Checkout,
+    SizeCheckerPopup
   },
   data() {
     return {
@@ -162,6 +165,9 @@ export default {
   computed: {
     FIRST_COMPUTED_VALUE() {
       return this.$store.state.first_value;
+    },
+    POP_UP_ITEM() {
+      return this.$store.state.popUpItem;
     },
   },
 

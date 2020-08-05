@@ -5,7 +5,13 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    cartItems: {},
+    cartItems: {
+      // 1: 2,
+      2: {
+        23: 2,
+        24: 6
+      },
+    },
     storeItems: {
       1: {
         id: 1,
@@ -15,12 +21,6 @@ export const store = new Vuex.Store({
         size: "",
         price: 14,
         quantity: 0,
-        // sizes: {
-        //   // amount of each size
-        //   23: { size: 23, quantity: 0 },
-        //   24: { size: 24, quantity: 0 },
-        //   25: { size: 25, quantity: 0 }
-        // },
         product_img: [
           require("../assets/images/product3.png"),
           require("../assets/images/product2.png"),
@@ -49,11 +49,11 @@ export const store = new Vuex.Store({
         productCode: 3,
         size: "",
         price: 333,
-        sizes: {
+        tags: {
           // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
         },
         quantity: 0,
         product_img: [
@@ -78,11 +78,11 @@ export const store = new Vuex.Store({
         productCode: 4,
         size: "",
         price: 107,
-        sizes: {
+        tags: {
           // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
         },
         quantity: 0,
         product_img: [
@@ -107,11 +107,127 @@ export const store = new Vuex.Store({
         productCode: 5,
         size: "",
         price: 3562,
-        sizes: {
+        tags: {
           // amount of each size
-          23: { size: 23, quantity: 0 },
-          24: { size: 24, quantity: 0 },
-          25: { size: 25, quantity: 0 }
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
+        },
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product1.png"),
+          require("../assets/images/product3.png")
+        ],
+        description: [
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
+      },
+      5: {
+        id: 1,
+        productTitle: "ABCN",
+        image: require("../assets/images/product1.png"),
+        productCode: 2,
+        size: "",
+        price: 14,
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product2.png")
+        ],
+        description: [
+          "Описание подтягивется из store",
+          "Каждый пункт -- отдельная строка в массиве",
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
+      },
+      6: {
+        id: 2,
+        productTitle: "dgngr",
+        image: require("../assets/images/product2.png"),
+        productCode: 3,
+        size: "",
+        price: 333,
+        tags: {
+          // amount of each size
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
+        },
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product3.png"),
+          require("../assets/images/product1.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product4.png")
+        ],
+        description: [
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
+      },
+      7: {
+        id: 3,
+        productTitle: "shvsrtghbvca",
+        image: require("../assets/images/product3.png"),
+        productCode: 4,
+        size: "",
+        price: 107,
+        tags: {
+          // amount of each size
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
+        },
+        quantity: 0,
+        product_img: [
+          require("../assets/images/product3.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product3.png"),
+          require("../assets/images/product3.png")
+        ],
+        description: [
+          "серьги женские",
+          "цвет металла: красное золото, вставка белое золото",
+          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+          "вес 2,7 гр",
+          "производитель Россия",
+          "проба 585 "
+        ]
+      },
+      8: {
+        id: 4,
+        productTitle: "htresdfgt",
+        image: require("../assets/images/product4.png"),
+        productCode: 5,
+        size: "",
+        price: 3562,
+        tags: {
+          // amount of each size
+          23: { title: 23, quantity: 0 },
+          24: { title: 24, quantity: 0 },
+          25: { title: 25, quantity: 0 }
         },
         quantity: 0,
         product_img: [
@@ -131,6 +247,7 @@ export const store = new Vuex.Store({
       }
     },
     // общее количество товаров в корзине и их цена
+    popUpItem: {},
     total: 0,
     totalPrice: 0
   },
@@ -178,6 +295,87 @@ export const store = new Vuex.Store({
       let clone = { ...state.cartItems };
       clone[id].size = size;
       state.cartItems = clone;
+    },
+
+    INCREASE: (state, id) => {
+      let item = state.storeItems[id]
+      if (item.tags) {
+        state.popUpItem = item
+      }
+
+      else {
+        if (state.cartItems[id]) {
+          ++state.cartItems[id];
+        }
+        else {
+          state.cartItems[id] = 1
+        }
+
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+    },
+
+    DECREASE: (state, id) => {
+      let item = state.storeItems[id]
+      if (item.tags) {
+        state.popUpItem = item
+      }
+
+      else {
+        if (state.cartItems[id]) {
+          --state.cartItems[id];
+        }
+        else {
+          state.cartItems[id] = 0
+        }
+
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+
+    },
+    INCREASE_FROM_POP_UP: (state, tag_id) => {
+      let item_in_pop_up = state.popUpItem
+
+      if(state.cartItems[item_in_pop_up.id]){
+        if (state.cartItems[item_in_pop_up.id][tag_id]) {
+          ++state.cartItems[item_in_pop_up.id][tag_id];
+        }
+        else {
+          state.cartItems[item_in_pop_up.id][tag_id] = 1
+        }
+      }
+      else{
+        state.cartItems[item_in_pop_up.id] = {}
+        state.cartItems[item_in_pop_up.id][tag_id] = 1
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+    },
+
+    DECREASE_FROM_POP_UP: (state, tag_id) => {
+      let item_in_pop_up = state.popUpItem
+
+      if(state.cartItems[item_in_pop_up.id]){
+        if (state.cartItems[item_in_pop_up.id][tag_id]) {
+          --state.cartItems[item_in_pop_up.id][tag_id];
+        }
+        else {
+          state.cartItems[item_in_pop_up.id][tag_id] = 0
+        }
+      }
+      else{
+        state.cartItems[item_in_pop_up.id] = {}
+        state.cartItems[item_in_pop_up.id][tag_id] = 0
+      }
+      let clone = { ...state.cartItems }
+      state.cartItems = clone
+
+    },
+
+    CLOUSE_POP_UP: (state, obj) => {
+      state.popUpItem = obj
     }
   },
 
@@ -226,5 +424,24 @@ export const store = new Vuex.Store({
       }
       commit("SET_SIZE", { size, id });
     },
+
+    INCREASE: ({ commit, getters }, itemId) => {
+      commit("INCREASE", itemId)
+    },
+    DECREASE: ({ commit, getters }, itemId) => {
+      commit("DECREASE", itemId)
+    },
+    INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
+      commit("INCREASE_FROM_POP_UP", tagId)
+    },
+    DECREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
+      commit("DECREASE_FROM_POP_UP", tagId)
+    },
+
+
+    CLOUSE_POP_UP: ({ commit, getters }, obj) => {
+      commit("CLOUSE_POP_UP", obj)
+    },
+
   }
 });

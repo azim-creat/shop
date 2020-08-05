@@ -1,22 +1,19 @@
 <template>
-  <router-link to="/product" class="product-item" :style="`background-image: url(${image})`">
+  <router-link :to="`/product/${itemId}`" class="product-item" :style="`background-image: url(${image})`">
     <div class="overlay">
       <div class="details">
         <div>
           <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
           <span class="price">{{ price|| 'Цена не указана' }} USD</span>
         </div>
-        <div class="sizes">
-          <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
-          <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
-          <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
-          <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
+        <div class="tags">
+          <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
         </div>
       </div>
       <div class="controls">
-        <input type="button" value="-" @click="decrease(itemId)" />
-        <span>{{getQuantity()}}</span>
-        <input type="button" value="+" @click="increase(itemId)" />
+        <input v-show="getQuantity()" type="button" value="-"  @click="decrease(itemId)"/>
+        <span v-show="getQuantity()">{{getQuantity()}}</span>
+        <input type="button" value="+"  @click="increase(itemId)"/>
       </div>
     </div>
   </router-link>
@@ -31,9 +28,10 @@ export default {
     image: String,
     add: Function,
     itemId: Number,
-    increase: Function,
-    decrease: Function,
+    tags: Object,
     price: Number,
+    decrease: Function,
+    increase: Function,
   },
   data() {
     return { id: this.itemId };
@@ -155,5 +153,4 @@ input[value="+"] {
     margin: 0 2px;
   }
 }
-
 </style>

@@ -8,17 +8,14 @@
         <h3>{{ title }}</h3>
         <span class="price">{{price || '1000' }}</span>
       </div>
-      <div class="sizes">
-        <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
-        <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
-        <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
-        <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
+      <div class="tags">
+        <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
       </div>
     </div>
     <div class="controls">
-      <input type="button" value="-" @click="decrease(itemId)" />
-      <span>{{getQuantity()}}</span>
-      <input type="button" value="+" @click="increase(itemId)" />
+      <input v-show="getQuantity()" type="button" value="-"  @click="decrease(itemId)"/>
+      <span v-show="getQuantity()" >{{getQuantity()}}</span>
+      <input type="button" value="+" @click="increase(itemId)"/>
     </div>
   </div>
 </template>
@@ -33,29 +30,35 @@ export default {
     image: String,
     add: Function,
     itemId: Number,
-    increase: Function,
-    decrease: Function,
     price: Number,
+    tags: Object,
+    decrease: Function,
+    increase: Function,
   },
   data() {
     return { id: this.itemId };
   },
   methods: {
-    SET_SIZE(size) {
-      const id = this.id;
-      this.$store.dispatch("SET_SIZE", { id, size });
-    },
     getCurrentSize(sizeToCheck) {
       if (this.CartItems[this.id]) {
         return this.CartItems[this.id].size == sizeToCheck;
       }
     },
     getQuantity() {
-      if (this.CartItems[this.id]) {
-        return this.CartItems[this.id].quantity;
-      } else {
-        return 0;
+      let item_in_cart = this.CartItems[this.itemId]
+      if( typeof item_in_cart === "number"){
+        return item_in_cart
       }
+      else if(typeof item_in_cart === "object"){
+        var sum = 0;
+        for( var el in item_in_cart ) {
+          if( item_in_cart.hasOwnProperty( el ) ) {
+            sum += parseFloat( item_in_cart[el] );
+          }
+        }
+        return sum;
+      }
+
     },
     increaseQuantity(itemId) {
       this.currentId = itemId;
@@ -106,10 +109,10 @@ h3 {
   justify-content: center;
 }
 
-.sizes .size:first-child {
+.tags .tag:first-child {
   margin-left: 0;
 }
-.size {
+.tag {
   display: inline-block;
   border: 1px black solid;
   margin: 0 5px;
@@ -117,11 +120,7 @@ h3 {
   border-radius: 6px;
   font-size: 10px;
 }
-.size.active {
-  background-color: black;
-  color: white;
-  border: 1px black solid;
-}
+
 
 input {
   height: 30px;
@@ -151,7 +150,7 @@ input[value="+"] {
 }
 
 @media (max-width: 320px) {
-  .size {
+  .tag {
     margin: 0 2px;
   }
 }
