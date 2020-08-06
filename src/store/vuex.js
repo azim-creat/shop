@@ -6,13 +6,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    cartItems: {
-      1: 5,
-      2: {
-        23: 2,
-        24: 6
-      }
-    },
+    cartItems: {},
     storeItems: {
       1: {
         id: 1,
@@ -417,7 +411,8 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
-      return
+      debugger
+      // return
       // синхронизируем ключи объекта и profile_id
       const newObj = {};
       // 468 цена
@@ -430,28 +425,34 @@ export const store = new Vuex.Store({
       // full_name - назание
 
       for (const key in arrayFromServer) {
+
         if (arrayFromServer.hasOwnProperty(key)) {
+
           const newId = arrayFromServer[key].profile_id;
+
           const objectFromServer = arrayFromServer[key];
-          newObj[newId] = arrayFromServer[key];
-          newObj[newId] = {};
-          newObj[newId].id = objectFromServer.profile_id;
-          newObj[newId].price = parseInt(objectFromServer.field_468, 10);
-          newObj[newId].productTitle = objectFromServer.full_name;
-          newObj[newId].quantity = 0;
-          newObj[newId].product_img = [
+
+          newObj[key] = {};
+
+          newObj[key].id = objectFromServer.profile_id;
+          newObj[key].price = parseInt(objectFromServer.field_468, 10);
+          newObj[key].productTitle = objectFromServer.full_name || objectFromServer.field_111;
+          newObj[key].image =  require("../assets/images/product3.png")
+          newObj[key].product_img = [
             require("../assets/images/product3.png"),
             require("../assets/images/product1.png"),
             require("../assets/images/product3.png"),
             require("../assets/images/product4.png")
           ];
-          newObj[newId].tags = {
-            // amount of each size
-            23: { title: 23, quantity: 0 },
-            24: { title: 24, quantity: 0 },
-            25: { title: 25, quantity: 0 }
-          };
-          newObj[newId].description = [
+
+          // newObj[key].tags = {
+          //   // amount of each size
+          //   23: { title: 23, quantity: 0 },
+          //   24: { title: 24, quantity: 0 },
+          //   25: { title: 25, quantity: 0 }
+          // };
+
+          newObj[key].description = [
             "серьги женские",
             "цвет металла: красное золото, вставка белое золото",
             "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
@@ -459,10 +460,15 @@ export const store = new Vuex.Store({
             "производитель Россия",
             "проба 585 "
           ];
+
+           if(Object.keys(newObj).length > 100) break
+
         }
+
       }
+      console.log(Object.keys(newObj).length)
       state.storeItems = newObj;
-      console.log("FETCH_FROM_SERVER", newObj);
+      
     }
   },
 
@@ -518,7 +524,6 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: async ({ commit }) => {
-      return
       const resp = await Request({
         task: "profiles.getRows",
         testik: 1,
@@ -541,15 +546,10 @@ export const store = new Vuex.Store({
         // 1000012 проба
         // full_name - назание
       }).then(resp => {
-        const entries = Object.values(resp.data.value);
-        const accumulator = [];
-        for (let index = 0; index <= 10; index++) {
-          accumulator.push(entries[index]);
-        }
-
-        return Object.assign({}, accumulator);
+        const ans = resp.data.value
+        debugger
+        commit("FETCH_FROM_SERVER", ans);
       });
-      commit("FETCH_FROM_SERVER", resp);
     }
   }
 });
