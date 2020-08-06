@@ -33,7 +33,7 @@ export default {
     add: Function,
     itemId: [Number, String],
     tags: Object,
-    price: String,
+    price: Number,
     decrease: Function,
     increase: Function,
   },

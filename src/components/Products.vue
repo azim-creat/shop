@@ -5,17 +5,17 @@
       <div v-for="(data,index) in render_list" :key="index">
         <ProductGrid
           v-if=" view_mode === 'grid'"
-          :title="data.full_name"
+          :title="data.productTitle"
           :image="image"
-          :itemId="data.profile_id"
-          :price="data.field_468"
+          :itemId="data.id"
+          :price="data.price"
         />
         <ProductSingle
           v-else-if="view_mode === 'single'"
-          :itemId="data.profile_id"
-          :title="data.full_name"
+          :itemId="data.id"
+          :title="data.productTitle"
           :image="image"
-          :price="data.field_468"
+          :price="data.price"
           :tags="data.tags"
           :quantity="data.quantity"
           :decrease="decreaseItem"
@@ -23,10 +23,10 @@
         />
         <ProductList
           v-else
-          :title="data.full_name"
+          :title="data.productTitle"
           :image="image"
-          :itemId="data.profile_id"
-          :price="data.field_468"
+          :itemId="data.id"
+          :price="data.price"
           :tags="data.tags"
           :quantity="data.quantity"
           :decrease="decreaseItem"

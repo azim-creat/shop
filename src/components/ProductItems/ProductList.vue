@@ -30,7 +30,7 @@ export default {
     image: String,
     add: Function,
     itemId: [Number, String],
-    price: String,
+    price: Number,
     tags: Object,
     decrease: Function,
     increase: Function,

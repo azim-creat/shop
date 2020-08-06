@@ -342,21 +342,20 @@ export const store = new Vuex.Store({
       let item_in_pop_up = state.popUpItem;
 
       if (state.cartItems[item_in_pop_up.id]) {
-        debugger
+        debugger;
         if (state.cartItems[item_in_pop_up.id][tag_id]) {
           ++state.cartItems[item_in_pop_up.id][tag_id];
         } else {
           state.cartItems[item_in_pop_up.id][tag_id] = 1;
         }
       } else {
-        debugger
+        debugger;
         state.cartItems[item_in_pop_up.id] = {};
         state.cartItems[item_in_pop_up.id][tag_id] = 1;
       }
       let clone = { ...state.cartItems };
       state.cartItems = clone;
     },
-
 
     DECREASE_FROM_POP_UP: (state, tag_id) => {
       let item_in_pop_up = state.popUpItem;
@@ -379,54 +378,85 @@ export const store = new Vuex.Store({
       state.popUpItem = obj;
     },
     CLEAN_EMPTY_CART_ITEMS: (state, object_) => {
-      const cloneCartItems = {}
+      const cloneCartItems = {};
 
-
-      const clean = (obj) => {
+      const clean = obj => {
         let ans = {};
         for (var key in obj) {
           if (obj[key] == "0") {
             delete obj[key];
-          }
-          else {
-            ans[key] = obj[key]
+          } else {
+            ans[key] = obj[key];
           }
         }
         if (Object.keys(ans).length === 0) {
-          return null
+          return null;
+        } else {
+          return ans;
         }
-        else {
-          return ans
-        }
-      }
+      };
 
       for (const key in state.cartItems) {
         if (state.cartItems.hasOwnProperty(key)) {
           const element = state.cartItems[key];
           if (typeof element === "number") {
             if (element > 0) {
-              cloneCartItems[key] = element
+              cloneCartItems[key] = element;
             }
-          }
-          else if (typeof element === "object") {
-            let element_obj = clean(element)
+          } else if (typeof element === "object") {
+            let element_obj = clean(element);
             if (element_obj !== null) {
-              debugger
-              cloneCartItems[key] = element_obj
+              debugger;
+              cloneCartItems[key] = element_obj;
             }
           }
         }
       }
-      state.cartItems = cloneCartItems
+      state.cartItems = cloneCartItems;
     },
 
-    FETCH_FROM_SERVER: (state, data) => {
+    FETCH_FROM_SERVER: (state, arrayFromServer) => {
       // синхронизируем ключи объекта и profile_id
       const newObj = {};
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-          const newId = data[key].profile_id;
-          newObj[newId] = data[key];
+      // 468 цена
+      // 863 группа
+      // 865 подгруппа тип
+      // 868 размер
+      // 111
+      // 866 цвет
+      // 1000012 проба
+      // full_name - назание
+
+      for (const key in arrayFromServer) {
+        if (arrayFromServer.hasOwnProperty(key)) {
+          const newId = arrayFromServer[key].profile_id;
+          const objectFromServer = arrayFromServer[key];
+          newObj[newId] = arrayFromServer[key];
+          newObj[newId] = {};
+          newObj[newId].id = objectFromServer.profile_id;
+          newObj[newId].price = parseInt(objectFromServer.field_468, 10);
+          newObj[newId].productTitle = objectFromServer.full_name;
+          newObj[newId].quantity = 0;
+          newObj[newId].product_img = [
+            require("../assets/images/product3.png"),
+            require("../assets/images/product1.png"),
+            require("../assets/images/product3.png"),
+            require("../assets/images/product4.png")
+          ];
+          newObj[newId].tags = {
+            // amount of each size
+            23: { title: 23, quantity: 0 },
+            24: { title: 24, quantity: 0 },
+            25: { title: 25, quantity: 0 }
+          };
+          newObj[newId].description = [
+            "серьги женские",
+            "цвет металла: красное золото, вставка белое золото",
+            "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
+            "вес 2,7 гр",
+            "производитель Россия",
+            "проба 585 "
+          ];
         }
       }
       state.storeItems = newObj;
@@ -479,7 +509,6 @@ export const store = new Vuex.Store({
     DECREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
       commit("DECREASE_FROM_POP_UP", tagId);
     },
-
 
     CLOUSE_POP_UP: ({ commit, dispatch }, obj) => {
       commit("CLOUSE_POP_UP", obj);

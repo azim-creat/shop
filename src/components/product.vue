@@ -1,7 +1,7 @@
 <template>
   <div class="product">
-    <h1 class="product_title">{{StoreItems[prodID].full_name}}</h1>
-    <h4 class="product_price">{{StoreItems[prodID].field_468 }} $</h4>
+    <h1 class="product_title">{{StoreItems[prodID].productTitle}}</h1>
+    <h4 class="product_price">{{StoreItems[prodID].price }} $</h4>
     <div class="product_img" :style="`background-image: url(${image})`"></div>
     <div class="product_add_images">
       <div
