@@ -2,16 +2,16 @@
   <div class="Cart">
     <ul>
       <li v-for="(data,index) in Object.entries(CartItems)" :key="index">
-        {{data}}
-        <ProductList
-          :title="getStoreItemsById(data[0]).productTitle"
+        {{getStoreItemsById(data[0])}}
+        <!-- <ProductList
+          :title="getStoreItemsById(data[0]).full_name"
           :image="getStoreItemsById(data[0]).image"
           :itemId="parseInt(data[0], 10) "
-          :price="getStoreItemsById(data[0]).price"
+          :price="getStoreItemsById(data[0]).цена"
           :size="getStoreItemsById(data[0]).size"
           :increase="function (){increaseItem(data[0])}"
           :decrease="function (){decreaseItem(data[0])}"
-        />
+        /> -->
       </li>
     </ul>
     <hr color="#DADADA" width="100%" />

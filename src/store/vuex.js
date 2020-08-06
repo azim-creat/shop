@@ -284,6 +284,9 @@ export const store = new Vuex.Store({
 
     INCREASE_ITEM_QUANTITY: (state, itemId) => {
       let clone = { ...state.cartItems };
+      if (!clone[itemId].quantity) {
+        clone[itemId].quantity = 0;
+      }
       clone[itemId].quantity++;
       state.cartItems = clone;
       state.total++;
@@ -494,6 +497,7 @@ export const store = new Vuex.Store({
         // 111
         // 866 цвет
         // 1000012 проба
+        // full_name - назание
       }).then(resp => {
         const entries = Object.values(resp.data.value);
         const accumulator = [];
