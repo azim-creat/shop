@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <div class="main_body">
+      <!-- <Checkout /> -->
       <router-view />
     </div>
     <div class="navbar">
@@ -95,73 +96,6 @@ export default {
     getSales() {
       const self = this;
       // return
-
-
-
-      Request({
-        task: "profiles.getRows",
-        testik: 1,
-        user_id: 674,
-        key: "mcTnaftuzoHzWJV",
-        type_id: 14,
-        fields_ids: "[468,863,865,868,111,866,1000012]",
-        filter: JSON.stringify([
-          // {
-          //   field: 468,
-          //   cond: "[FULL]",
-          // },
-          // {
-          //   field: 863,
-          //   cond: "[FULL]",
-          // },
-          // {
-          //   field: 865,
-          //   cond: "[FULL]",
-          // },
-          {
-            field: 111,
-            cond: "[FULL]",
-          },
-          // {
-          //   field: 866,
-          //   cond: "[FULL]",
-          // },
-          // {
-          //   field: 1000012,
-          //   cond: "[FULL]",
-          // },
-        ]),
-
-        // 468 цена
-        // 863 группа
-        // 865 подгруппа тип
-        // 868 размер
-        // 111
-        // 866 цвет
-        // 1000012 проба
-      })
-        .then((ans) => {
-          console.log(ans);
-          
-          // let offers_new = {};
-
-          // for (var i in ans.data.value) {
-          //   let offer = ans.data.value[i];
-          //   if (offer.field_127) {
-          //     offer.duration = Math.round(Math.random() * 10000000);
-          //     offers_new[i] = offer;
-          //   }
-          // }
-
-          // offers_new = self.recalcDistance(offers_new);
-
-          // self.$store.dispatch("setTo", ["offers", offers_new]);
-
-          // self.getResult(30);
-        })
-        .catch((e) => {
-          console.error(e);
-        });
     },
   },
   computed: {
@@ -180,6 +114,7 @@ export default {
   },
   mounted() {
     this.getSales();
+     this.$store.dispatch("FETCH_FROM_SERVER");
     // console.log('component mounted');
     // //this.showAlert();
     // //this.showAlert2();

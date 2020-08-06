@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Request from "../request/request";
 
 Vue.use(Vuex);
 
@@ -283,6 +284,9 @@ export const store = new Vuex.Store({
 
     INCREASE_ITEM_QUANTITY: (state, itemId) => {
       let clone = { ...state.cartItems };
+      if (!clone[itemId].quantity) {
+        clone[itemId].quantity = 0;
+      }
       clone[itemId].quantity++;
       state.cartItems = clone;
       state.total++;
@@ -416,6 +420,18 @@ export const store = new Vuex.Store({
       state.cartItems = cloneCartItems
     },
 
+    FETCH_FROM_SERVER: (state, data) => {
+      // синхронизируем ключи объекта и profile_id
+      const newObj = {};
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const newId = data[key].profile_id;
+          newObj[newId] = data[key];
+        }
+      }
+      state.storeItems = newObj;
+      console.log("FETCH_FROM_SERVER", newObj);
+    }
   },
 
   actions: {
@@ -468,6 +484,40 @@ export const store = new Vuex.Store({
     CLOUSE_POP_UP: ({ commit, dispatch }, obj) => {
       commit("CLOUSE_POP_UP", obj);
       commit("CLEAN_EMPTY_CART_ITEMS", {});
+    },
+
+    FETCH_FROM_SERVER: async ({ commit }) => {
+      const resp = await Request({
+        task: "profiles.getRows",
+        testik: 1,
+        user_id: 674,
+        key: "mcTnaftuzoHzWJV",
+        type_id: 14,
+        fields_ids: "[468,863,865,868,111,866,1000012]",
+        filter: JSON.stringify([
+          {
+            field: 111,
+            cond: "[FULL]"
+          }
+        ])
+        // 468 цена
+        // 863 группа
+        // 865 подгруппа тип
+        // 868 размер
+        // 111
+        // 866 цвет
+        // 1000012 проба
+        // full_name - назание
+      }).then(resp => {
+        const entries = Object.values(resp.data.value);
+        const accumulator = [];
+        for (let index = 0; index <= 10; index++) {
+          accumulator.push(entries[index]);
+        }
+
+        return Object.assign({}, accumulator);
+      });
+      commit("FETCH_FROM_SERVER", resp);
     }
   }
 });

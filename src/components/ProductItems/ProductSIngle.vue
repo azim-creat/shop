@@ -1,5 +1,9 @@
 <template>
-  <router-link :to="`/product/${itemId}`" class="product-item" :style="`background-image: url(${image})`">
+  <router-link
+    :to="`/product/${itemId}`"
+    class="product-item"
+    :style="`background-image: url(${image})`"
+  >
     <div class="overlay">
       <div class="details">
         <div>
@@ -11,9 +15,9 @@
         </div>
       </div>
       <div class="controls">
-        <input v-show="getQuantity()" type="button" value="-"  @click="decrease(itemId)"/>
+        <input v-show="getQuantity()" type="button" value="-" @click="decrease(itemId)" />
         <span v-show="getQuantity()">{{getQuantity()}}</span>
-        <input type="button" value="+"  @click="increase(itemId)"/>
+        <input type="button" value="+" @click="increase(itemId)" />
       </div>
     </div>
   </router-link>
@@ -27,9 +31,9 @@ export default {
     title: String,
     image: String,
     add: Function,
-    itemId: Number,
+    itemId: [Number, String],
     tags: Object,
-    price: Number,
+    price: String,
     decrease: Function,
     increase: Function,
   },
