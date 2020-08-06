@@ -255,7 +255,8 @@ export const store = new Vuex.Store({
     TotalPrice: state => state.totalPrice,
     getStoreItemsById: state => id => {
       return state.storeItems[id];
-    }
+    },
+    CategoryItems: state => state.categoryItems
   },
 
   mutations: {
@@ -549,7 +550,7 @@ export const store = new Vuex.Store({
           if (value.hasOwnProperty(key)) {
             // создаем id существующих категорий
             const catId = value[key].field_863;
-            categoriesClone[catId] = [];
+            categoriesClone[catId] = catId === null ? "null" : catId;
           }
         }
         const ans = resp.data.value;

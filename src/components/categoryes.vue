@@ -12,12 +12,13 @@
     <div class="category-items">
       <div
         class="category-item"
-        v-for="(item,index) in childs"
+        v-for="(item,index) in CategoryItems"
         :key="index"
         @click="setParent(item,index)"
       >
-        <div class="category-item__img" :style="`background-image: url(.${item.image})`"></div>
+        <div class="category-item__img" :style="`background-image: url(.${image})`"></div>
         <span class="category-item__title">
+          {{'catID ' + item}}
           <h3>{{item.productTitle}}</h3>
           <h5>{{item.count}} товаров</h5>
         </span>
@@ -26,6 +27,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "categoryes",
   data() {
@@ -98,6 +100,7 @@ export default {
           image: require("../assets/images/product3.png"),
         },
       },
+      image: require("../assets/images/product1.png"),
     };
   },
 
@@ -134,6 +137,7 @@ export default {
       }
     },
   },
+  computed: mapGetters(["CategoryItems"]),
   mounted() {
     this.childs = this.products;
     console.log("mounted");
@@ -164,7 +168,6 @@ export default {
   text-align: right;
 }
 
-
 .category-items {
   display: grid;
   gap: 10px;
@@ -182,7 +185,6 @@ export default {
   border-radius: 12px;
   border: 1px white solid;
 }
-
 
 .category-item {
   display: flex;
