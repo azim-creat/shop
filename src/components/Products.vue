@@ -69,9 +69,6 @@ export default {
       this.$store.dispatch("INCREASE", id);
     },
   },
-  mounted() {
-    console.log(this.render_list, 'render_list')
-  },
 };
 </script> 
 

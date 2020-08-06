@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     cartItems: {},
+    categoryItems: {},
     storeItems: {
       1: {
         id: 1,
@@ -411,8 +412,6 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
-      debugger
-      // return
       // синхронизируем ключи объекта и profile_id
       const newObj = {};
       // 468 цена
@@ -425,19 +424,16 @@ export const store = new Vuex.Store({
       // full_name - назание
 
       for (const key in arrayFromServer) {
-
         if (arrayFromServer.hasOwnProperty(key)) {
-
-          const newId = arrayFromServer[key].profile_id;
-
           const objectFromServer = arrayFromServer[key];
-
+          // newObj[key] = arrayFromServer[key];
           newObj[key] = {};
-
+          newObj[key].categoryCode = arrayFromServer[key].field_863;
           newObj[key].id = objectFromServer.profile_id;
           newObj[key].price = parseInt(objectFromServer.field_468, 10);
-          newObj[key].productTitle = objectFromServer.full_name || objectFromServer.field_111;
-          newObj[key].image =  require("../assets/images/product3.png")
+          newObj[key].productTitle =
+            objectFromServer.full_name || objectFromServer.field_111;
+          newObj[key].image = require("../assets/images/product3.png");
           newObj[key].product_img = [
             require("../assets/images/product3.png"),
             require("../assets/images/product1.png"),
@@ -461,14 +457,15 @@ export const store = new Vuex.Store({
             "проба 585 "
           ];
 
-           if(Object.keys(newObj).length > 100) break
-
+          if (Object.keys(newObj).length > 10) break;
         }
-
       }
-      console.log(Object.keys(newObj).length)
+      console.log(newObj, "NEW");
+
       state.storeItems = newObj;
-      
+    },
+    CREATE_CATEGORIES_STORAGE: (state, categories) => {
+      state.categoryItems = categories;
     }
   },
 
@@ -546,8 +543,17 @@ export const store = new Vuex.Store({
         // 1000012 проба
         // full_name - назание
       }).then(resp => {
-        const ans = resp.data.value
-        debugger
+        const value = resp.data.value;
+        let categoriesClone = {};
+        for (const key in value) {
+          if (value.hasOwnProperty(key)) {
+            // создаем id существующих категорий
+            const catId = value[key].field_863;
+            categoriesClone[catId] = [];
+          }
+        }
+        const ans = resp.data.value;
+        commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
         commit("FETCH_FROM_SERVER", ans);
       });
     }
