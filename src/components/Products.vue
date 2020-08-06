@@ -5,17 +5,17 @@
       <div v-for="(data,index) in render_list" :key="index">
         <ProductGrid
           v-if=" view_mode === 'grid'"
-          :title="data.productTitle"
-          :image="data.image"
-          :itemId="data.id"
-          :price="data.price"
+          :title="data.full_name"
+          :image="image"
+          :itemId="data.profile_id"
+          :price="data.field_468"
         />
         <ProductSingle
           v-else-if="view_mode === 'single'"
-          :itemId="data.id"
-          :title="data.productTitle"
-          :image="data.image"
-          :price="data.price"
+          :itemId="data.profile_id"
+          :title="data.full_name"
+          :image="image"
+          :price="data.field_468"
           :tags="data.tags"
           :quantity="data.quantity"
           :decrease="decreaseItem"
@@ -23,10 +23,10 @@
         />
         <ProductList
           v-else
-          :title="data.productTitle"
-          :image="data.image"
-          :itemId="data.id"
-          :price="data.price"
+          :title="data.full_name"
+          :image="image"
+          :itemId="data.profile_id"
+          :price="data.field_468"
           :tags="data.tags"
           :quantity="data.quantity"
           :decrease="decreaseItem"
@@ -55,19 +55,20 @@ export default {
   data() {
     return {
       view_mode: "grid",
+      image: require("../assets/images/product1.png"),
     };
   },
-   methods: {
+  methods: {
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;
     },
-    decreaseItem(id){
-      this.$store.dispatch("DECREASE", id)
+    decreaseItem(id) {
+      this.$store.dispatch("DECREASE", id);
     },
-    increaseItem(id){
-      this.$store.dispatch("INCREASE", id)
-    }
-  }
+    increaseItem(id) {
+      this.$store.dispatch("INCREASE", id);
+    },
+  },
 };
 </script> 
 
@@ -117,11 +118,10 @@ export default {
   /* grid-auto-columns: 1fr; */
   grid-template-columns: repeat(auto-fill, minmax(60vh, 1fr));
   grid-auto-rows: 1fr;
-
 }
 
 .single::before {
-  content: '';
+  content: "";
   width: 0;
   padding-bottom: 100%;
   grid-row: 1 / 1;
@@ -136,7 +136,7 @@ export default {
 /* Just to make the grid visible */
 
 .single > * {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   border: 1px white solid;
 }
@@ -146,8 +146,6 @@ export default {
   }
 }
 
-
-
 /* режим вида - по одному */
 .list {
   display: grid;
@@ -155,7 +153,6 @@ export default {
   /* grid-auto-columns: 1fr; */
   grid-template-columns: repeat(auto-fill, minmax(60vh, 1fr));
   grid-auto-rows: 1fr;
-
 }
 
 @media (max-width: 500px) {
@@ -163,7 +160,6 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(60vw, 1fr));
   }
 }
-
 
 .list > *:first-child {
   grid-row: 1 / 1;

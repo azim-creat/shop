@@ -1,12 +1,12 @@
 <template>
   <div class="product">
-    <h1 class="product_title">{{StoreItems[prodID].productTitle}}</h1>
-    <h4 class="product_price">{{StoreItems[prodID].price}} $</h4>
-    <div class="product_img" :style="`background-image: url(${StoreItems[prodID].image})`"></div>
+    <h1 class="product_title">{{StoreItems[prodID].full_name}}</h1>
+    <h4 class="product_price">{{StoreItems[prodID].field_468 }} $</h4>
+    <div class="product_img" :style="`background-image: url(${image})`"></div>
     <div class="product_add_images">
       <div
         class="product_add_img"
-        v-for="(product_img, index) in StoreItems[prodID].product_img"
+        v-for="(product_img, index) in product_img"
         :key="index"
         :style="`background-image: url(.${product_img})`"
       ></div>
@@ -39,6 +39,17 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      image: require("../assets/images/product1.png"),
+      product_img: [
+        require("../assets/images/product2.png"),
+        require("../assets/images/product3.png"),
+        require("../assets/images/product1.png"),
+        require("../assets/images/product3.png"),
+      ],
+    };
+  },
   methods: {
     setParent(item, index) {
       this.parent = item;
