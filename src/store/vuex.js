@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     cartItems: {
+      1: 5,
       2: {
         23: 2,
         24: 6
@@ -416,6 +417,7 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
+      return
       // синхронизируем ключи объекта и profile_id
       const newObj = {};
       // 468 цена
@@ -516,6 +518,7 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: async ({ commit }) => {
+      return
       const resp = await Request({
         task: "profiles.getRows",
         testik: 1,

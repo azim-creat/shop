@@ -1,19 +1,9 @@
 <template>
   <div class="Cart">
     <ul>
-      <li v-for="(data, index) in Object.entries(CartItems)" :key="index">
-        {{data}}
-        {{getStoreItemsById(data[0])}}
-        <!-- <ProductList
-          :title="getStoreItemsById(data[0]).productTitle"
-          :image="getStoreItemsById(data[0]).image"
-          :itemId="parseInt(data[0], 10) "
-          :price="getStoreItemsById(data[0]).price"
-          :size="getStoreItemsById(data[0]).size"
-          :increase="function (){increaseItem(data[0])}"
-          :decrease="function (){decreaseItem(data[0])}"
-        />-->
-      </li>
+        <Products
+          :render_list="renderCartsItemList"
+        />
     </ul>
     <hr color="#DADADA" width="100%" />
     <div class="CartControls">
@@ -34,14 +24,20 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Products from "./Products";
+
 import ProductList from "@/components/ProductItems/ProductList";
 
 export default {
   name: "Basket",
   components: {
-    ProductList,
+    Products,
   },
+ 
   methods: {
+    getItemFromOriginList(item_id){
+
+    },
     addItem(item) {
       this.$store.dispatch("ADD_CART_ITEM", item);
     },
@@ -56,8 +52,21 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["CartItems", "Total", "TotalPrice", "getStoreItemsById"]),
+    ...mapGetters(["CartItems", "Total", "TotalPrice", "StoreItems", "getStoreItemsById"]),
     // mergedItems: ,
+    renderCartsItemList(){
+      let ans = {}
+      for (const key in this.CartItems) {
+        if (this.CartItems.hasOwnProperty(key)) {
+          const element = this.StoreItems[key];
+          ans[key] = element
+          
+        }
+      }
+
+      return ans
+      
+    }
   },
 };
 </script>

@@ -43,9 +43,6 @@ export default {
   },
   computed: {
     ...mapGetters(["StoreItems"]),
-    currentProd: function () {
-      return this.StoreItems[this.currentId];
-    },
   },
 };
 </script>
