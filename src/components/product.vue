@@ -1,19 +1,19 @@
 <template>
   <div class="product">
-    <h1 class="product_title">{{StoreItems[prodID].productTitle}}</h1>
-    <h4 class="product_price">{{StoreItems[prodID].price }} $</h4>
-    <div class="product_img" :style="`background-image: url(${StoreItems[prodID].image})`"></div>
+    <h1 class="product_title">{{ITEM.productTitle}}</h1>
+    <h4 class="product_price">{{ITEM.price }} $</h4>
+    <div class="product_img" :style="`background-image: url(${ITEM.image})`"></div>
     <div class="product_add_images">
       <div
         class="product_add_img"
-        v-for="(product_img, index) in StoreItems[prodID].product_img"
+        v-for="(product_img, index) in ITEM.product_img"
         :key="index"
         :style="`background-image: url(.${product_img})`"
       ></div>
     </div>
     <div class="product_choose">
       <div class="product_choose_size">
-        <div class="sizes" v-show="StoreItems[prodID].tags">
+        <div class="sizes" v-show="ITEM.tags">
           <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
           <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
           <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
@@ -29,7 +29,7 @@
     <div class="product_description">
       <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
       <ul>
-        <li v-for="(descrip, index) in StoreItems[prodID].description" :key="index">
+        <li v-for="(descrip, index) in ITEM.description" :key="index">
           <span>{{descrip}}</span>
         </li>
       </ul>
@@ -55,17 +55,24 @@ export default {
       }
     },
     getQuantity() {
-      if (this.CartItems[this.prodID]) {
-        return this.CartItems[this.prodID].quantity;
-      } else {
-        return 0;
+      let item_in_cart = this.CartItems[this.ITEM.id];
+      if (typeof item_in_cart === "number") {
+        return item_in_cart;
+      } else if (typeof item_in_cart === "object") {
+        var sum = 0;
+        for (var el in item_in_cart) {
+          if (item_in_cart.hasOwnProperty(el)) {
+            sum += parseFloat(item_in_cart[el]);
+          }
+        }
+        return sum;
       }
     },
     increase(itemId) {
-      this.$store.dispatch("INCREASE_ITEM_QUANTITY", itemId);
+      this.$store.dispatch("INCREASE", itemId);
     },
     decrease(itemId) {
-      this.$store.dispatch("DECREASE_ITEM_QUANTITY", itemId);
+      this.$store.dispatch("DECREASE", itemId);
     },
   },
   mounted() {},
@@ -73,6 +80,9 @@ export default {
     ...mapGetters(["CartItems", "StoreItems"]),
     prodID() {
       return this.$route.params.id;
+    },
+    ITEM() {
+      return this.$store.state.storeItems[this.prodID];
     },
   },
 };

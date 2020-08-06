@@ -39,11 +39,6 @@ export default {
     return { id: this.itemId };
   },
   methods: {
-    getCurrentSize(sizeToCheck) {
-      if (this.CartItems[this.id]) {
-        return this.CartItems[this.id].size == sizeToCheck;
-      }
-    },
     getQuantity() {
       let item_in_cart = this.CartItems[parseInt(this.itemId, 10)];
       if (typeof item_in_cart === "number") {
