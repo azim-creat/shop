@@ -129,7 +129,7 @@ export const store = new Vuex.Store({
         ]
       },
       5: {
-        id: 1,
+        id: 5,
         productTitle: "ABCN",
         image: require("../assets/images/product1.png"),
         productCode: 2,
@@ -158,7 +158,7 @@ export const store = new Vuex.Store({
         ]
       },
       6: {
-        id: 2,
+        id: 6,
         productTitle: "dgngr",
         image: require("../assets/images/product2.png"),
         productCode: 3,
@@ -187,7 +187,7 @@ export const store = new Vuex.Store({
         ]
       },
       7: {
-        id: 3,
+        id: 7,
         productTitle: "shvsrtghbvca",
         image: require("../assets/images/product3.png"),
         productCode: 4,
@@ -216,7 +216,7 @@ export const store = new Vuex.Store({
         ]
       },
       8: {
-        id: 4,
+        id: 8,
         productTitle: "htresdfgt",
         image: require("../assets/images/product4.png"),
         productCode: 5,
@@ -327,6 +327,10 @@ export const store = new Vuex.Store({
           state.cartItems[id] = 0;
         }
       }
+      if (state.cartItems[id] == 0) {
+        delete state.cartItems[id];
+      }
+
       let clone = { ...state.cartItems };
       state.cartItems = clone;
     },
@@ -334,18 +338,21 @@ export const store = new Vuex.Store({
       let item_in_pop_up = state.popUpItem;
 
       if (state.cartItems[item_in_pop_up.id]) {
+        debugger
         if (state.cartItems[item_in_pop_up.id][tag_id]) {
           ++state.cartItems[item_in_pop_up.id][tag_id];
         } else {
           state.cartItems[item_in_pop_up.id][tag_id] = 1;
         }
       } else {
+        debugger
         state.cartItems[item_in_pop_up.id] = {};
         state.cartItems[item_in_pop_up.id][tag_id] = 1;
       }
       let clone = { ...state.cartItems };
       state.cartItems = clone;
     },
+
 
     DECREASE_FROM_POP_UP: (state, tag_id) => {
       let item_in_pop_up = state.popUpItem;
@@ -366,7 +373,49 @@ export const store = new Vuex.Store({
 
     CLOUSE_POP_UP: (state, obj) => {
       state.popUpItem = obj;
-    }
+    },
+    CLEAN_EMPTY_CART_ITEMS: (state, object_) => {
+      const cloneCartItems = {}
+
+
+      const clean = (obj) => {
+        let ans = {};
+        for (var key in obj) {
+          if (obj[key] == "0") {
+            delete obj[key];
+          }
+          else {
+            ans[key] = obj[key]
+          }
+        }
+        if (Object.keys(ans).length === 0) {
+          return null
+        }
+        else {
+          return ans
+        }
+      }
+
+      for (const key in state.cartItems) {
+        if (state.cartItems.hasOwnProperty(key)) {
+          const element = state.cartItems[key];
+          if (typeof element === "number") {
+            if (element > 0) {
+              cloneCartItems[key] = element
+            }
+          }
+          else if (typeof element === "object") {
+            let element_obj = clean(element)
+            if (element_obj !== null) {
+              debugger
+              cloneCartItems[key] = element_obj
+            }
+          }
+        }
+      }
+      state.cartItems = cloneCartItems
+    },
+
   },
 
   actions: {
@@ -377,19 +426,6 @@ export const store = new Vuex.Store({
       context.commit("REMOVE_CART_ITEM", payload);
     },
 
-    ADD_TO_CART_FROM_POPUP: ({ commit }, payload) => {
-      let items = Object.values(payload.sizes);
-      let accum = 0;
-      items.forEach(item => {
-        accum += item.quantity;
-      });
-      payload.quantity = accum;
-      if (payload.quantity == 0) {
-        commit("REMOVE_CART_ITEM", payload.id);
-        return;
-      }
-      commit("ADD_TO_CART_FROM_POPUP_mut", payload);
-    },
     INCREASE_ITEM_QUANTITY: ({ commit, getters }, itemId) => {
       // добавляем новый товар при отсутствии его в корзине
       if (!getters.CartItems[itemId]) {
@@ -428,36 +464,10 @@ export const store = new Vuex.Store({
       commit("DECREASE_FROM_POP_UP", tagId);
     },
 
-    CLEAN_EMPTY_CART_ITEMS: ({ commit, state, dispatch }) => {
-      const CartItems = state.cartItems;
-      console.log("CartItems", CartItems);
-      for (const item in CartItems) {
-        if (CartItems.hasOwnProperty(item)) {
-          // берем id товара
-          console.log("Item", item);
 
-          const q = CartItems[item];
-          // создаем два массива. первый массив состоит из значениий количества каждого из тегов.
-          // вытаскиваем все нули из первого массива.
-          // если длины обоих массивов одинаковы, значит все элементы первого равны нулю
-          const firstArr = Object.values(q)
-            .sort()
-            .reverse();
-          const secondArr = firstArr.filter(elem => {
-            if (elem === 0) {
-              return true;
-            }
-          });
-
-          if (firstArr.length == secondArr.length) {
-            dispatch("DELETE_CART_ITEM", item);
-          }
-        }
-      }
-    },
     CLOUSE_POP_UP: ({ commit, dispatch }, obj) => {
-      dispatch("CLEAN_EMPTY_CART_ITEMS");
       commit("CLOUSE_POP_UP", obj);
+      commit("CLEAN_EMPTY_CART_ITEMS", {});
     }
   }
 });
