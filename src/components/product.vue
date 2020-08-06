@@ -13,7 +13,7 @@
     </div>
     <div class="product_choose">
       <div class="product_choose_size">
-        <div class="sizes">
+        <div class="sizes" v-show="StoreItems[prodID].tags">
           <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
           <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
           <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
@@ -121,8 +121,11 @@ export default {
 }
 .product_choose_size {
   margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "sizes controls";
+  align-items: center;
+  width: 100%;
 }
 .product_choose_size__items {
   width: auto;
@@ -159,6 +162,9 @@ export default {
 .product_description span {
   color: black;
 }
+.sizes {
+  grid-area: sizes;
+}
 .size {
   display: inline-block;
   border: 1px black solid;
@@ -185,6 +191,10 @@ input[value="-"] {
 input[value="+"] {
   background: linear-gradient(246.58deg, #ff0099 -162.71%, #ff4d00 163.83%);
   color: white;
+}
+.controls {
+  grid-area: controls;
+  justify-self: flex-end;
 }
 .controls > * {
   margin: 0 3px;
