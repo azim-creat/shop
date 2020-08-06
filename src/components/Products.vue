@@ -6,7 +6,7 @@
         <ProductGrid
           v-if=" view_mode === 'grid'"
           :title="data.productTitle"
-          :image="image"
+          :image="data.image"
           :itemId="data.id"
           :price="data.price"
         />
@@ -14,7 +14,7 @@
           v-else-if="view_mode === 'single'"
           :itemId="data.id"
           :title="data.productTitle"
-          :image="image"
+          :image="data.image"
           :price="data.price"
           :tags="data.tags"
           :quantity="data.quantity"
@@ -24,7 +24,7 @@
         <ProductList
           v-else
           :title="data.productTitle"
-          :image="image"
+          :image="data.image"
           :itemId="data.id"
           :price="data.price"
           :tags="data.tags"
@@ -55,7 +55,6 @@ export default {
   data() {
     return {
       view_mode: "list",
-      image: require("../assets/images/product1.png"),
     };
   },
   methods: {
