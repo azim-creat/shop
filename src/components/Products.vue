@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      view_mode: "grid",
+      view_mode: "list",
       image: require("../assets/images/product1.png"),
     };
   },
