@@ -10,8 +10,7 @@
       placeholder="Поиск товаров"
       size="40px"
     />
-    <Products :render_list="render_search_list"/>
-
+    <Products :render_list="render_search_list" />
   </div>
 </template>
 <script>
@@ -25,7 +24,7 @@ export default {
   data() {
     return {
       title: "Поиск",
-      render_search_list: {}
+      render_search_list: {},
     };
   },
 
@@ -62,7 +61,7 @@ export default {
         return results;
       }
 
-      this.render_search_list = searchFor(s)
+      this.render_search_list = searchFor(s);
     },
   },
 };
@@ -71,6 +70,10 @@ export default {
 
 <style scoped>
 .search {
+}
+
+input {
+  border: 2px solid black;
 }
 
 .search__tag {
