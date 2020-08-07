@@ -1,11 +1,6 @@
 <template>
   <div class="Cart">
-    <ul>
-        <Products
-          :render_list="renderCartsItemList"
-        />
-    </ul>
-    <hr color="#DADADA" width="100%" />
+    <Products :render_list="renderCartsItemList" />
     <div class="CartControls">
       <div class="CartFlexContainer">
         <div>
@@ -33,11 +28,9 @@ export default {
   components: {
     Products,
   },
- 
-  methods: {
-    getItemFromOriginList(item_id){
 
-    },
+  methods: {
+    getItemFromOriginList(item_id) {},
     addItem(item) {
       this.$store.dispatch("ADD_CART_ITEM", item);
     },
@@ -52,21 +45,25 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["CartItems", "Total", "TotalPrice", "StoreItems", "getStoreItemsById"]),
+    ...mapGetters([
+      "CartItems",
+      "Total",
+      "TotalPrice",
+      "StoreItems",
+      "getStoreItemsById",
+    ]),
     // mergedItems: ,
-    renderCartsItemList(){
-      let ans = {}
+    renderCartsItemList() {
+      let ans = {};
       for (const key in this.CartItems) {
         if (this.CartItems.hasOwnProperty(key)) {
           const element = this.StoreItems[key];
-          ans[key] = element
-          
+          ans[key] = element;
         }
       }
 
-      return ans
-      
-    }
+      return ans;
+    },
   },
 };
 </script>
@@ -77,6 +74,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-height: 100%;
+  overflow: hidden;
+}
+.Cart > div:first-child{
+  flex: 0;
+  overflow: scroll;
 }
 .CartControls {
   padding: 20px;

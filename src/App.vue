@@ -114,7 +114,7 @@ export default {
   },
   mounted() {
     this.getSales();
-     this.$store.dispatch("FETCH_FROM_SERVER");
+    this.$store.dispatch("FETCH_FROM_SERVER");
     // console.log('component mounted');
     // //this.showAlert();
     // //this.showAlert2();
@@ -265,5 +265,25 @@ body {
 router-link {
   display: flex;
   flex-direction: column;
+}
+
+@media only screen and (min-width: 600px) {
+  .app {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .main_body {
+    padding-bottom: 20px;
+    padding-top: 70px;
+  }
+  .navbar {
+    bottom: unset;
+    top: 0;
+    border-top: 0;
+    border-bottom: 2px solid #b3b3b3;
+  }
+  .nav-item-basket {
+    order: 5;
+  }
 }
 </style>
