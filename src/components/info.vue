@@ -24,7 +24,6 @@
           <i class="fa fa-whatsapp" style="color:white"></i>
         </a>
       </div>
-      <button @click="goToCheckOrder">ПРОВЕРИТЬ ЗАКАЗ</button>
       <div>
         <a
           class="info_container__addrBtn noSelect"
@@ -33,6 +32,7 @@
           <i class="fa fa-map-marker" style="color:black;margin-right:10px"></i>
           <span>{{company_info.company_address}}</span>
         </a>
+        <button class="info_container__addrBtn noSelect" @click="goToCheckOrder">ПРОВЕРИТЬ ЗАКАЗ</button>
       </div>
     </div>
 
