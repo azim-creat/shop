@@ -205,11 +205,7 @@ export default {
   background-position: center;
 }
 
-.name_category {
-  margin-top: 70px;
-  margin-left: 20px;
-  font-family: "Comfortaa", cursive;
-}
+
 .category-item__title {
   display: flex;
   flex: 1;

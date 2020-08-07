@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>{{title}}</h1>
+    <h1 class="name_category">{{title}}</h1>
+
     <Products :render_list="StoreItems"/>
     
   </div>

@@ -162,6 +162,11 @@ body {
   overflow: hidden;
   box-sizing: border-box;
 }
+.name_category {
+  margin-top: 25px;
+  font-family: "Comfortaa", cursive;
+}
+
 .noSelect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

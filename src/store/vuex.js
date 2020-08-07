@@ -16,257 +16,8 @@ export const store = new Vuex.Store({
       //   image: require("../assets/images/product1.png"),
       //   childs: false
       // },
-      // "01_2": {
-      //   id: 10002,
-      //   productTitle: "Категория 2",
-      //   count: 562,
-      //   parent_id: false,
-      //   image: require("../assets/images/product2.png"),
-      //   childs: false
-      // },
-      // "01_3": {
-      //   id: 10003,
-      //   productTitle: "Категория 3",
-      //   count: 896,
-      //   parent_id: false,
-      //   image: require("../assets/images/product3.png"),
-      //   childs: false
-      // }
     },
-    storeItems: {
-      1: {
-        id: 1,
-        productTitle: "ABCN",
-        image: require("../assets/images/product1.png"),
-        productCode: 2,
-        size: "",
-        price: 14,
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png")
-        ],
-        description: [
-          "Описание подтягивется из store",
-          "Каждый пункт -- отдельная строка в массиве",
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      2: {
-        id: 2,
-        productTitle: "dgngr",
-        image: require("../assets/images/product2.png"),
-        productCode: 3,
-        size: "",
-        price: 333,
-        tags: {
-          // amount of each size
-          23: { title: 23, quantity: 0 },
-          24: { title: 24, quantity: 0 },
-          25: { title: 25, quantity: 0 }
-        },
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product3.png"),
-          require("../assets/images/product1.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product4.png")
-        ],
-        description: [
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      3: {
-        id: 3,
-        productTitle: "shvsrtghbvca",
-        image: require("../assets/images/product3.png"),
-        productCode: 4,
-        size: "",
-        price: 107,
-        tags: {
-          // amount of each size
-          23: { title: 23, quantity: 0 },
-          24: { title: 24, quantity: 0 },
-          25: { title: 25, quantity: 0 }
-        },
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product3.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product3.png")
-        ],
-        description: [
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      4: {
-        id: 4,
-        productTitle: "htresdfgt",
-        image: require("../assets/images/product4.png"),
-        productCode: 5,
-        size: "",
-        price: 3562,
-        tags: {
-          // amount of each size
-          23: { title: 23, quantity: 0 },
-          24: { title: 24, quantity: 0 },
-          25: { title: 25, quantity: 0 }
-        },
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product1.png"),
-          require("../assets/images/product3.png")
-        ],
-        description: [
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      5: {
-        id: 5,
-        productTitle: "ABCN",
-        image: require("../assets/images/product1.png"),
-        productCode: 2,
-        size: "",
-        price: 14,
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product2.png")
-        ],
-        description: [
-          "Описание подтягивется из store",
-          "Каждый пункт -- отдельная строка в массиве",
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      6: {
-        id: 6,
-        productTitle: "dgngr",
-        image: require("../assets/images/product2.png"),
-        productCode: 3,
-        size: "",
-        price: 333,
-        tags: {
-          // amount of each size
-          23: { title: 23, quantity: 0 },
-          24: { title: 24, quantity: 0 },
-          25: { title: 25, quantity: 0 }
-        },
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product3.png"),
-          require("../assets/images/product1.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product4.png")
-        ],
-        description: [
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      7: {
-        id: 7,
-        productTitle: "shvsrtghbvca",
-        image: require("../assets/images/product3.png"),
-        productCode: 4,
-        size: "",
-        price: 107,
-        tags: {
-          // amount of each size
-          23: { title: 23, quantity: 0 },
-          24: { title: 24, quantity: 0 },
-          25: { title: 25, quantity: 0 }
-        },
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product3.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product3.png")
-        ],
-        description: [
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      },
-      8: {
-        id: 8,
-        productTitle: "htresdfgt",
-        image: require("../assets/images/product4.png"),
-        productCode: 5,
-        size: "",
-        price: 3562,
-        tags: {
-          // amount of each size
-          23: { title: 23, quantity: 0 },
-          24: { title: 24, quantity: 0 },
-          25: { title: 25, quantity: 0 }
-        },
-        quantity: 0,
-        product_img: [
-          require("../assets/images/product2.png"),
-          require("../assets/images/product3.png"),
-          require("../assets/images/product1.png"),
-          require("../assets/images/product3.png")
-        ],
-        description: [
-          "серьги женские",
-          "цвет металла: красное золото, вставка белое золото",
-          "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-          "вес 2,7 гр",
-          "производитель Россия",
-          "проба 585 "
-        ]
-      }
-    },
+    storeItems: {},
     // общее количество товаров в корзине и их цена
     popUpItem: {},
     total: 0,
@@ -364,14 +115,12 @@ export const store = new Vuex.Store({
       let item_in_pop_up = state.popUpItem;
 
       if (state.cartItems[item_in_pop_up.id]) {
-        debugger;
         if (state.cartItems[item_in_pop_up.id][tag_id]) {
           ++state.cartItems[item_in_pop_up.id][tag_id];
         } else {
           state.cartItems[item_in_pop_up.id][tag_id] = 1;
         }
       } else {
-        debugger;
         state.cartItems[item_in_pop_up.id] = {};
         state.cartItems[item_in_pop_up.id][tag_id] = 1;
       }
@@ -428,7 +177,6 @@ export const store = new Vuex.Store({
           } else if (typeof element === "object") {
             let element_obj = clean(element);
             if (element_obj !== null) {
-              debugger;
               cloneCartItems[key] = element_obj;
             }
           }
@@ -483,7 +231,7 @@ export const store = new Vuex.Store({
             "проба 585 "
           ];
 
-          if (Object.keys(newObj).length > 10) break;
+          if (Object.keys(newObj).length > 100) break;
         }
       }
       console.log(newObj, "NEW");
