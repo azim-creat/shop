@@ -18,8 +18,7 @@
       >
         <div class="category-item__img" :style="`background-image: url(.${image})`"></div>
         <span class="category-item__title">
-          {{'catID ' + item}}
-          <h3>{{item.productTitle}}</h3>
+          <h3>{{item.productTitle + 'catID ' + item.id}}</h3>
           <h5>{{item.count}} товаров</h5>
         </span>
       </div>

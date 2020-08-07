@@ -1,9 +1,7 @@
 <template>
   <div class="Cart">
     <ul>
-        <Products
-          :render_list="renderCartsItemList"
-        />
+      <Products :render_list="renderCartsItemList" />
     </ul>
     <hr color="#DADADA" width="100%" />
     <div class="CartControls">
@@ -17,7 +15,7 @@
           <span>{{TotalPrice}}</span>
         </div>
       </div>
-      <button>Заказать</button>
+      <button @click="goToCheckout()">Заказать</button>
     </div>
   </div>
 </template>
@@ -33,10 +31,22 @@ export default {
   components: {
     Products,
   },
- 
-  methods: {
-    getItemFromOriginList(item_id){
 
+  methods: {
+    goToCheckout() {
+      let ans = {};
+      for (const key in this.CartItems) {
+        if (this.CartItems.hasOwnProperty(key)) {
+          const element = this.StoreItems[key];
+          ans[key] = element;
+        }
+      }
+      if (Object.keys(ans).length == 0) {
+        alert("Ваша корзина пуста");
+        return;
+      } else {
+        this.$router.push("checkout");
+      }
     },
     addItem(item) {
       this.$store.dispatch("ADD_CART_ITEM", item);
@@ -52,21 +62,25 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["CartItems", "Total", "TotalPrice", "StoreItems", "getStoreItemsById"]),
+    ...mapGetters([
+      "CartItems",
+      "Total",
+      "TotalPrice",
+      "StoreItems",
+      "getStoreItemsById",
+    ]),
     // mergedItems: ,
-    renderCartsItemList(){
-      let ans = {}
+    renderCartsItemList() {
+      let ans = {};
       for (const key in this.CartItems) {
         if (this.CartItems.hasOwnProperty(key)) {
           const element = this.StoreItems[key];
-          ans[key] = element
-          
+          ans[key] = element;
         }
       }
 
-      return ans
-      
-    }
+      return ans;
+    },
   },
 };
 </script>
