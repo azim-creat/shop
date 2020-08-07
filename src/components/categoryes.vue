@@ -41,7 +41,7 @@ export default {
       childs: {},
       renderElements: {},
       path: [],
-      image: require("../assets/images/product1.png"),
+      image: require("../assets/images/product1.jpg"),
     };
   },
 

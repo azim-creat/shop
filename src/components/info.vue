@@ -83,32 +83,32 @@ export default {
       products: [
         {
           productTitle: "ABCN",
-          image: require("../assets/images/product1.png"),
+          image: require("../assets/images/product1.jpg"),
           productId: 1,
         },
         {
           productTitle: "KARMA",
-          image: require("../assets/images/product2.png"),
+          image: require("../assets/images/product2.jpg"),
           productId: 2,
         },
         {
           productTitle: "Tino",
-          image: require("../assets/images/product3.png"),
+          image: require("../assets/images/product3.jpg"),
           productId: 3,
         },
         {
           productTitle: "EFG",
-          image: require("../assets/images/product4.png"),
+          image: require("../assets/images/product4.jpg"),
           productId: 4,
         },
         {
           productTitle: "MLI",
-          image: require("../assets/images/product5.png"),
+          image: require("../assets/images/product5.jpg"),
           productId: 5,
         },
         {
           productTitle: "Banans",
-          image: require("../assets/images/product6.png"),
+          image: require("../assets/images/product6.jpg"),
           productId: 6,
         },
       ],

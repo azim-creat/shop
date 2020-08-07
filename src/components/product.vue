@@ -6,14 +6,15 @@
     </div>
 
     <div class="product_images">
-      <div class="product_img" :style="`background-image: url(${ITEM.image})`"></div>
+      <div class="product_img" :style="`background-image: url(${main_img})`"></div>
       <div class="product_add_images">
-        <div
+        <img @click="openModalImage($event)" class="product_add_img" :src="ITEM.image" />
+        <img @click="openModalImage($event)"
           class="product_add_img"
           v-for="(product_img, index) in ITEM.product_img"
           :key="index"
-          :style="`background-image: url(.${product_img})`"
-        ></div>
+          :src="product_img"
+        />
       </div>
     </div>
 
@@ -50,7 +51,17 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      main_img: '' ,
+    }
+  },
   methods: {
+    openModalImage(e){
+      var img = document.getElementById("myImg");
+        this.main_img = e.target.src;
+    },
+
     setParent(item, index) {
       this.parent = item;
       this.childs = item.childs;
@@ -100,12 +111,43 @@ export default {
 </script>
     
 <style scoped>
+.wrapper {
+  background: #efefef;
+  box-shadow: 1px 1px 10px #999;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px !important;
+  width: 800px;
+  padding-top: 5px;
+}
+.scrolls {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 80px;
+  white-space: nowrap;
+}
+.imageDiv img {
+  box-shadow: 1px 1px 10px #999;
+  margin: 2px;
+  max-height: 50px;
+  cursor: pointer;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+}
+
 .product {
   grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto auto ;
-  grid-template-areas: "header chose"
-                      "images  images"
-                      "dis  dis";
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "header chose"
+    "images  images"
+    "dis  dis";
 }
 
 .product_header {
@@ -154,15 +196,17 @@ export default {
   background-position: center;
   border-radius: 12px;
   margin: auto;
+  max-width: 100%;
+  height: 0;
+  padding-top: 100%;
 }
 .product_add_images {
-  margin: auto;
   margin-top: 16px;
-  height: 20vw;
-  width: calc(100vw - 36px);
-  display: flex;
   overflow-x: scroll;
-  justify-content: space-between;
+  white-space: nowrap;
+}
+.product_add_images::-webkit-scrollbar {
+  display: block;
 }
 .product_add_img {
   height: 20vw;
@@ -171,6 +215,9 @@ export default {
   background-position: center;
   border-radius: 12px;
   margin: 0 10px;
+  width: 10vw;
+  height: 10vw;
+  object-fit: cover;
 }
 .product_choose_size {
   margin-top: 16px;
