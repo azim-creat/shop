@@ -1,38 +1,49 @@
 <template>
   <div class="product">
-    <h1 class="product_title">{{ITEM.productTitle}}</h1>
-    <h4 class="product_price">{{ITEM.price }} $</h4>
-    <div class="product_img" :style="`background-image: url(${ITEM.image})`"></div>
-    <div class="product_add_images">
-      <div
-        class="product_add_img"
-        v-for="(product_img, index) in ITEM.product_img"
-        :key="index"
-        :style="`background-image: url(.${product_img})`"
-      ></div>
+    <div class="product_header">
+      <h1 class="product_title">{{ITEM.productTitle}}</h1>
+      <h4 class="product_price">{{ITEM.price }} $</h4>
     </div>
-    <div class="product_choose noSelect">
-      <div class="product_choose_size">
-        <div class="sizes" v-show="ITEM.tags">
-          <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
-          <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
-          <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
-          <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
-        </div>
-        <div class="controls noSelect">
-          <input class="noSelect" type="button" value="-" @click="decrease(prodID)" />
-          <span>{{getQuantity()}}</span>
-          <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
+
+    <div class="product_images">
+      <div class="product_img" :style="`background-image: url(${ITEM.image})`"></div>
+      <div class="product_add_images">
+        <div
+          class="product_add_img"
+          v-for="(product_img, index) in ITEM.product_img"
+          :key="index"
+          :style="`background-image: url(.${product_img})`"
+        ></div>
+      </div>
+    </div>
+
+    <div class="product_chose_grid">
+      <div class="product_choose noSelect">
+        <div class="product_choose_size">
+          <div class="sizes" v-show="ITEM.tags">
+            <span class="size" :class="{active:(getCurrentSize('s'))}">S</span>
+            <span class="size" :class="{active:( getCurrentSize('m'))}">M</span>
+            <span class="size" :class="{active:(getCurrentSize('l'))}">L</span>
+            <span class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
+          </div>
+          <div class="controls noSelect">
+            <input class="noSelect" type="button" value="-" @click="decrease(prodID)" />
+            <span>{{getQuantity()}}</span>
+            <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
+          </div>
         </div>
       </div>
     </div>
-    <div class="product_description">
-      <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
-      <ul>
-        <li v-for="(descrip, index) in ITEM.description" :key="index">
-          <span>{{descrip}}</span>
-        </li>
-      </ul>
+
+    <div class="product_dis">
+      <div class="product_description">
+        <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
+        <ul>
+          <li v-for="(descrip, index) in ITEM.description" :key="index">
+            <span>{{descrip}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -89,6 +100,42 @@ export default {
 </script>
     
 <style scoped>
+.product {
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto ;
+  grid-template-areas: "header chose"
+                      "images  images"
+                      "dis  dis";
+}
+
+.product_header {
+  grid-area: header;
+}
+
+.product_images {
+  grid-area: images;
+  overflow: hidden;
+}
+.product_dis {
+  grid-area: dis;
+}
+.product_chose_grid {
+  grid-area: chose;
+}
+
+@media (min-width: 600px) {
+  .product {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 50% 40%;
+    grid-template-rows: 50px 50px;
+    grid-template-areas:
+      "images  header "
+      "images  chose"
+      "images  dis";
+  }
+}
+
 .product_title {
   font-family: "Comfortaa";
   font-style: normal;
@@ -99,11 +146,7 @@ export default {
   font-style: normal;
   font-weight: bold;
 }
-.product {
-  height: 100%;
-  /* width: 100%; */
-  margin: 10px auto;
-}
+
 .product_img {
   height: 60vw;
   width: calc(100vw - 36px);
