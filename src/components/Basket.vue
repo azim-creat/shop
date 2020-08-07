@@ -5,11 +5,11 @@
       <div class="CartFlexContainer">
         <div>
           <p>количество:</p>
-          <span>{{Total}} единиц</span>
+          <span>{{CART_ITEM_COUNT}} единиц</span>
         </div>
         <div>
           <p>сумма:</p>
-          <span>{{TotalPrice}}</span>
+          <span>{{TOTAL}}</span>
         </div>
       </div>
       <button>Заказать</button>
@@ -52,6 +52,62 @@ export default {
       "StoreItems",
       "getStoreItemsById",
     ]),
+    TOTAL() {
+      const cart = this.$store.state.cartItems;
+      let ans = 0;
+      const calcCountTypes = (obj) => {
+        var sum = 0;
+
+        for (var el in obj) {
+          if (obj.hasOwnProperty(el)) {
+            sum += parseFloat(obj[el]);
+          }
+          return sum;
+        }
+      };
+
+      for (const key in cart) {
+        if (cart.hasOwnProperty(key)) {
+          const element = cart[key];
+          const item_cost = this.$store.state.storeItems[key].price;
+          if (typeof element === "number") {
+            ans += element * item_cost;
+          } else if (typeof element === "object") {
+            ans += calcCountTypes(element) * item_cost;
+          }
+        }
+      }
+
+      return ans;
+    },
+
+    CART_ITEM_COUNT() {
+      const cart = this.$store.state.cartItems;
+      let ans = 0;
+      const calcCountTypes = (obj) => {
+        var sum = 0;
+
+        for (var el in obj) {
+          if (obj.hasOwnProperty(el)) {
+            sum += parseFloat(obj[el]);
+          }
+          return sum;
+        }
+      };
+
+      for (const key in cart) {
+        if (cart.hasOwnProperty(key)) {
+          const element = cart[key];
+          if (typeof element === "number") {
+            ans += element;
+          } else if (typeof element === "object") {
+            ans += calcCountTypes(element)
+          }
+        }
+      }
+
+      return ans;
+    },
     // mergedItems: ,
     renderCartsItemList() {
       let ans = {};
