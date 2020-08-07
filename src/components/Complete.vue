@@ -10,6 +10,9 @@
 <script>
 export default {
   name: "Complete",
+  mounted: function () {
+    this.$store.commit("CLEAN_CART");
+  },
 };
 </script>
 
