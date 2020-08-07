@@ -546,6 +546,7 @@ export const store = new Vuex.Store({
       }).then(resp => {
         const value = resp.data.value;
         let categoriesClone = {};
+        console.log(Object.keys(value).length)
         for (const key in value) {
           if (value.hasOwnProperty(key)) {
             // создаем id существующих категорий
