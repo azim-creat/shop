@@ -8,6 +8,7 @@ import search from "@/components/search";
 import info from "@/components/info";
 import Checkout from "@/components/Checkout";
 import Complete from "@/components/Complete";
+import CheckOrder from "@/components/CheckOrder";
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ export default new Router({
       path: "/complete",
       name: " complete",
       component: Complete
+    },
+    {
+      path: "/CheckOrder",
+      name: " CheckOrder",
+      component: CheckOrder
     }
   ]
 });
