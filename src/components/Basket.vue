@@ -77,13 +77,15 @@ export default {
   max-height: 100%;
   overflow: hidden;
 }
-.Cart > div:first-child{
+.Cart > div:first-child {
   flex: 0;
   overflow: scroll;
 }
 .CartControls {
-  padding: 20px;
+  padding: 10px 0px 0px 0;
+  border-top: 2px solid #b3b3b3;
 }
+
 .CartFlexContainer {
   display: flex;
   justify-content: space-between;
