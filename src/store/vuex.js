@@ -7,7 +7,33 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     cartItems: {},
-    categoryItems: {},
+    categoryItems: {
+      "01_1": {
+        id: "01_1",
+        productTitle: "Категория 1",
+        count: 1245,
+        parent_id: false,
+        image: require("../assets/images/product1.png"),
+        childs: false
+      },
+      "01_2": {
+        id: 10002,
+        productTitle: "Категория 2",
+        count: 562,
+        parent_id: false,
+        image: require("../assets/images/product2.png"),
+        childs: false
+      },
+      "01_3": {
+        id: 10003,
+        productTitle: "Категория 3",
+        count: 896,
+        parent_id: false,
+        image: require("../assets/images/product3.png"),
+        childs: false
+      },
+
+    },
     storeItems: {
       1: {
         id: 1,
@@ -546,17 +572,25 @@ export const store = new Vuex.Store({
       }).then(resp => {
         const value = resp.data.value;
         let categoriesClone = {};
-        console.log(Object.keys(value).length)
+
+
         for (const key in value) {
           if (value.hasOwnProperty(key)) {
-            // создаем id существующих категорий
             const catId = value[key].field_863;
+            if (categoriesClone.hasOwnProperty(catId)) {
+              
+            }
+
             categoriesClone[catId] = catId === null ? "null" : catId;
           }
         }
+
+
         const ans = resp.data.value;
+
         commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
         commit("FETCH_FROM_SERVER", ans);
+
       });
     }
   }
