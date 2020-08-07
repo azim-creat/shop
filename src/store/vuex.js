@@ -323,8 +323,7 @@ export const store = new Vuex.Store({
 
         const categoryTemplate = {
           id: "myid",
-          productTitle: "Категория 1",
-          count: 1,
+          count: 0,
           parent_id: false,
           image: require("../assets/images/product1.png"),
           childs: false
