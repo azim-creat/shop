@@ -35,7 +35,7 @@
       >
         <router-link class="noSelect" to="/basket">
           <img src="./assets/navbar_icons/basket.svg" />
-          <span>{{46}}</span>
+          <span>{{CART_ITEM_COUNT}}</span>
         </router-link>
       </div>
       <div
@@ -104,6 +104,33 @@ export default {
     },
     POP_UP_ITEM() {
       return this.$store.state.popUpItem;
+    },
+    CART_ITEM_COUNT() {
+      const cart = this.$store.state.cartItems;
+      let ans = 0;
+      const calcCountTypes = (obj) => {
+        var sum = 0;
+
+        for (var el in obj) {
+          if (obj.hasOwnProperty(el)) {
+            sum += parseFloat(obj[el]);
+          }
+          return sum;
+        }
+      };
+
+      for (const key in cart) {
+        if (cart.hasOwnProperty(key)) {
+          const element = cart[key];
+          if (typeof element === "number") {
+            ans += element;
+          } else if (typeof element === "object") {
+            ans += calcCountTypes(element)
+          }
+        }
+      }
+
+      return ans;
     },
   },
 
