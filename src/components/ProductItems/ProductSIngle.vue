@@ -15,9 +15,15 @@
         </div>
       </div>
       <div class="controls">
-        <input v-show="getQuantity()" type="button" value="-" @click="decrease(itemId)" />
-        <span v-show="getQuantity()">{{getQuantity()}}</span>
-        <input type="button" value="+" @click="increase(itemId)" />
+        <input
+          class="noSelect"
+          v-show="getQuantity()"
+          type="button"
+          value="-"
+          @click="decrease(itemId)"
+        />
+        <span class="noSelect" v-show="getQuantity()">{{getQuantity()}}</span>
+        <input class="noSelect" type="button" value="+" @click="increase(itemId)" />
       </div>
     </div>
   </router-link>

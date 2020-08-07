@@ -11,7 +11,7 @@
         :style="`background-image: url(.${product_img})`"
       ></div>
     </div>
-    <div class="product_choose">
+    <div class="product_choose noSelect">
       <div class="product_choose_size">
         <div class="sizes" v-show="ITEM.tags">
           <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
@@ -19,10 +19,10 @@
           <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
           <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
         </div>
-        <div class="controls">
-          <input type="button" value="-" @click="decrease(prodID)" />
+        <div class="controls noSelect">
+          <input class="noSelect" type="button" value="-" @click="decrease(prodID)" />
           <span>{{getQuantity()}}</span>
-          <input type="button" value="+" @click="increase(prodID)" />
+          <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
         </div>
       </div>
     </div>
