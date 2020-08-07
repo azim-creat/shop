@@ -9,7 +9,7 @@
       </span>
     </div>
 
-    <div class="category-items">
+    <div class="category-items" v-if="!Object.keys(renderElements).length">
       <div
         class="category-item"
         v-for="(item,index) in CategoryItems"
@@ -18,87 +18,29 @@
       >
         <div class="category-item__img" :style="`background-image: url(.${image})`"></div>
         <span class="category-item__title">
-          <h3>{{item.productTitle + 'catID ' + item.id}}</h3>
+          <h3>{{'catID ' + item.id}}</h3>
           <h5>{{item.count}} товаров</h5>
         </span>
       </div>
     </div>
+    <Products v-if="parent" :render_list="renderElements" />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import Products from "@/components/Products";
 export default {
   name: "categoryes",
+  components: {
+    Products,
+  },
   data() {
     return {
       title: "Home",
       parent: false,
       childs: {},
+      renderElements: {},
       path: [],
-      products: {
-        "01_1": {
-          id: "01_1",
-          productTitle: "Категория 1",
-          count: 1245,
-          parent_id: false,
-          image: require("../assets/images/product1.png"),
-          childs: {
-            "01_1_1": {
-              id: "01_1_1",
-              productTitle: "К1 Категория 1",
-              count: 1245,
-              image: require("../assets/images/product1.png"),
-              parent_id: "01_1",
-              childs: {
-                "01_1_1_1": {
-                  id: "01_1_1_1",
-                  productTitle: "К1 К2 Категория 1",
-                  count: 1245,
-                  image: require("../assets/images/product1.png"),
-                  parent_id: "01_1_1",
-                  childs: {
-                    "01_1_1_1_1": {
-                      id: "01_1_1_1_1",
-                      productTitle: "К1 К2 К3 Категория 1",
-                      count: 1245,
-                      image: require("../assets/images/product1.png"),
-                      parent_id: "01_1_1_1",
-                    },
-                    "01_1_1_1_2": {
-                      id: "01_1_1_1_1",
-                      productTitle: "К1 К2 К3 Категория 1",
-                      count: 1245,
-                      image: require("../assets/images/product1.png"),
-                      parent_id: "01_1_1_1",
-                    },
-                    "01_1_1_1_3": {
-                      id: "01_1_1_1_1",
-                      productTitle: "К1 К2 К3 Категория 1",
-                      count: 1245,
-                      image: require("../assets/images/product1.png"),
-                      parent_id: "01_1_1_1",
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-        "01_2": {
-          id: 10002,
-          productTitle: "Категория 2",
-          count: 562,
-          parent_id: false,
-          image: require("../assets/images/product2.png"),
-        },
-        "01_3": {
-          id: 10003,
-          productTitle: "Категория 3",
-          count: 896,
-          parent_id: false,
-          image: require("../assets/images/product3.png"),
-        },
-      },
       image: require("../assets/images/product1.png"),
     };
   },
@@ -110,10 +52,14 @@ export default {
       if (item.id) {
         this.path.push(item.id);
       }
+      if (item.parent_id == false) {
+        this.collectCategoryItems(item.id);
+      }
     },
     backToParent() {
       //   this.childs = this.childs.parent_id;
       let clone = this.products;
+      this.renderElements = {};
 
       if (this.path.length === 1) {
         this.path = [];
@@ -135,8 +81,37 @@ export default {
         this.childs = clone.childs;
       }
     },
+    collectProductsByCatId() {
+      const cItem = this.$store.state.categoryItems;
+      const sItem = this.$store.state.storeItems;
+
+      const accum = {};
+      for (const catItem in cItem) {
+        if (cItem.hasOwnProperty(catItem)) {
+          for (const cartItem in sItem) {
+            if (sItem.hasOwnProperty(cartItem)) {
+              if (console.log(sItem[cartItem].categoryCode)) {
+              }
+            }
+          }
+        }
+      }
+    },
+    collectCategoryItems(id) {
+      const output = {};
+      for (const key in this.StoreItems) {
+        if (this.StoreItems.hasOwnProperty(key)) {
+          const element = this.StoreItems[key];
+          if (element.categoryCode == id) {
+            output[key] = element;
+          }
+        }
+      }
+      this.renderElements = { ...output };
+    },
   },
-  computed: mapGetters(["CategoryItems"]),
+
+  computed: { ...mapGetters(["CategoryItems", "StoreItems"]) },
   mounted() {
     this.childs = this.products;
     console.log("mounted");
@@ -203,7 +178,6 @@ export default {
   background-size: cover;
   background-position: center;
 }
-
 
 .category-item__title {
   display: flex;
