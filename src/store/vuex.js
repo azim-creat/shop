@@ -54,7 +54,9 @@ export const store = new Vuex.Store({
       const stateClone = { ...state };
       state = stateClone;
     },
-
+    CLEAN_CART: state => {
+      state.cartItems = {};
+    },
     INCREASE_ITEM_QUANTITY: (state, itemId) => {
       let clone = { ...state.cartItems };
       if (!clone[itemId].quantity) {
@@ -275,7 +277,6 @@ export const store = new Vuex.Store({
       }
       commit("SET_SIZE", { size, id });
     },
-
     INCREASE: ({ commit, getters }, itemId) => {
       commit("INCREASE", itemId);
     },

@@ -1,7 +1,7 @@
 <template>
   <div class="product-item">
     <router-link :to="`/product/${itemId}`">
-      <img :src="image" />
+      <img class="noSelect" :src="image" />
     </router-link>
     <div class="description">
       <div class="description-text">
@@ -13,9 +13,15 @@
       </div>
     </div>
     <div class="controls">
-      <input v-show="getQuantity()" type="button" value="-" @click="decrease(itemId)" />
-      <span v-show="getQuantity()">{{getQuantity()}}</span>
-      <input type="button" value="+" @click="increase(itemId)" />
+      <input
+        class="noSelect"
+        v-show="getQuantity()"
+        type="button"
+        value="-"
+        @click="decrease(itemId)"
+      />
+      <span class="noSelect" v-show="getQuantity()">{{getQuantity()}}</span>
+      <input class="noSelect" type="button" value="+" @click="increase(itemId)" />
     </div>
   </div>
 </template>

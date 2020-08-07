@@ -12,7 +12,7 @@
           <span>{{TOTAL}}</span>
         </div>
       </div>
-      <button>Заказать</button>
+      <button @click="goToCheckout()">Заказать</button>
     </div>
   </div>
 </template>
@@ -30,7 +30,21 @@ export default {
   },
 
   methods: {
-    getItemFromOriginList(item_id) {},
+    goToCheckout() {
+      let ans = {};
+      for (const key in this.CartItems) {
+        if (this.CartItems.hasOwnProperty(key)) {
+          const element = this.StoreItems[key];
+          ans[key] = element;
+        }
+      }
+      if (Object.keys(ans).length == 0) {
+        alert("Ваша корзина пуста");
+        return;
+      } else {
+        this.$router.push("checkout");
+      }
+    },
     addItem(item) {
       this.$store.dispatch("ADD_CART_ITEM", item);
     },

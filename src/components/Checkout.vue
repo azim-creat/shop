@@ -94,6 +94,7 @@ export default {
       // если allFilledCorrectly == false - некоторое поле не заполнено правильно
       if (allFilledCorrectly == undefined) {
         console.log(this.contacts);
+        this.$router.push("complete");
       } else {
         alert("Вы неправильно заполнили контактные данные");
       }
