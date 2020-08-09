@@ -8,12 +8,12 @@
     <div class="product_images">
       <div class="product_img" :style="`background-image: url(${main_img})`"></div>
       <div class="product_add_images">
-        <img @click="openModalImage($event)" class="product_add_img" :src="ITEM.image" />
+        <img @click="openModalImage($event)" class="product_add_img" v-lazy="ITEM.image" />
         <img @click="openModalImage($event)"
           class="product_add_img"
           v-for="(product_img, index) in ITEM.product_img"
           :key="index"
-          :src="product_img"
+          v-lazy="product_img"
         />
       </div>
     </div>
