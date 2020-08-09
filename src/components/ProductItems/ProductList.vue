@@ -1,7 +1,7 @@
 <template>
   <div class="product-item">
     <router-link :to="`/product/${itemId}`">
-      <img class="noSelect" :src="image" />
+      <img class="noSelect" v-lazy="image" />
     </router-link>
     <div class="description">
       <div class="description-text">

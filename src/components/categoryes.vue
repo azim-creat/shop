@@ -124,7 +124,7 @@ export default {
   display: flex;
   align-items: center;
   padding-left: 25px;
-  margin: 10px;
+  /* margin: 10px; */
   background: #000000;
   border-radius: 12px;
   overflow: hidden;
@@ -163,7 +163,7 @@ export default {
 .category-item {
   display: flex;
   flex: 1;
-  margin: 10px;
+  margin: 0 ;
   background: #000000;
   border-radius: 12px;
   overflow: hidden;
