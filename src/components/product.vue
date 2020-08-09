@@ -53,12 +53,11 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      main_img: '' ,
+      main_img: "" ,
     }
   },
   methods: {
     openModalImage(e){
-      var img = document.getElementById("myImg");
         this.main_img = e.target.src;
     },
 
@@ -97,7 +96,9 @@ export default {
       this.$store.dispatch("DECREASE", itemId);
     },
   },
-  mounted() {},
+  mounted() {
+   this.main_img = this.ITEM.image
+  },
   computed: {
     ...mapGetters(["CartItems", "StoreItems"]),
     prodID() {

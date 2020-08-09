@@ -115,7 +115,7 @@ export default {
           if (typeof element === "number") {
             ans += element;
           } else if (typeof element === "object") {
-            ans += calcCountTypes(element)
+            ans += calcCountTypes(element);
           }
         }
       }
@@ -146,6 +146,7 @@ export default {
   justify-content: space-between;
   max-height: 100%;
   overflow: hidden;
+  position: relative;
 }
 .Cart > div:first-child {
   flex: 0;
@@ -154,6 +155,11 @@ export default {
 .CartControls {
   padding: 10px 0px 0px 0;
   border-top: 2px solid #b3b3b3;
+  background: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 65px;
+  left: 0;
 }
 
 .CartFlexContainer {
