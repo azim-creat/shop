@@ -50,7 +50,7 @@ export default {
             const element = objects[key];
             for (var obj_key in element) {
               if (typeof element[obj_key] === "string") {
-                if (element[obj_key].indexOf(toSearch) != -1) {
+                if (element[obj_key].toLowerCase().indexOf(toSearch.toLowerCase()) != -1) {
                   results[key] = objects[key];
                 }
               }
