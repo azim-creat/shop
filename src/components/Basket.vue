@@ -141,23 +141,21 @@ export default {
 <style scoped>
 .Cart {
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 100%;
   max-height: 100%;
   overflow: hidden;
   position: relative;
 }
 .Cart > div:first-child {
-  flex: 0;
   overflow: scroll;
+  max-height: calc(100% - 136px);
 }
 .CartControls {
-  padding: 10px 0px 0px 0;
+  margin: 10px 10px 0px 10px;
+  width: calc(100% - 20px);
   border-top: 2px solid #b3b3b3;
   background: #fff;
   position: fixed;
-  width: 100%;
   bottom: 65px;
   left: 0;
 }

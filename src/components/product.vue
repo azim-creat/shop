@@ -2,7 +2,7 @@
   <div class="product">
     <div class="product_header">
       <h1 class="product_title">{{ITEM.productTitle}}</h1>
-      <h4 class="product_price">{{ITEM.price }} $</h4>
+      <h4 class="product_price">{{ITEM.price }} KZT</h4>
     </div>
 
     <div class="product_images">
@@ -28,8 +28,8 @@
             <span class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
           </div>
           <div class="controls noSelect">
-            <input class="noSelect" type="button" value="-" @click="decrease(prodID)" />
-            <span>{{getQuantity()}}</span>
+            <input class="noSelect" :class="{'isNotVisible': getQuantity() == '0' }" type="button" value="-" @click="decrease(prodID)" />
+            <span :class="{'isNotVisible': getQuantity() == '0' }">{{getQuantity()}}</span>
             <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
           </div>
         </div>
@@ -77,6 +77,7 @@ export default {
     },
     getQuantity() {
       let item_in_cart = this.CartItems[this.ITEM.id];
+      if(item_in_cart === undefined) return 0
       if (typeof item_in_cart === "number") {
         return item_in_cart;
       } else if (typeof item_in_cart === "object") {

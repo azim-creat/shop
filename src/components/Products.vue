@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ViewToggle :setViewMode="setViewMode" :view_mode="view_mode" />
+    <ViewToggle v-if="Object.keys(render_list).length !== 0" :setViewMode="setViewMode" :view_mode="view_mode" />
     <div class="view-wrapper" :class="view_mode">
       <div v-for="(data,index) in render_list" :key="index">
         <ProductGrid
@@ -157,6 +157,11 @@ export default {
 @media (max-width: 500px) {
   .list {
     grid-template-columns: repeat(auto-fill, minmax(60vw, 1fr));
+  }
+}
+@media (min-height: 900px) {
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(49vh, 1fr));
   }
 }
 

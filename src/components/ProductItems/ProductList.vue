@@ -15,12 +15,12 @@
     <div class="controls">
       <input
         class="noSelect"
-        v-show="getQuantity()"
         type="button"
         value="-"
         @click="decrease(itemId)"
+        :class="{'isNotVisible': getQuantity() == '0'  }"
       />
-      <span class="noSelect" v-show="getQuantity()">{{getQuantity()}}</span>
+      <span class="noSelect" :class="{'isNotVisible': getQuantity() == '0' }">{{getQuantity()}}</span>
       <input class="noSelect" type="button" value="+" @click="increase(itemId)" />
     </div>
   </div>
@@ -47,6 +47,7 @@ export default {
   methods: {
     getQuantity() {
       let item_in_cart = this.CartItems[parseInt(this.itemId, 10)];
+      if(item_in_cart === undefined) return 0
       if (typeof item_in_cart === "number") {
         return item_in_cart;
       } else if (typeof item_in_cart === "object") {
@@ -85,7 +86,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  
 }
+
+
 img {
   flex: 0;
   margin-right: 10px;
@@ -139,6 +145,7 @@ input[value="+"] {
   display: flex;
   align-items: baseline;
   justify-content: center;
+  margin-right: 10px;
 }
 .controls > * {
   margin: 0 3px;
