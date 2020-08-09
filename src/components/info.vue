@@ -3,7 +3,7 @@
     <div class="info_container">
       <div
         class="info_container__img"
-        :style="{'background-image': `url(.${company_info.company_image})`}"
+        v-lazy:background-image="company_info.company_image"
       ></div>
       <h3 class="company_name">{{company_info.company_name}}</h3>
       <h5 class="company_address">{{company_info.company_address}}</h5>
@@ -44,111 +44,8 @@
       <img
         v-for="(data,index) in products"
         :key="index"
-        :src="data.image"
+        v-lazy="data.image"
         @click="openModalImage($event)"
-      />
-
-      <img
-        @click="openModalImage($event)"
-        class="fit-left"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/08.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/16.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/06.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/04.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-left"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-left"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
-        alt
       />
     </div>
   </div>
