@@ -32,6 +32,7 @@
           <i class="fa fa-map-marker" style="color:black;margin-right:10px"></i>
           <span>{{company_info.company_address}}</span>
         </a>
+        <button class="info_container__addrBtn noSelect" @click="goToCheckOrder">ПРОВЕРИТЬ ЗАКАЗ</button>
       </div>
     </div>
 
@@ -40,26 +41,115 @@
     </div>
 
     <div class="container">
-      <img  v-for="(data,index) in products" :key="index" :src="data.image" @click="openModalImage($event)" />
+      <img
+        v-for="(data,index) in products"
+        :key="index"
+        :src="data.image"
+        @click="openModalImage($event)"
+      />
 
-      <img @click="openModalImage($event)" class="fit-left" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg" alt />
-      <img @click="openModalImage($event)" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg" alt />
-      <img @click="openModalImage($event)"  class="fit-right" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg" alt />
-      <img @click="openModalImage($event)" class="fit-right" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/08.jpg" alt />
-      <img @click="openModalImage($event)" class src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg" alt />
-      <img @click="openModalImage($event)" class src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg" alt />
-      <img @click="openModalImage($event)" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg" alt />
-      <img @click="openModalImage($event)" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/16.jpg" alt />
-      <img @click="openModalImage($event)" class="fit-right" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg" alt />
-      <img @click="openModalImage($event)" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg" alt />
-      <img @click="openModalImage($event)" class src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg" alt />
-      <img @click="openModalImage($event)" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg" alt />
-      <img @click="openModalImage($event)" class src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg" alt />
-      <img @click="openModalImage($event)" class="fit-right" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/06.jpg" alt />
-      <img @click="openModalImage($event)" class="fit-right" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/04.jpg" alt />
-      <img @click="openModalImage($event)" class="fit-left" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg" alt />
-      <img @click="openModalImage($event)" class="fit-left" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg" alt />
-      <img @click="openModalImage($event)" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg" alt />
+      <img
+        @click="openModalImage($event)"
+        class="fit-left"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-right"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-right"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/08.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/16.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-right"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-right"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/06.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-right"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/04.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-left"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        class="fit-left"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
+        alt
+      />
+      <img
+        @click="openModalImage($event)"
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
+        alt
+      />
     </div>
   </div>
 </template>
@@ -119,19 +209,22 @@ export default {
       text.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
       return text.replace(" ", "%20");
     },
-    openModalImage(e){
-      console.log(e, 'e')
+    openModalImage(e) {
+      console.log(e, "e");
       var modal = document.getElementById("myModal");
       // Get the image and insert it inside the modal - use its "alt" text as a caption
       var img = document.getElementById("myImg");
       var modalImg = document.getElementById("img01");
-        modal.style.display = "block";
-        modalImg.src = e.target.src;
+      modal.style.display = "block";
+      modalImg.src = e.target.src;
     },
-    clouseModalImage(){
+    clouseModalImage() {
       var modal = document.getElementById("myModal");
       modal.style.display = "none";
-    }
+    },
+    goToCheckOrder() {
+      this.$router.push("CheckOrder");
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -144,8 +237,6 @@ export default {
         if (width == height) pics[i].classList.add("square");
       }
     }, 2000);
-
-    
   },
 };
 </script>
@@ -318,7 +409,6 @@ a:visited.info_btn_black {
   min-height: 100% !important;
 }
 
-
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -339,13 +429,12 @@ a:visited.info_btn_black {
   display: block;
   width: 80%;
   max-width: 700px;
-      max-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-
 
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
