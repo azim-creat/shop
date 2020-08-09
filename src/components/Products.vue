@@ -38,6 +38,8 @@
 </template>
 
 <script>
+
+
 import ViewToggle from "@/components/ViewToggle";
 import ProductList from "@/components/ProductItems/ProductList";
 import ProductGrid from "@/components/ProductItems/ProductGrid";
@@ -72,6 +74,11 @@ export default {
 </script> 
 
 <style scoped>
+.list_ {
+  border: 2px solid steelblue;
+  border-radius: 3px;
+}
+
 .grid {
   display: grid;
 
