@@ -66,6 +66,7 @@ export default {
     },
     removeItem(item) {
       this.$store.dispatch("DELETE_CART_ITEM", item);
+      
     },
     decreaseItem(id) {
       this.$store.dispatch("DECREASE", id);

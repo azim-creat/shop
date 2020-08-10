@@ -109,6 +109,11 @@ export default {
   },
   watch: {
     render_list(val) {
+      debugger
+      this.to_render = []
+      this.chashed_items = []
+      this.last_index =  0
+
       this.segmentation(val);
     },
   },
