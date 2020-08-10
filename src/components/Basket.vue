@@ -163,6 +163,8 @@ export default {
 }
 .Cart {
   min-height: 100%;
+  height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -170,7 +172,6 @@ export default {
   position: relative;
 }
 .Cart > div:first-child:not(.empty) {
-  flex: 0;
   overflow: scroll;
   max-height: calc(100% - 136px);
 }
@@ -216,6 +217,13 @@ export default {
     width: 98%;
   }
 }
+
+@media only screen and (min-width: 600px) {
+  .CartControls {
+    bottom: 0px;
+  }
+}
+
 ul {
   list-style: none;
   padding: 0;

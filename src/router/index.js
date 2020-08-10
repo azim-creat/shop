@@ -12,7 +12,7 @@ import CheckOrder from "@/components/CheckOrder";
 
 Vue.use(Router);
 
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path: "/",
@@ -61,3 +61,6 @@ export default new Router({
     }
   ]
 });
+router.replace({ path: '/categoryes', redirect: '/' })
+
+export default router;

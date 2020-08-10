@@ -233,7 +233,7 @@ export const store = new Vuex.Store({
             "проба 585 "
           ];
 
-          if (Object.keys(newObj).length > 500) break;
+          // if (Object.keys(newObj).length > 500) break;
         }
       }
       console.log(newObj, "NEW");

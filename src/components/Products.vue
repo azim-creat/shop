@@ -1,8 +1,12 @@
 <template>
   <div>
-    <ViewToggle v-if="Object.keys(render_list).length !== 0" :setViewMode="setViewMode" :view_mode="view_mode" />
+    <ViewToggle
+      v-if="Object.keys(render_list).length !== 0"
+      :setViewMode="setViewMode"
+      :view_mode="view_mode"
+    />
     <div class="view-wrapper" :class="view_mode">
-      <div v-for="(data,index) in render_list" :key="index">
+      <div v-for="(data,index) in to_render" :key="index">
         <ProductGrid
           v-if=" view_mode === 'grid'"
           :title="data.productTitle"
@@ -34,12 +38,12 @@
         />
       </div>
     </div>
+    <div id="observer_bottom"></div>
+    <img v-if="preloader_show" class="preloder" :src="require('../assets/preloader.svg')" alt />
   </div>
 </template>
 
 <script>
-
-
 import ViewToggle from "@/components/ViewToggle";
 import ProductList from "@/components/ProductItems/ProductList";
 import ProductGrid from "@/components/ProductItems/ProductGrid";
@@ -57,6 +61,10 @@ export default {
   data() {
     return {
       view_mode: "list",
+      to_render: [],
+      chashed_items: [],
+      last_index: 0,
+      preloader_show: true,
     };
   },
   methods: {
@@ -69,11 +77,76 @@ export default {
     increaseItem(id) {
       this.$store.dispatch("INCREASE", id);
     },
+    addItems() {
+      if (this.chashed_items[this.last_index] === undefined){
+        if(this.last_index > 0) this.preloader_show = false
+        return;
+      } 
+      this.to_render = this.to_render.concat(
+        this.chashed_items[this.last_index]
+      );
+      debugger;
+      this.last_index++;
+    },
+    segmentation(val) {
+      let obj_keys = Object.keys(val);
+      let segmented = [];
+      let one_segment = [];
+      for (let index = 0; index < obj_keys.length; index++) {
+        if (index && index % 50 === 0) {
+          segmented.push(one_segment);
+          one_segment = [];
+        }
+        const obj_key = obj_keys[index];
+        one_segment.push(val[obj_key]);
+        if (index === obj_keys.length - 1) {
+          segmented.push(one_segment);
+        }
+      }
+      this.chashed_items = segmented;
+      this.addItems();
+    },
+  },
+  watch: {
+    render_list(val) {
+      this.segmentation(val);
+    },
+  },
+  beforeMount() {},
+  mounted() {
+    const self = this;
+    setTimeout(() => {
+      self.segmentation(self.render_list);
+    }, 100);
+
+    const options = {
+      rootMargin: "10px",
+      threshold: 0,
+    };
+
+    const callbackObserver = function (entries, observer) {
+      entries.forEach((element) => {
+        if (element.isIntersecting) {
+          self.addItems();
+        }
+      });
+    };
+
+    let observerBottom = new IntersectionObserver(callbackObserver, options);
+
+    observerBottom.observe(document.getElementById("observer_bottom"));
   },
 };
 </script> 
 
 <style scoped>
+.preloder {
+  width: 60%;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
 .list_ {
   border: 2px solid steelblue;
   border-radius: 3px;
@@ -185,3 +258,14 @@ export default {
   border: 1px white solid;
 }
 </style>
+
+
+
+
+
+
+
+
+
+
+
