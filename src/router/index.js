@@ -61,6 +61,6 @@ const router =  new Router({
     }
   ]
 });
-router.replace({ path: '/categoryes', redirect: '/' })
+router.replace({ path: '/', redirect: '/' })
 
 export default router;
