@@ -170,9 +170,12 @@ input.valid {
   padding: 0;
 }
 
-#vs1__listbox.vs__dropdown-menu li {
+#vs1__listbox.vs__dropdown-menu {
   list-style: none;
-  margin: 5px 0;
+  margin: 20px 0;
+}
+.vs__dropdown-option {
+  margin: 10px 0;
 }
 .vs__search,
 .vs__clear {
