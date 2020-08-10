@@ -125,7 +125,7 @@ export default {
           if (typeof element === "number") {
             ans += element;
           } else if (typeof element === "object") {
-            ans += calcCountTypes(element)
+            ans += calcCountTypes(element);
           }
         }
       }
@@ -161,6 +161,9 @@ body {
   width: 100vw;
   overflow: hidden;
   box-sizing: border-box;
+}
+* {
+  scrollbar-width: none;
 }
 .name_category {
   margin-top: 25px;
