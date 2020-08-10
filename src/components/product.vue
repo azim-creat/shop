@@ -1,45 +1,66 @@
 <template>
   <div class="product">
-    <h1 class="product_title">{{ITEM.productTitle}}</h1>
-    <h4 class="product_price">{{ITEM.price }} $</h4>
-    <div class="product_img" :style="`background-image: url(${ITEM.image})`"></div>
-    <div class="product_add_images">
-      <div
-        class="product_add_img"
-        v-for="(product_img, index) in ITEM.product_img"
-        :key="index"
-        :style="`background-image: url(.${product_img})`"
-      ></div>
+    <div class="product_header">
+      <h1 class="product_title">{{ITEM.productTitle}}</h1>
+      <h4 class="product_price">{{ITEM.price }} KZT</h4>
     </div>
-    <div class="product_choose noSelect">
-      <div class="product_choose_size">
-        <div class="sizes" v-show="ITEM.tags">
-          <span @click="SET_SIZE('s')" class="size" :class="{active:(getCurrentSize('s'))}">S</span>
-          <span @click="SET_SIZE('m')" class="size" :class="{active:( getCurrentSize('m'))}">M</span>
-          <span @click="SET_SIZE('l')" class="size" :class="{active:(getCurrentSize('l'))}">L</span>
-          <span @click="SET_SIZE('xl')" class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
-        </div>
-        <div class="controls noSelect">
-          <input class="noSelect" type="button" value="-" @click="decrease(prodID)" />
-          <span>{{getQuantity()}}</span>
-          <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
+
+    <div class="product_images">
+      <div class="product_img" :style="`background-image: url(${main_img})`"></div>
+      <div class="product_add_images">
+        <img @click="openModalImage($event)" class="product_add_img" v-lazy="ITEM.image" />
+        <img @click="openModalImage($event)"
+          class="product_add_img"
+          v-for="(product_img, index) in ITEM.product_img"
+          :key="index"
+          v-lazy="product_img"
+        />
+      </div>
+    </div>
+
+    <div class="product_chose_grid">
+      <div class="product_choose noSelect">
+        <div class="product_choose_size">
+          <div class="sizes" v-show="ITEM.tags">
+            <span class="size" :class="{active:(getCurrentSize('s'))}">S</span>
+            <span class="size" :class="{active:( getCurrentSize('m'))}">M</span>
+            <span class="size" :class="{active:(getCurrentSize('l'))}">L</span>
+            <span class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
+          </div>
+          <div class="controls noSelect">
+            <input class="noSelect" :class="{'isNotVisible': getQuantity() == '0' }" type="button" value="-" @click="decrease(prodID)" />
+            <span :class="{'isNotVisible': getQuantity() == '0' }">{{getQuantity()}}</span>
+            <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
+          </div>
         </div>
       </div>
     </div>
-    <div class="product_description">
-      <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
-      <ul>
-        <li v-for="(descrip, index) in ITEM.description" :key="index">
-          <span>{{descrip}}</span>
-        </li>
-      </ul>
+
+    <div class="product_dis">
+      <div class="product_description">
+        <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
+        <ul>
+          <li v-for="(descrip, index) in ITEM.description" :key="index">
+            <span>{{descrip}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      main_img: "" ,
+    }
+  },
   methods: {
+    openModalImage(e){
+        this.main_img = e.target.src;
+    },
+
     setParent(item, index) {
       this.parent = item;
       this.childs = item.childs;
@@ -56,6 +77,7 @@ export default {
     },
     getQuantity() {
       let item_in_cart = this.CartItems[this.ITEM.id];
+      if(item_in_cart === undefined) return 0
       if (typeof item_in_cart === "number") {
         return item_in_cart;
       } else if (typeof item_in_cart === "object") {
@@ -75,7 +97,9 @@ export default {
       this.$store.dispatch("DECREASE", itemId);
     },
   },
-  mounted() {},
+  mounted() {
+   this.main_img = this.ITEM.image
+  },
   computed: {
     ...mapGetters(["CartItems", "StoreItems"]),
     prodID() {
@@ -89,6 +113,73 @@ export default {
 </script>
     
 <style scoped>
+.wrapper {
+  background: #efefef;
+  box-shadow: 1px 1px 10px #999;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px !important;
+  width: 800px;
+  padding-top: 5px;
+}
+.scrolls {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 80px;
+  white-space: nowrap;
+}
+.imageDiv img {
+  box-shadow: 1px 1px 10px #999;
+  margin: 2px;
+  max-height: 50px;
+  cursor: pointer;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+}
+
+.product {
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "header chose"
+    "images  images"
+    "dis  dis";
+}
+
+.product_header {
+  grid-area: header;
+}
+
+.product_images {
+  grid-area: images;
+  overflow: hidden;
+}
+.product_dis {
+  grid-area: dis;
+}
+.product_chose_grid {
+  grid-area: chose;
+}
+
+@media (min-width: 600px) {
+  .product {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 50% 40%;
+    grid-template-rows: 50px 50px;
+    grid-template-areas:
+      "images  header "
+      "images  chose"
+      "images  dis";
+  }
+}
+
 .product_title {
   font-family: "Comfortaa";
   font-style: normal;
@@ -99,11 +190,7 @@ export default {
   font-style: normal;
   font-weight: bold;
 }
-.product {
-  height: 100%;
-  /* width: 100%; */
-  margin: 10px auto;
-}
+
 .product_img {
   height: 60vw;
   width: calc(100vw - 36px);
@@ -111,15 +198,17 @@ export default {
   background-position: center;
   border-radius: 12px;
   margin: auto;
+  max-width: 100%;
+  height: 0;
+  padding-top: 100%;
 }
 .product_add_images {
-  margin: auto;
   margin-top: 16px;
-  height: 20vw;
-  width: calc(100vw - 36px);
-  display: flex;
   overflow-x: scroll;
-  justify-content: space-between;
+  white-space: nowrap;
+}
+.product_add_images::-webkit-scrollbar {
+  display: block;
 }
 .product_add_img {
   height: 20vw;
@@ -128,6 +217,9 @@ export default {
   background-position: center;
   border-radius: 12px;
   margin: 0 10px;
+  width: 10vw;
+  height: 10vw;
+  object-fit: cover;
 }
 .product_choose_size {
   margin-top: 16px;

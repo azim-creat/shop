@@ -2,7 +2,7 @@
   <router-link
     :to="`/product/${itemId}`"
     class="product-item"
-    :style="`background-image: url(${image})`"
+    v-lazy:background-image="image"
   >
     <div class="overlay">
       <div class="details">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ViewToggle :setViewMode="setViewMode" :view_mode="view_mode" />
+    <ViewToggle v-if="Object.keys(render_list).length !== 0" :setViewMode="setViewMode" :view_mode="view_mode" />
     <div class="view-wrapper" :class="view_mode">
       <div v-for="(data,index) in render_list" :key="index">
         <ProductGrid
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+
+
 import ViewToggle from "@/components/ViewToggle";
 import ProductList from "@/components/ProductItems/ProductList";
 import ProductGrid from "@/components/ProductItems/ProductGrid";
@@ -72,6 +74,11 @@ export default {
 </script> 
 
 <style scoped>
+.list_ {
+  border: 2px solid steelblue;
+  border-radius: 3px;
+}
+
 .grid {
   display: grid;
 
@@ -157,6 +164,11 @@ export default {
 @media (max-width: 500px) {
   .list {
     grid-template-columns: repeat(auto-fill, minmax(60vw, 1fr));
+  }
+}
+@media (min-height: 900px) {
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(49vh, 1fr));
   }
 }
 

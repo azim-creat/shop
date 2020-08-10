@@ -4,7 +4,7 @@
     <div class="category-item__parent" v-if="parent" @click="backToParent()">
       <span class="category-item__arrow-right__parent_arrow"></span>
       <span class="category-item__title">
-        <h3>{{parent.productTitle}}</h3>
+        <h3>{{parent.productTitle}} {{parent.id}} </h3>
         <h5>{{parent.count}} товаров</h5>
       </span>
     </div>
@@ -41,7 +41,7 @@ export default {
       childs: {},
       renderElements: {},
       path: [],
-      image: require("../assets/images/product1.png"),
+      image: require("../assets/images/product1.jpg"),
     };
   },
 
@@ -124,7 +124,7 @@ export default {
   display: flex;
   align-items: center;
   padding-left: 25px;
-  margin: 10px;
+  /* margin: 10px; */
   background: #000000;
   border-radius: 12px;
   overflow: hidden;
@@ -163,7 +163,7 @@ export default {
 .category-item {
   display: flex;
   flex: 1;
-  margin: 10px;
+  margin: 0 ;
   background: #000000;
   border-radius: 12px;
   overflow: hidden;

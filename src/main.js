@@ -5,6 +5,15 @@ import App from './App'
 import router from './router'
 
 import {store} from './store/vuex.js';
+import VueLazyload from 'vue-lazyload'
+
+// or with options
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: require("./assets/preloader.svg"),
+  loading: require("./assets/preloader.svg"),
+  attempt: 1
+})
 
 Vue.config.productionTip = false
 

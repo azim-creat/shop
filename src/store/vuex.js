@@ -13,7 +13,7 @@ export const store = new Vuex.Store({
       //   productTitle: "Категория 1",
       //   count: 1245,
       //   parent_id: false,
-      //   image: require("../assets/images/product1.png"),
+      //   image: require("../assets/images/product1.jpg"),
       //   childs: false
       // },
     },
@@ -209,12 +209,12 @@ export const store = new Vuex.Store({
           newObj[key].price = parseInt(objectFromServer.field_468, 10);
           newObj[key].productTitle =
             objectFromServer.full_name || objectFromServer.field_111;
-          newObj[key].image = require("../assets/images/product3.png");
+          newObj[key].image = require("../assets/images/product3.jpg");
           newObj[key].product_img = [
-            require("../assets/images/product3.png"),
-            require("../assets/images/product1.png"),
-            require("../assets/images/product3.png"),
-            require("../assets/images/product4.png")
+            require("../assets/images/product3.jpg"),
+            require("../assets/images/product1.jpg"),
+            require("../assets/images/product3.jpg"),
+            require("../assets/images/product4.jpg")
           ];
 
           // newObj[key].tags = {
@@ -233,7 +233,7 @@ export const store = new Vuex.Store({
             "проба 585 "
           ];
 
-          if (Object.keys(newObj).length > 100) break;
+          if (Object.keys(newObj).length > 500) break;
         }
       }
       console.log(newObj, "NEW");
@@ -325,7 +325,7 @@ export const store = new Vuex.Store({
           id: "myid",
           count: 0,
           parent_id: false,
-          image: require("../assets/images/product1.png"),
+          image: require("../assets/images/product1.jpg"),
           childs: false
         };
         for (const key in value) {

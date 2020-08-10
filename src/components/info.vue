@@ -3,7 +3,7 @@
     <div class="info_container">
       <div
         class="info_container__img"
-        :style="{'background-image': `url(.${company_info.company_image})`}"
+        v-lazy:background-image="company_info.company_image"
       ></div>
       <h3 class="company_name">{{company_info.company_name}}</h3>
       <h5 class="company_address">{{company_info.company_address}}</h5>
@@ -44,111 +44,8 @@
       <img
         v-for="(data,index) in products"
         :key="index"
-        :src="data.image"
+        v-lazy="data.image"
         @click="openModalImage($event)"
-      />
-
-      <img
-        @click="openModalImage($event)"
-        class="fit-left"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/08.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/16.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/09.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/17.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/20.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/06.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-right"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/04.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-left"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/10.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        class="fit-left"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/19.jpg"
-        alt
-      />
-      <img
-        @click="openModalImage($event)"
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9425/18.jpg"
-        alt
       />
     </div>
   </div>
@@ -173,32 +70,32 @@ export default {
       products: [
         {
           productTitle: "ABCN",
-          image: require("../assets/images/product1.png"),
+          image: require("../assets/images/product1.jpg"),
           productId: 1,
         },
         {
           productTitle: "KARMA",
-          image: require("../assets/images/product2.png"),
+          image: require("../assets/images/product2.jpg"),
           productId: 2,
         },
         {
           productTitle: "Tino",
-          image: require("../assets/images/product3.png"),
+          image: require("../assets/images/product3.jpg"),
           productId: 3,
         },
         {
           productTitle: "EFG",
-          image: require("../assets/images/product4.png"),
+          image: require("../assets/images/product4.jpg"),
           productId: 4,
         },
         {
           productTitle: "MLI",
-          image: require("../assets/images/product5.png"),
+          image: require("../assets/images/product5.jpg"),
           productId: 5,
         },
         {
           productTitle: "Banans",
-          image: require("../assets/images/product6.png"),
+          image: require("../assets/images/product6.jpg"),
           productId: 6,
         },
       ],
@@ -245,6 +142,7 @@ export default {
 /* Layout */
 
 .container {
+      margin-top: 20px;
   display: grid;
   grid-gap: 5px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

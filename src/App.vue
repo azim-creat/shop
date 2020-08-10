@@ -84,14 +84,19 @@ export default {
   methods: {
     setActive(id) {
       const self = this;
-      let element = document.querySelector(`#${self.acive_menu_item}`);
-      element.classList.add("active-out");
-
-      // element.classList.remove('active')
-
-      setTimeout(() => {
-        self.acive_menu_item = id;
-      }, 200);
+      
+       console.log(self.acive_menu_item,this.$router.currentRoute.fullPath )
+  if(self.acive_menu_item === 'home' && id == 'home') return
+      if (this.$router.currentRoute.fullPath.indexOf(self.acive_menu_item) != 1 || self.acive_menu_item === 'home') {
+        let element = document.querySelector(`#${self.acive_menu_item}`);
+        element.classList.add("active-out");
+        setTimeout(() => {
+          self.acive_menu_item = id;
+        }, 200);
+      } else {
+        
+        
+      }
     },
     getSales() {
       const self = this;
@@ -186,6 +191,9 @@ body {
 *::-webkit-scrollbar {
   display: none;
 }
+.isNotVisible {
+  visibility: hidden;
+}
 
 .app {
   display: flex;
@@ -193,7 +201,7 @@ body {
   height: 100%;
   max-height: 100vh;
   overflow: hidden;
-  padding: 5px;
+  padding: 0 10px;
 }
 .main_body {
   flex: 2;
@@ -306,6 +314,7 @@ router-link {
   .app {
     max-width: 900px;
     margin: 0 auto;
+    padding: 5px;
   }
   .main_body {
     padding-bottom: 20px;
