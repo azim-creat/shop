@@ -197,10 +197,16 @@ export default {
   height: 100%;
   width: auto;
 }
-@media (max-width: 615px) {
+
+@media (max-width: 600px) {
   .empty > img {
     height: auto;
     width: 100%;
+  }
+  .empty > button {
+    position: fixed;
+    bottom: 67px;
+    width: 98%;
   }
 }
 ul {
