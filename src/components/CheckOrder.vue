@@ -9,7 +9,10 @@
       <button @click="checkOrder">ПРОВЕРИТЬ</button>
     </div>
     <div class="popup" v-show="status">
-      <h4>Ваш заказ в {{status}}</h4>
+      <div>
+        <h4>Статус Вашего заказа:</h4>
+        <h2>{{status}}</h2>
+      </div>
       <button @click="handleOk">OK</button>
     </div>
   </div>
@@ -26,7 +29,7 @@ export default {
       if (this.orderId == "") {
         alert("введите номер заказа");
       } else {
-        this.status = "ожидании";
+        this.status = "в ожидании";
       }
     },
     handleOk() {
@@ -75,7 +78,6 @@ span {
 button {
   display: block;
   padding: 19px 0;
-  margin: 4px 0;
   border: solid black 3px;
   border-radius: 6px;
   text-align: center;
@@ -85,10 +87,14 @@ button {
 
 .popup {
   position: absolute;
+  display: grid;
+  place-items: center;
   top: 50%;
   left: 50%;
+  height: 50%;
+  min-width: 50%;
   transform: translate(-50%, -50%);
-  padding: 15px;
+  padding: 5px 15px;
   text-align: center;
   background-color: white;
 
@@ -97,8 +103,12 @@ button {
   box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.75);
 }
 .popup button {
-  margin: auto;
+  /* margin: auto; */
   padding: 19px;
-  width: 95%;
+  width: 100%;
+}
+.popup h4 {
+  margin: 0;
+  color: #54595c;
 }
 </style>

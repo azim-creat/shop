@@ -1,7 +1,12 @@
 <template>
-  <div class="Cart">
-    <Products :render_list="renderCartsItemList" />
-    <div class="CartControls">
+  <div :class="[isEmpty() ? wrapper  : Cart ]">
+    <div class="empty" v-if="isEmpty()">
+      <img :src="require('../assets/cart_empty.svg')" alt />
+      <button @click="goToHome">перейти в магазин</button>
+    </div>
+
+    <Products :render_list="renderCartsItemList" v-else />
+    <div class="CartControls" v-show="!isEmpty()">
       <div class="CartFlexContainer">
         <div>
           <p>количество:</p>
@@ -28,7 +33,15 @@ export default {
   components: {
     Products,
   },
-
+  data() {
+    return {
+      isEmpty: function () {
+        return Object.keys(this.renderCartsItemList).length == 0 ? true : false;
+      },
+      Cart: "Cart",
+      wrapper: "wrapper",
+    };
+  },
   methods: {
     goToCheckout() {
       let ans = {};
@@ -44,6 +57,9 @@ export default {
       } else {
         this.$router.push("checkout");
       }
+    },
+    goToHome() {
+      this.$router.push("/");
     },
     addItem(item) {
       this.$store.dispatch("ADD_CART_ITEM", item);
@@ -139,14 +155,24 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center center;
+}
 .Cart {
   min-height: 100%;
   height: 100%;
   max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
   position: relative;
 }
-.Cart > div:first-child {
+.Cart > div:first-child:not(.empty) {
+  flex: 0;
   overflow: scroll;
   max-height: calc(100% - 136px);
 }
@@ -163,6 +189,28 @@ export default {
 .CartFlexContainer {
   display: flex;
   justify-content: space-between;
+  max-width: 550px;
+  margin: auto;
+}
+.empty {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  height: 85vh;
+  width: 100%;
+  place-items: center center;
+}
+.empty > button {
+  margin: 0;
+}
+.empty > img {
+  height: 100%;
+  width: auto;
+}
+@media (max-width: 615px) {
+  .empty > img {
+    height: auto;
+    width: 100%;
+  }
 }
 ul {
   list-style: none;
@@ -175,6 +223,7 @@ span {
   font-weight: bold;
 }
 button {
+  cursor: pointer;
   width: 100%;
   background: #000000;
   border: 2px solid #000000;
