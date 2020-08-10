@@ -2,7 +2,9 @@
   <div class="app">
     <div class="main_body">
       <!-- <Checkout /> -->
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </div>
     <div class="navbar">
       <div
@@ -84,18 +86,19 @@ export default {
   methods: {
     setActive(id) {
       const self = this;
-      
-       console.log(self.acive_menu_item,this.$router.currentRoute.fullPath )
-  if(self.acive_menu_item === 'home' && id == 'home') return
-      if (this.$router.currentRoute.fullPath.indexOf(self.acive_menu_item) != 1 || self.acive_menu_item === 'home') {
+
+      console.log(self.acive_menu_item, this.$router.currentRoute.fullPath);
+      if (self.acive_menu_item === "home" && id == "home") return;
+      if (
+        this.$router.currentRoute.fullPath.indexOf(self.acive_menu_item) != 1 ||
+        self.acive_menu_item === "home"
+      ) {
         let element = document.querySelector(`#${self.acive_menu_item}`);
         element.classList.add("active-out");
         setTimeout(() => {
           self.acive_menu_item = id;
         }, 200);
       } else {
-        
-        
       }
     },
     getSales() {
@@ -158,6 +161,21 @@ export default {
 </script>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
 body {
   margin: 0;
   padding: 0;

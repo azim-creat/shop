@@ -120,7 +120,7 @@ export default {
     }, 100);
 
     const options = {
-      rootMargin: "200px",
+      rootMargin: "10px",
       threshold: 0,
     };
 

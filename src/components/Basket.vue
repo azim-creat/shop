@@ -211,6 +211,13 @@ export default {
     width: 100%;
   }
 }
+
+@media only screen and (min-width: 600px) {
+  .CartControls {
+    bottom: 0px;
+  }
+}
+
 ul {
   list-style: none;
   padding: 0;
