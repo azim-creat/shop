@@ -172,7 +172,6 @@ export default {
   position: relative;
 }
 .Cart > div:first-child:not(.empty) {
-  flex: 0;
   overflow: scroll;
   max-height: calc(100% - 136px);
 }
