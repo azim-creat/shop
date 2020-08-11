@@ -29,7 +29,9 @@
           :class="{valid: validatePayment()}"
         />
       </label>
-      <button class="save_btn" @click="send">ОТПРАВИТЬ</button>
+      <router-link :to="`/complete/${this.orderId}`">
+        <button class="save_btn" @click="send(orderId)">ОТПРАВИТЬ</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -50,6 +52,7 @@ export default {
         payment: "",
       },
       paymentOptions: ["наличка", "перевод", "карта"],
+      orderId: Math.floor(Math.random() * (0 - 100) + 80),
     };
   },
   methods: {
@@ -78,7 +81,8 @@ export default {
         return true;
       }
     },
-    send: function () {
+
+    send: function (id) {
       // если все поля заполнены правильно - в массиве будут только true
       const isGood = [];
       isGood.push(this.validatePhone());
@@ -93,7 +97,7 @@ export default {
       });
       // если allFilledCorrectly == false - некоторое поле не заполнено правильно
       if (allFilledCorrectly == undefined) {
-        console.log(this.contacts);
+        this.$store.dispatch("CREATE_ORDER", id);
         this.$router.push("complete");
       } else {
         alert("Вы неправильно заполнили контактные данные");

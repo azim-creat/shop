@@ -12,7 +12,7 @@ import CheckOrder from "@/components/CheckOrder";
 
 Vue.use(Router);
 
-const router =  new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -50,7 +50,7 @@ const router =  new Router({
       component: Checkout
     },
     {
-      path: "/complete",
+      path: "/complete/:orderId",
       name: " complete",
       component: Complete
     },
@@ -61,6 +61,6 @@ const router =  new Router({
     }
   ]
 });
-router.replace({ path: '/', redirect: '/' })
+router.replace({ path: "/", redirect: "/" });
 
 export default router;

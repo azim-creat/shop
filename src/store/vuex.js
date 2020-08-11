@@ -20,7 +20,6 @@ export const store = new Vuex.Store({
     storeItems: {},
     // общее количество товаров в корзине и их цена
     popUpItem: {},
-    orders: {},
     total: 0,
     totalPrice: 0
   },
@@ -346,14 +345,13 @@ export const store = new Vuex.Store({
         commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
       });
     },
-    CREATE_ORDER: () => {
-      const orderId = Math.floor(Math.random() * (0 - 100) + 80);
+    CREATE_ORDER: (state, orderId) => {
+      alert(orderId);
       const order = {
         date: new Date(),
         orderId
       };
-      localStorage.setItem(orderId, order);
-      console.log(localStorage.getItem(orderId), 'ehf')
+      localStorage.setItem(orderId, JSON.stringify(order));
     }
   }
 });

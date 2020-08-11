@@ -12,6 +12,7 @@
       <div>
         <h4>Статус Вашего заказа:</h4>
         <h2>{{status}}</h2>
+        <p>{{orderData}}</p>
       </div>
       <button @click="handleOk">OK</button>
     </div>
@@ -22,13 +23,14 @@
 export default {
   name: "CheckOrder",
   data() {
-    return { orderId: "", status: "" };
+    return { orderId: "", status: "", orderData: {} };
   },
   methods: {
     checkOrder() {
       if (this.orderId == "") {
         alert("введите номер заказа");
       } else {
+        this.orderData = localStorage.getItem(this.orderId);
         this.status = "в ожидании";
       }
     },
