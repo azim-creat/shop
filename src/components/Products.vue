@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="products-container">
     <ViewToggle
       v-if="Object.keys(render_list).length !== 0"
       :setViewMode="setViewMode"
       :view_mode="view_mode"
     />
-    <div class="view-wrapper" :class="view_mode">
+    <div class="view-wrapper" :class="view_mode" v-if="Object.keys(render_list).length !== 0">
       <div v-for="(data,index) in to_render" :key="index">
         <ProductGrid
           v-if=" view_mode === 'grid'"
@@ -25,6 +25,7 @@
           :decrease="decreaseItem"
           :increase="increaseItem"
         />
+
         <ProductList
           v-else
           :title="data.productTitle"
@@ -38,7 +39,17 @@
         />
       </div>
     </div>
+
+    <div class="view-wrapper" :class="view_mode" v-if="showSkeletons">
+      <div v-for="n in 30" :key="n">
+        <ListSkeleton v-if="view_mode === 'list' && Object.keys(render_list).length == 0" />
+        <GridSkeleton v-else-if="view_mode === 'grid' && Object.keys(render_list).length == 0" />
+        <SingleSkeleton v-else-if="view_mode === 'single' && Object.keys(render_list).length == 0" />
+      </div>
+    </div>
+
     <div id="observer_bottom"></div>
+
     <img v-if="preloader_show" class="preloder" :src="require('../assets/preloader.svg')" alt />
   </div>
 </template>
@@ -48,15 +59,23 @@ import ViewToggle from "@/components/ViewToggle";
 import ProductList from "@/components/ProductItems/ProductList";
 import ProductGrid from "@/components/ProductItems/ProductGrid";
 import ProductSingle from "@/components/ProductItems/ProductSingle";
+import ListSkeleton from "@/components/Skeletons/ListSkeleton";
+import GridSkeleton from "@/components/Skeletons/GridSkeleton";
+import SingleSkeleton from "@/components/Skeletons/SingleSkeleton";
 
 export default {
   name: "Products",
-  props: { render_list: Object },
+  props: {
+    render_list: Object,
+    showSkeletons: { type: Boolean, default: true },
+  },
   components: {
     ProductList,
     ProductGrid,
     ProductSingle,
     ViewToggle,
+    ListSkeleton,
+    SingleSkeleton,
   },
   data() {
     return {
@@ -78,10 +97,10 @@ export default {
       this.$store.dispatch("INCREASE", id);
     },
     addItems() {
-      if (this.chashed_items[this.last_index] === undefined){
-        if(this.last_index > 0) this.preloader_show = false
+      if (this.chashed_items[this.last_index] === undefined) {
+        if (this.last_index > 0) this.preloader_show = false;
         return;
-      } 
+      }
       this.to_render = this.to_render.concat(
         this.chashed_items[this.last_index]
       );
@@ -143,6 +162,9 @@ export default {
 </script> 
 
 <style scoped>
+.products-container {
+  width: 100%;
+}
 .preloder {
   width: 60%;
   text-align: center;

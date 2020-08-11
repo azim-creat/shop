@@ -1,19 +1,17 @@
 <template>
-  <router-link
-    :to="`/product/${itemId}`"
-    class="product-item"
-    v-lazy:background-image="image"
-  >
+  <div class="product-item" v-lazy:background-image="image">
     <div class="overlay">
-      <div class="details">
-        <div>
-          <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
-          <span class="price">{{ price|| 'Цена не указана' }} USD</span>
+      <router-link :to="`/product/${itemId}`">
+        <div class="details">
+          <div>
+            <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
+            <span class="price">{{ price|| 'Цена не указана' }} KZT</span>
+          </div>
+          <div class="tags">
+            <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
+          </div>
         </div>
-        <div class="tags">
-          <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
-        </div>
-      </div>
+      </router-link>
       <div class="controls">
         <input
           class="noSelect"
@@ -26,7 +24,7 @@
         <input class="noSelect" type="button" value="+" @click="increase(itemId)" />
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -57,10 +55,18 @@ export default {
       }
     },
     getQuantity() {
-      if (this.CartItems[this.id]) {
-        return this.CartItems[this.id].quantity;
-      } else {
-        return 0;
+      let item_in_cart = this.CartItems[parseInt(this.itemId, 10)];
+      if (item_in_cart === undefined) return 0;
+      if (typeof item_in_cart === "number") {
+        return item_in_cart;
+      } else if (typeof item_in_cart === "object") {
+        var sum = 0;
+        for (var el in item_in_cart) {
+          if (item_in_cart.hasOwnProperty(el)) {
+            sum += parseFloat(item_in_cart[el]);
+          }
+        }
+        return sum;
       }
     },
   },
@@ -82,6 +88,11 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 img {
@@ -108,7 +119,7 @@ img {
 
 h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: 1.2rem;
   font-weight: bold;
   text-decoration: none;
 }

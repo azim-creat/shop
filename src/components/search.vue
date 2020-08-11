@@ -12,7 +12,7 @@
       v-model="s"
       size="40px"
     />
-    <Products :render_list="render_search_list" />
+    <Products :render_list="render_search_list" :showSkeletons="false" />
   </div>
 </template>
 <script>
@@ -53,7 +53,11 @@ export default {
             const element = objects[key];
             for (var obj_key in element) {
               if (typeof element[obj_key] === "string") {
-                if (element[obj_key].toLowerCase().indexOf(toSearch.toLowerCase()) != -1) {
+                if (
+                  element[obj_key]
+                    .toLowerCase()
+                    .indexOf(toSearch.toLowerCase()) != -1
+                ) {
                   results[key] = objects[key];
                 }
               }

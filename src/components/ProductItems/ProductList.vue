@@ -6,7 +6,7 @@
     <div class="description">
       <div class="description-text">
         <h3>{{ title }}</h3>
-        <span class="price">{{price || '1000' }}</span>
+        <span class="price">{{price || '1000' }}  KZT</span>
       </div>
       <div class="tags">
         <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
@@ -47,7 +47,7 @@ export default {
   methods: {
     getQuantity() {
       let item_in_cart = this.CartItems[parseInt(this.itemId, 10)];
-      if(item_in_cart === undefined) return 0
+      if (item_in_cart === undefined) return 0;
       if (typeof item_in_cart === "number") {
         return item_in_cart;
       } else if (typeof item_in_cart === "object") {
@@ -88,9 +88,7 @@ export default {
   justify-content: space-between;
   border: 1px solid lightgray;
   border-radius: 12px;
-  
 }
-
 
 img {
   flex: 0;
