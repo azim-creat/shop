@@ -8,12 +8,12 @@ export default {
   props: {
     maxWidth: {
       // The default maxiumum width is 100%.
-      default: 100,
+      default: 70,
       type: Number,
     },
     minWidth: {
       // Lines have a minimum width of 80%.
-      default: 80,
+      default: 50,
       type: Number,
     },
     height: {
@@ -48,10 +48,10 @@ export default {
 .SkeletonBox {
   display: inline-block;
   vertical-align: middle;
-  background: rgb(255, 255, 255);
 
   position: relative;
   overflow: hidden;
+  border-radius: 5px;
 }
 .SkeletonBox::after {
   position: absolute;
@@ -60,10 +60,9 @@ export default {
   bottom: 0;
   left: 0;
   transform: translateX(-100%);
-background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(238,238,238,1) 50%, rgba(255,255,255,0.9976365546218487) 100%);
+background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgb(207, 207, 207) 50%, rgba(255,255,255,0) 100%);
   animation: shimmer 5s infinite;
   content: "";
-
 }
 
 @keyframes shimmer {
