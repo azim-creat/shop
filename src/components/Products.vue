@@ -40,7 +40,11 @@
       </div>
     </div>
 
-    <div class="view-wrapper" :class="view_mode" v-if="showSkeletons">
+    <div
+      class="view-wrapper"
+      :class="view_mode"
+      v-if="showSkeletons && Object.keys(render_list).length == 0"
+    >
       <div v-for="n in 30" :key="n">
         <ListSkeleton v-if="view_mode === 'list' && Object.keys(render_list).length == 0" />
         <GridSkeleton v-else-if="view_mode === 'grid' && Object.keys(render_list).length == 0" />

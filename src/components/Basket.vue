@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Products from "./Products";
 
 import ProductList from "@/components/ProductItems/ProductList";
@@ -38,6 +38,7 @@ export default {
       isEmpty: function () {
         return Object.keys(this.renderCartsItemList).length == 0 ? true : false;
       },
+
       Cart: "Cart",
       wrapper: "wrapper",
     };
@@ -55,6 +56,7 @@ export default {
         alert("Ваша корзина пуста");
         return;
       } else {
+        this.CREATE_ORDER();
         this.$router.push("checkout");
       }
     },
@@ -82,6 +84,7 @@ export default {
       "StoreItems",
       "getStoreItemsById",
     ]),
+    ...mapActions(["CREATE_ORDER"]),
     TOTAL() {
       const cart = this.$store.state.cartItems;
       let ans = 0;
