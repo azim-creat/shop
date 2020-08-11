@@ -36,6 +36,8 @@
 
 <script>
 import vSelect from "vue-select";
+import Request from "../request/request";
+
 name: "Checkout";
 export default {
   components: {
@@ -78,8 +80,49 @@ export default {
         return true;
       }
     },
+    collectBasket() {
+      let basket = this.$store.state.cartItems;
+      let all_items = this.$store.state.storeItems;
+      let basket_to_send = {};
+      for (const key in basket) {
+        if (basket.hasOwnProperty(key)) {
+          const element = basket[key];
+
+          basket_to_send[key] = {
+            count: element,
+            price: all_items[key].price,
+            profile_id: key,
+          };
+        }
+      }
+      return basket_to_send
+    },
+    sendOrderToServer(data) {
+      const self = this
+      let date = new Date();
+      date = date.toISOString();
+
+      return Request({
+        task: "profiles.append",
+        testik: 1,
+        user_id: 674,
+        key: "mcTnaftuzoHzWJV",
+        type_id: 10000,
+        full_name: "Заявка от " + data.name + " на " + date, //
+        fields: JSON.stringify({
+          111: "Заявка от " + data.name + " на " + date, //название заявки
+          1001: 64126, // тип сделки: Заявка
+          58626: self.collectBasket(), // корзина товаров,
+          121: data.phone,
+          2: date,
+          126: data.address,
+          19: {'payment_type': data.payment} , //способ оплаты
+        }),
+      });
+    },
     send: function () {
       // если все поля заполнены правильно - в массиве будут только true
+      const self = this;
       const isGood = [];
       isGood.push(this.validatePhone());
       isGood.push(this.validateName());
@@ -94,6 +137,16 @@ export default {
       // если allFilledCorrectly == false - некоторое поле не заполнено правильно
       if (allFilledCorrectly == undefined) {
         console.log(this.contacts);
+
+        self
+          .sendOrderToServer(this.contacts)
+          .then((resp) => {
+            console.log(resp.new_profile_id, 'new_profile_id');
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+
         this.$router.push("complete");
       } else {
         alert("Вы неправильно заполнили контактные данные");

@@ -85,7 +85,6 @@ export default {
       this.to_render = this.to_render.concat(
         this.chashed_items[this.last_index]
       );
-      debugger;
       this.last_index++;
     },
     segmentation(val) {
@@ -109,7 +108,6 @@ export default {
   },
   watch: {
     render_list(val) {
-      debugger
       this.to_render = []
       this.chashed_items = []
       this.last_index =  0
