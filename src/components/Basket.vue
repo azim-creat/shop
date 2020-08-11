@@ -14,7 +14,7 @@
         </div>
         <div>
           <p>сумма:</p>
-          <span>{{TOTAL}}</span>
+          <span>{{TOTAL}} KZT</span>
         </div>
       </div>
       <button @click="goToCheckout()">Заказать</button>

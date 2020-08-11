@@ -7,7 +7,7 @@
         <img :src="item.image" />
         <div class="description">
           <h3>{{ item.title}}</h3>
-          <span class="price">{{ item.price}}</span>
+          <span class="price">{{ item.price}} KZT</span>
         </div>
       </div>
 
@@ -38,11 +38,11 @@
         </p>
         <p class="price">
           <span class="total-amount__description">цена</span>
-          <span class="total-amount__value">{{"cproduct.price"}} USD</span>
+          <span class="total-amount__value">{{"cproduct.price"}} KZT</span>
         </p>
         <p class="total-price">
           <span class="total-amount__description">сумма</span>
-          <span class="total-amount__value">{{"totalPrice"}} USD</span>
+          <span class="total-amount__value">{{"totalPrice"}} KZT</span>
         </p>
       </div>
       <button @click="clousePopUp">ГОТОВО</button>
