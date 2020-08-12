@@ -84,12 +84,14 @@ export default {
       let basket = this.$store.state.cartItems;
       let all_items = this.$store.state.storeItems;
       let basket_to_send = {};
+
       for (const key in basket) {
         if (basket.hasOwnProperty(key)) {
           const element = basket[key];
 
           basket_to_send[key] = {
             count: element,
+            full_name: (all_items.field_111 + 'id' + key),
             price: all_items[key].price,
             profile_id: key,
           };
@@ -112,14 +114,17 @@ export default {
         fields: JSON.stringify({
           111: "Заявка от " + data.name + " на " + date, //название заявки
           1001: 64126, // тип сделки: Заявка
-          58626: self.collectBasket(), // корзина товаров,
+          // 58626:  // корзина товаров,
+          // 55892
           121: data.phone,
           2: date,
           126: data.address,
-          19: {'payment_type': data.payment} , //способ оплаты
+          19: {'payment_type': data.payment, "basket": self.collectBasket()} , //способ оплаты
         }),
       });
     },
+    
+
     send: function () {
       // если все поля заполнены правильно - в массиве будут только true
       const self = this;
@@ -141,7 +146,8 @@ export default {
         self
           .sendOrderToServer(this.contacts)
           .then((resp) => {
-            console.log(resp.new_profile_id, 'new_profile_id');
+            debugger
+            console.log(resp.data.new_profile_id, 'new_profile_id');
           })
           .catch((e) => {
             console.log(e);

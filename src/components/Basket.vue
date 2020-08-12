@@ -215,7 +215,7 @@ export default {
   .empty > button {
     position: fixed;
     bottom: 67px;
-    width: 98%;
+    width: calc(100% - 20px);
   }
 }
 

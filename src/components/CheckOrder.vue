@@ -19,6 +19,9 @@
 </template> 
     
 <script>
+import Request from "../request/request";
+
+
 export default {
   name: "CheckOrder",
   data() {
@@ -34,6 +37,29 @@ export default {
     },
     handleOk() {
       this.status = "";
+      this.checkOrderStatus();
+    },
+
+    checkOrderStatus() {
+      const self = this;
+      
+
+      return Request({
+        task: "profiles.getRows",
+        testik: 1,
+        user_id: 674,
+        key: "mcTnaftuzoHzWJV",
+        type_id: 10000,
+        profiles_ids: 64207, //номер заказа
+
+        fields_ids: "[55892]",
+      })
+        .then((ans) => {
+          console.log(ans);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
