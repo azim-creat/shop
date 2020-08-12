@@ -6,7 +6,7 @@
         <span>№</span>
         <input type="text" placeholder="введите номер заказа" v-model="orderId" />
       </div>
-      <button @click="checkOrderStatus">ПРОВЕРИТЬ</button>
+      <button @click="checkOrder">ПРОВЕРИТЬ</button>
     </div>
     <div class="popup" v-show="status.showStatus">
       <div>
@@ -40,8 +40,8 @@ export default {
       if (this.orderId == "") {
         alert("введите номер заказа");
       } else {
+        this.checkOrderStatus();
         this.orderFromStorage = localStorage.getItem(this.orderId);
-        this.status = "в ожидании";
       }
     },
     handleOk() {
