@@ -2,7 +2,7 @@
   <main>
     <h1>Готово</h1>
     <img src="@/assets/Complete/complete.svg" />
-    <span>№ 468131384</span>
+    <span>№ {{orderId}}</span>
     <p>в случае возникновения вопросов, сообщите ваш номер заказа оператору</p>
   </main>
 </template>
@@ -12,6 +12,11 @@ export default {
   name: "Complete",
   mounted: function () {
     this.$store.commit("CLEAN_CART");
+  },
+  computed: {
+    orderId() {
+      return this.$route.params.orderId;
+    },
   },
 };
 </script>
@@ -39,5 +44,4 @@ span {
   font-size: 1.5em;
   align-self: end;
 }
-
 </style>

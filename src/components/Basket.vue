@@ -38,6 +38,7 @@ export default {
       isEmpty: function () {
         return Object.keys(this.renderCartsItemList).length == 0 ? true : false;
       },
+
       Cart: "Cart",
       wrapper: "wrapper",
     };

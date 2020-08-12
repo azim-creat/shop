@@ -29,7 +29,9 @@
           :class="{valid: validatePayment()}"
         />
       </label>
-      <button class="save_btn" @click="send">ОТПРАВИТЬ</button>
+      <router-link :to="`/complete/${this.orderId}`">
+        <button class="save_btn" @click="send(orderId)">ОТПРАВИТЬ</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -52,6 +54,7 @@ export default {
         payment: "",
       },
       paymentOptions: ["наличка", "перевод", "карта"],
+      orderId: Math.floor(Math.random() * (0 - 100) + 80),
     };
   },
   methods: {

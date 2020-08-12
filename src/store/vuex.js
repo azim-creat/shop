@@ -344,6 +344,14 @@ export const store = new Vuex.Store({
         commit("FETCH_FROM_SERVER", ans);
         commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
       });
+    },
+    CREATE_ORDER: (state, orderId) => {
+      alert(orderId);
+      const order = {
+        date: new Date(),
+        orderId
+      };
+      localStorage.setItem(orderId, JSON.stringify(order));
     }
   }
 });
