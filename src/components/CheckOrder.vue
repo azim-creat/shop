@@ -6,13 +6,13 @@
         <span>№</span>
         <input type="text" placeholder="введите номер заказа" v-model="orderId" />
       </div>
-      <button @click="checkOrder">ПРОВЕРИТЬ</button>
+      <button @click="checkOrderStatus">ПРОВЕРИТЬ</button>
     </div>
-    <div class="popup" v-show="status">
+    <div class="popup" v-show="status.showStatus">
       <div>
         <h4>Статус Вашего заказа:</h4>
-        <h2>{{status}}</h2>
-        <p>{{orderData}}</p>
+        <h2>{{status.sts}}</h2>
+        <p>{{status.full_name}}</p>
       </div>
       <button @click="handleOk">OK</button>
     </div>
@@ -22,29 +22,34 @@
 <script>
 import Request from "../request/request";
 
-
 export default {
   name: "CheckOrder",
   data() {
-    return { orderId: "", status: "", orderData: {} };
+    return {
+      orderId: "",
+      status: {
+        full_name: "",
+        sts: "",
+        showStatus: false,
+      },
+      orderFromStorage: {},
+    };
   },
   methods: {
     checkOrder() {
       if (this.orderId == "") {
         alert("введите номер заказа");
       } else {
-        this.orderData = localStorage.getItem(this.orderId);
+        this.orderFromStorage = localStorage.getItem(this.orderId);
         this.status = "в ожидании";
       }
     },
     handleOk() {
-      this.status = "";
-      this.checkOrderStatus();
+      this.status.showStatus = false;
     },
 
     checkOrderStatus() {
       const self = this;
-      
 
       return Request({
         task: "profiles.getRows",
@@ -54,16 +59,36 @@ export default {
         type_id: 10000,
         profiles_ids: 64207, //номер заказа
 
+        //?
         fields_ids: "[55892]",
       })
         .then((ans) => {
-          console.log(ans);
+          const dateOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            timezone: "UTC",
+            hour: "numeric",
+            minute: "numeric",
+          };
+          const ISOregexp = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+
+          const value = ans.data.value[64207];
+          let full_date = value.full_name;
+          const date = full_date.match(ISOregexp)[0];
+          const frendlyDate = new Date(date).toLocaleString("ru", dateOptions);
+          full_date = full_date.replace(ISOregexp, frendlyDate);
+
+          this.status.showStatus = true;
+          this.status.sts = value.field_55892;
+          this.status.full_name = full_date;
         })
         .catch((error) => {
           console.error(error);
         });
     },
   },
+  computed: {},
 };
 </script>
 
