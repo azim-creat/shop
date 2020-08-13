@@ -148,7 +148,6 @@ export default {
         self
           .sendOrderToServer(this.contacts)
           .then((new_profile_id) => {
-            console.log(new_profile_id, "new_profile_id");
             this.$store.dispatch("CREATE_ORDER", new_profile_id);
             this.$router.push(`/complete/${new_profile_id}`);
           })

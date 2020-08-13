@@ -6,7 +6,17 @@
         <span>№</span>
         <input type="text" placeholder="введите номер заказа" v-model="orderId" />
       </div>
-      <button @click="checkOrder">ПРОВЕРИТЬ</button>
+      <ul class="orders">
+        <!-- ДОБАВИТЬ СКРОЛЛ -->
+        <li class="orders-item" v-for="order in ordersFromStorage" :key="order.orderId">
+          <div class="orders-item_column">
+            <span>Заказ №{{order.orderId}}</span>
+            {{order.date}}
+          </div>
+          <button class="orders-item_button" @click="checkOrderStatus(order.orderId)">ПРОВЕРИТЬ</button>
+        </li>
+      </ul>
+      <button @click="checkOrder(this.orderId)">ПРОВЕРИТЬ</button>
     </div>
     <div class="popup" v-show="status.showStatus">
       <div>
@@ -32,23 +42,24 @@ export default {
         sts: "",
         showStatus: false,
       },
-      orderFromStorage: {},
+      ordersFromStorage: JSON.parse(localStorage.getItem("orders")),
     };
   },
   methods: {
-    checkOrder() {
-      if (this.orderId == "") {
+    checkOrder(orderId) {
+      if (orderId == "") {
         alert("введите номер заказа");
       } else {
         this.checkOrderStatus();
-        this.orderFromStorage = localStorage.getItem(this.orderId);
+        // ПЕРЕПИСАТЬ
+        this.orderFromStorage = localStorage.getItem(orderId);
       }
     },
     handleOk() {
       this.status.showStatus = false;
     },
 
-    checkOrderStatus() {
+    checkOrderStatus(orderId) {
       const self = this;
 
       return Request({
@@ -73,14 +84,15 @@ export default {
           };
           const ISOregexp = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 
-          const value = ans.data.value[this.orderId];
+          const value = ans.data.value[orderId];
           let full_date = value.full_name;
           const date = full_date.match(ISOregexp)[0];
           const frendlyDate = new Date(date).toLocaleString("ru", dateOptions);
           full_date = full_date.replace(ISOregexp, frendlyDate);
 
           this.status.showStatus = true;
-          this.status.sts = value.field_55892;
+          this.status.sts =
+            value.field_55892 == null ? "Неподтверждено" : value.field_55892;
           this.status.full_name = full_date;
         })
         .catch((error) => {
@@ -88,7 +100,7 @@ export default {
         });
     },
   },
-  computed: {},
+  mounted() {},
 };
 </script>
 
@@ -103,7 +115,7 @@ export default {
   display: grid;
   justify-content: space-between;
   align-items: center;
-  grid-auto-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr 1fr auto;
   grid-auto-columns: 100%;
   height: 100%;
   width: 100%;
@@ -136,8 +148,32 @@ button {
   text-align: center;
   color: white;
   background-color: black;
+  cursor: pointer;
 }
 
+.orders {
+  padding: 0;
+  list-style: none;
+  max-height: 95%;
+  overflow-x: scroll;
+}
+.orders-item {
+  max-width: 500px;
+  margin: 5px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.orders-item_column {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.orders-item_button {
+  padding: 5px 10px;
+  outline: none;
+  font-size: 10px;
+}
 .popup {
   position: absolute;
   display: grid;

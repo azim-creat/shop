@@ -236,7 +236,6 @@ export const store = new Vuex.Store({
           // if (Object.keys(newObj).length > 500) break;
         }
       }
-      console.log(newObj, "NEW");
 
       state.storeItems = newObj;
     },
@@ -346,21 +345,26 @@ export const store = new Vuex.Store({
       });
     },
     CREATE_ORDER: (state, orderId) => {
+      const dateOptions = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timezone: "UTC",
+        hour: "numeric",
+        minute: "numeric"
+      };
       const all_orders = JSON.parse(localStorage.getItem("orders"));
       const new_order = {
-        date: new Date(),
+        date: new Date().toLocaleString("ru", dateOptions),
         orderId
       };
       if (!all_orders) {
-        alert("NO ORDERS");
         const all_orders = [];
         all_orders.unshift(new_order);
         localStorage.setItem("orders", JSON.stringify(all_orders));
       } else {
-        debugger;
         all_orders.unshift(new_order);
         localStorage.setItem("orders", JSON.stringify(all_orders));
-        alert("добавлено в локалсторадж");
       }
     }
   }
