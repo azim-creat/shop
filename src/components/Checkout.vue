@@ -94,7 +94,7 @@ export default {
 
           basket_to_send[key] = {
             count: element,
-            full_name: all_items.field_111 + "id" + key,
+            full_name: all_items[key].productTitle + " id" + key,
             price: all_items[key].price,
             profile_id: key,
           };
@@ -144,7 +144,6 @@ export default {
       });
       // если allFilledCorrectly == false - некоторое поле не заполнено правильно
       if (allFilledCorrectly == undefined) {
-        console.log(this.contacts);
         self
           .sendOrderToServer(this.contacts)
           .then((new_profile_id) => {
@@ -189,7 +188,8 @@ label > span,
 input,
 .payment-checker > div {
   padding: 22px 17px 12px;
-  width: 85%;
+  padding-right: 0;
+  width: 90%;
   margin: auto;
   border: solid black 2px;
   font-weight: 600;
@@ -207,6 +207,12 @@ input,
 input.valid {
   background-color: rgba(0, 255, 0, 0.26);
 }
+@media (min-width: 900px) {
+  .checkout {
+    max-width: 70%;
+    margin: auto;
+  }
+}
 </style>
 
 <style>
@@ -220,6 +226,8 @@ input.valid {
   font-variant: small-caps;
 }
 .vs__dropdown-toggle {
+  padding: 22px 10px 12px;
+ padding-right: 7px;
   background: white;
   display: flex;
   justify-content: space-between;
@@ -231,7 +239,7 @@ input.valid {
 
 #vs1__listbox.vs__dropdown-menu {
   list-style: none;
-  margin: 20px 0;
+  margin: 20px 5px;
 }
 .vs__dropdown-option {
   margin: 10px 0;
@@ -241,8 +249,7 @@ input.valid {
   display: none;
 }
 .style-chooser {
-  padding: 22px 17px 12px;
-  width: 85%;
+  width: 93%;
   border: solid black 2px;
   font-weight: 600;
 }

@@ -54,7 +54,7 @@
 
     <div id="observer_bottom"></div>
 
-    <img  v-if="preloader_show && Object.keys(render_list).length !== 0 && Object.keys(render_list).length == to_render.length" class="preloder" :src="require('../assets/preloader.svg')" alt />
+    <img  v-if="preloader_show && Object.keys(render_list).length !== 0 && !Object.keys(render_list).length == to_render.length" class="preloder" :src="require('../assets/preloader.svg')" alt />
   </div>
 </template>
 
