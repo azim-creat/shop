@@ -16,7 +16,7 @@
           <button class="orders-item_button" @click="checkOrderStatus(order.orderId)">ПРОВЕРИТЬ</button>
         </li>
       </ul>
-      <button @click="checkOrder(this.orderId)">ПРОВЕРИТЬ</button>
+      <button @click="checkOrder">ПРОВЕРИТЬ</button>
     </div>
     <div class="popup" v-show="status.showStatus">
       <div>
@@ -46,13 +46,11 @@ export default {
     };
   },
   methods: {
-    checkOrder(orderId) {
-      if (orderId == "") {
+    checkOrder() {
+      if (this.orderId == "") {
         alert("введите номер заказа");
       } else {
-        this.checkOrderStatus();
-        // ПЕРЕПИСАТЬ
-        this.orderFromStorage = localStorage.getItem(orderId);
+        this.checkOrderStatus(this.orderId);
       }
     },
     handleOk() {
