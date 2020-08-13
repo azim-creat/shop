@@ -66,9 +66,7 @@ export default {
         user_id: 674,
         key: "mcTnaftuzoHzWJV",
         type_id: 10000,
-        profiles_ids: this.orderId, //номер заказа
-
-        //?
+        profiles_ids: orderId, //номер заказа
         fields_ids: "[55892]",
       })
         .then((ans) => {
