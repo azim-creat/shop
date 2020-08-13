@@ -57,7 +57,7 @@ export default {
         user_id: 674,
         key: "mcTnaftuzoHzWJV",
         type_id: 10000,
-        profiles_ids: 64207, //номер заказа
+        profiles_ids: this.orderId, //номер заказа
 
         //?
         fields_ids: "[55892]",
@@ -73,7 +73,7 @@ export default {
           };
           const ISOregexp = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 
-          const value = ans.data.value[64207];
+          const value = ans.data.value[this.orderId];
           let full_date = value.full_name;
           const date = full_date.match(ISOregexp)[0];
           const frendlyDate = new Date(date).toLocaleString("ru", dateOptions);

@@ -29,9 +29,8 @@
           :class="{valid: validatePayment()}"
         />
       </label>
-      <router-link :to="`/complete/${this.orderId}`">
-        <button class="save_btn" @click="send(orderId)">ОТПРАВИТЬ</button>
-      </router-link>
+
+      <button class="save_btn" @click="send()">ОТПРАВИТЬ</button>
     </div>
   </div>
 </template>
@@ -54,7 +53,8 @@ export default {
         payment: "",
       },
       paymentOptions: ["наличка", "перевод", "карта"],
-      orderId: Math.floor(Math.random() * (0 - 100) + 80),
+      orderId: undefined,
+      isLoading: undefined,
     };
   },
   methods: {
@@ -94,19 +94,18 @@ export default {
 
           basket_to_send[key] = {
             count: element,
-            full_name: (all_items.field_111 + 'id' + key),
+            full_name: all_items.field_111 + "id" + key,
             price: all_items[key].price,
             profile_id: key,
           };
         }
       }
-      return basket_to_send
+      return basket_to_send;
     },
     sendOrderToServer(data) {
-      const self = this
+      const self = this;
       let date = new Date();
       date = date.toISOString();
-
       return Request({
         task: "profiles.append",
         testik: 1,
@@ -122,11 +121,12 @@ export default {
           121: data.phone,
           2: date,
           126: data.address,
-          19: {'payment_type': data.payment, "basket": self.collectBasket()} , //способ оплаты
+          19: { payment_type: data.payment, basket: self.collectBasket() }, //способ оплаты
         }),
+      }).then((ans) => {
+        return ans.data.new_profile_id;
       });
     },
-    
 
     send: function () {
       // если все поля заполнены правильно - в массиве будут только true
@@ -145,18 +145,16 @@ export default {
       // если allFilledCorrectly == false - некоторое поле не заполнено правильно
       if (allFilledCorrectly == undefined) {
         console.log(this.contacts);
-
         self
           .sendOrderToServer(this.contacts)
-          .then((resp) => {
-            debugger
-            console.log(resp.data.new_profile_id, 'new_profile_id');
+          .then((new_profile_id) => {
+            console.log(new_profile_id, "new_profile_id");
+            this.$store.dispatch("CREATE_ORDER", new_profile_id);
+            this.$router.push(`/complete/${new_profile_id}`);
           })
           .catch((e) => {
             console.log(e);
           });
-
-        this.$router.push("complete");
       } else {
         alert("Вы неправильно заполнили контактные данные");
       }

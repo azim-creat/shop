@@ -346,12 +346,22 @@ export const store = new Vuex.Store({
       });
     },
     CREATE_ORDER: (state, orderId) => {
-      alert(orderId);
-      const order = {
+      const all_orders = JSON.parse(localStorage.getItem("orders"));
+      const new_order = {
         date: new Date(),
         orderId
       };
-      localStorage.setItem(orderId, JSON.stringify(order));
+      if (!all_orders) {
+        alert("NO ORDERS");
+        const all_orders = [];
+        all_orders.unshift(new_order);
+        localStorage.setItem("orders", JSON.stringify(all_orders));
+      } else {
+        debugger;
+        all_orders.unshift(new_order);
+        localStorage.setItem("orders", JSON.stringify(all_orders));
+        alert("добавлено в локалсторадж");
+      }
     }
   }
 });
