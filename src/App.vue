@@ -1,11 +1,12 @@
 <template>
-  <div class="app">
+  <div class="app ios-fix">
     <div class="main_body">
       <!-- <Checkout /> -->
       <transition name="fade">
         <router-view />
       </transition>
     </div>
+
     <div class="navbar">
       <div
         class="nav-item"
@@ -175,7 +176,12 @@ export default {
 .fade-leave-active {
   opacity: 0;
 }
-
+* {
+  -webkit-overflow-scrolling: auto !important;
+}
+.ios_fix{
+  -webkit-overflow-scrolling: auto !important;
+}
 body {
   margin: 0;
   padding: 0;
@@ -210,7 +216,7 @@ body {
   display: none;
 }
 .isNotVisible {
-  visibility: hidden;
+  display: none;  
 }
 
 .app {
@@ -227,7 +233,7 @@ body {
   height: 100px;
   height: -webkit-fill-available;
   height: 100%;
-  padding-bottom: 70px;
+  padding-bottom: 90px;
 }
 .navbar {
   flex: 0;

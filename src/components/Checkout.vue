@@ -52,7 +52,7 @@ export default {
         address: "",
         payment: "",
       },
-      paymentOptions: ["наличка", "перевод", "карта"],
+      paymentOptions: ["наличные", "перевод на каспи", "карта"],
       orderId: undefined,
       isLoading: undefined,
     };

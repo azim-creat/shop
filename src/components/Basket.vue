@@ -1,12 +1,12 @@
 <template>
   <div :class="[isEmpty() ? wrapper  : Cart ]">
     <div class="empty" v-if="isEmpty()">
-      <img :src="require('../assets/cart_empty.svg')" alt />
+      <img :src="require('../assets/cart_empty.svg')" />
       <button @click="goToHome">перейти в магазин</button>
     </div>
 
-    <Products :render_list="renderCartsItemList" v-else />
-    <div class="CartControls" v-show="!isEmpty()">
+    <Products :render_list="renderCartsItemList" v-else :style="{paddingBottom: this.height+'px'}" />
+    <div class="CartControls" v-show="!isEmpty()" ref="CartControls">
       <div class="CartFlexContainer">
         <div>
           <p>количество:</p>
@@ -41,6 +41,8 @@ export default {
 
       Cart: "Cart",
       wrapper: "wrapper",
+
+      height: 0,
     };
   },
   methods: {
@@ -67,13 +69,15 @@ export default {
     },
     removeItem(item) {
       this.$store.dispatch("DELETE_CART_ITEM", item);
-      
     },
     decreaseItem(id) {
       this.$store.dispatch("DECREASE", id);
     },
     increaseItem(id) {
       this.$store.dispatch("INCREASE", id);
+    },
+    getHeight() {
+      return this.$refs.CartControls.clientHeight;
     },
   },
   computed: {
@@ -153,6 +157,9 @@ export default {
       return ans;
     },
   },
+  mounted() {
+    this.height = this.getHeight();
+  },
 };
 </script>
 
@@ -196,7 +203,6 @@ export default {
 .empty {
   display: grid;
   grid-template-rows: 1fr min-content;
-  height: 85vh;
   width: 100%;
   place-items: center center;
 }
@@ -215,7 +221,7 @@ export default {
   }
   .empty > button {
     position: fixed;
-    bottom: 67px;
+    bottom: 90px;
     width: calc(100% - 20px);
   }
 }

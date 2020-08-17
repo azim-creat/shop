@@ -104,7 +104,7 @@ export default {
 .container {
   position: relative;
 
-  height: 100%;
+  height: 78vh;
   width: 100%;
 }
 .grid-container {

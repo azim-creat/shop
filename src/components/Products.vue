@@ -1,11 +1,16 @@
 <template>
-  <div class="products-container">
+  <div class="products-container ios-fix">
     <ViewToggle
       v-if="Object.keys(render_list).length !== 0"
       :setViewMode="setViewMode"
       :view_mode="view_mode"
     />
-    <div class="view-wrapper" :class="view_mode" v-if="Object.keys(render_list).length !== 0">
+
+    <div
+      class="view-wrapper ios-fix"
+      :class="view_mode"
+      v-if="Object.keys(render_list).length !== 0"
+    >
       <div v-for="(data,index) in to_render" :key="index">
         <ProductGrid
           v-if=" view_mode === 'grid'"
@@ -54,7 +59,12 @@
 
     <div id="observer_bottom"></div>
 
-    <img  v-if="preloader_show && Object.keys(render_list).length !== 0 && !Object.keys(render_list).length == to_render.length" class="preloder" :src="require('../assets/preloader.svg')" alt />
+    <img
+      v-if="preloader_show && Object.keys(render_list).length !== 0 && !Object.keys(render_list).length == to_render.length"
+      class="preloder"
+      :src="require('../assets/preloader.svg')"
+      alt
+    />
   </div>
 </template>
 
@@ -131,9 +141,9 @@ export default {
   },
   watch: {
     render_list(val) {
-      this.to_render = []
-      this.chashed_items = []
-      this.last_index =  0
+      this.to_render = [];
+      this.chashed_items = [];
+      this.last_index = 0;
 
       this.segmentation(val);
     },
@@ -285,6 +295,12 @@ export default {
   background: #fff;
   border-radius: 12px;
   border: 1px white solid;
+}
+*.view-wrapper {
+  padding-bottom: 57px;
+}
+.ios_fix {
+  -webkit-overflow-scrolling: auto !important;
 }
 </style>
 

@@ -6,7 +6,7 @@
     <div class="description">
       <div class="description-text">
         <h3>{{ title }}</h3>
-        <span class="price">{{price || '1000' }}  KZT</span>
+        <span class="price">{{price || '1000' }} KZT</span>
       </div>
       <div class="tags">
         <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
@@ -112,6 +112,10 @@ h3 {
   justify-content: center;
 }
 
+.description-text {
+  max-width: 93px;
+}
+
 .tags .tag:first-child {
   margin-left: 0;
 }
@@ -155,6 +159,14 @@ input[value="+"] {
 @media (max-width: 320px) {
   .tag {
     margin: 0 2px;
+  }
+}
+@media (max-width: 350px) {
+  .controls {
+    width: 30px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>

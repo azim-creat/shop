@@ -44,4 +44,10 @@ span {
   font-size: 1.5em;
   align-self: end;
 }
+@media (max-width: 900px) {
+  img {
+    height: auto;
+    width: 90%;
+  }
+}
 </style>
