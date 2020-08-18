@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       isEmpty: function () {
-        return Object.keys(this.renderCartsItemList).length == 0 ? true : false;
+        return this.renderCartsItemList.length == 0 ? true : false;
       },
 
       Cart: "Cart",
@@ -47,14 +47,14 @@ export default {
   },
   methods: {
     goToCheckout() {
-      let ans = {};
+      let ans = [];
       for (const key in this.CartItems) {
         if (this.CartItems.hasOwnProperty(key)) {
-          const element = this.StoreItems[key];
-          ans[key] = element;
+          const element = this.getStoreItemsById(key);
+          ans.push(element);
         }
       }
-      if (Object.keys(ans).length == 0) {
+      if (ans.length == 0) {
         alert("Ваша корзина пуста");
         return;
       } else {
@@ -105,7 +105,7 @@ export default {
       for (const key in cart) {
         if (cart.hasOwnProperty(key)) {
           const element = cart[key];
-          const item_cost = this.$store.state.storeItems[key].price;
+          const item_cost = this.getStoreItemsById(key).price;
           if (typeof element === "number") {
             ans += element * item_cost;
           } else if (typeof element === "object") {
@@ -144,16 +144,14 @@ export default {
 
       return ans;
     },
-    // mergedItems: ,
     renderCartsItemList() {
-      let ans = {};
+      let ans = [];
       for (const key in this.CartItems) {
         if (this.CartItems.hasOwnProperty(key)) {
-          const element = this.StoreItems[key];
-          ans[key] = element;
+          const element = this.getStoreItemsById(key);
+          ans.push(element);
         }
       }
-
       return ans;
     },
   },

@@ -102,10 +102,6 @@ export default {
       } else {
       }
     },
-    getSales() {
-      const self = this;
-      // return
-    },
   },
   computed: {
     FIRST_COMPUTED_VALUE() {
@@ -149,15 +145,9 @@ export default {
     },
   },
   mounted() {
-    this.getSales();
     this.$store.dispatch("FETCH_FROM_SERVER");
-    // console.log('component mounted');
-    // //this.showAlert();
-    // //this.showAlert2();
-    // console.log(this.FIRST_COMPUTED_VALUE)
-    // this.$store.dispatch("SET_TO",  ["first_value", 23455])
   },
-  // import func from "../../vue-temp/vue-editor-bridge";
+
 };
 </script>
 

@@ -23,7 +23,7 @@ export default {
       title: "Home",
       view_mode: "grid",
       show_modal: true,
-      currentId: 4,
+      currentId: 0,
     };
   },
   methods: {
@@ -52,8 +52,8 @@ export default {
 
 <style scoped>
 .home {
+  background-color: blue;
+  min-height: 100%;
   position: relative;
 }
-
-
 </style>

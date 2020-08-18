@@ -183,8 +183,8 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
-      const newStoreItems = [];
-      const newStoreItemsKeys = [];
+      const newStoreItems = [...state.storeItems];
+      const newStoreItemsKeys = [...state.storeItemsKeys];
       // 468 цена
       // 863 группа
       // 865 подгруппа тип
@@ -226,9 +226,6 @@ export const store = new Vuex.Store({
     },
     CREATE_CATEGORIES_STORAGE: (state, categories) => {
       state.categoryItems = categories;
-    },
-    NEXT_PAGE: (state, payload) => {
-      state.pagination = payload;
     }
   },
 
@@ -265,7 +262,6 @@ export const store = new Vuex.Store({
       commit("SET_SIZE", { size, id });
     },
 
-    //TODO: передавать объект. присваивать объект в мутации
     INCREASE: ({ commit, getters }, itemId) => {
       const item = getters.getStoreItemsById(itemId);
       commit("INCREASE", item);
@@ -274,7 +270,6 @@ export const store = new Vuex.Store({
       const item = getters.getStoreItemsById(itemId);
       commit("DECREASE", item);
     },
-
     INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
       commit("INCREASE_FROM_POP_UP", tagId);
     },
@@ -288,9 +283,7 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: async ({ commit, state }) => {
-      if (state.enable_request == false) {
-        return;
-      }
+      if (state.enable_request == false) return;
 
       state.enable_request = false;
       const resp = await Request({
@@ -302,8 +295,8 @@ export const store = new Vuex.Store({
         fields_ids: "[468,863,865,868,111,866,1000012]",
 
         limit: JSON.stringify([
-          Object.keys(state.storeItems).length,
-          Object.keys(state.storeItems).length + 50
+          state.storeItems.length,
+          state.storeItems.length + 50
         ]),
         filter: JSON.stringify([
           {
@@ -383,8 +376,6 @@ export const store = new Vuex.Store({
       paginationClone.from += 50;
       paginationClone.to += 50;
       console.log("[FETCHING]");
-
-      commit("NEXT_PAGE", paginationClone);
       dispatch("FETCH_FROM_SERVER");
     }
   }
