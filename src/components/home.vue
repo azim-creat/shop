@@ -52,8 +52,7 @@ export default {
 
 <style scoped>
 .home {
-  background-color: blue;
-  min-height: 100%;
+  min-height: 70vh;
   position: relative;
 }
 </style>
