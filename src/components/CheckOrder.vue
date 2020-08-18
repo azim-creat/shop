@@ -63,8 +63,8 @@ export default {
       return Request({
         task: "profiles.getRows",
         testik: 1,
-        user_id: 674,
-        key: "mcTnaftuzoHzWJV",
+        //    user_id: 674,
+        // key: "mcTnaftuzoHzWJV",
         type_id: 10000,
         profiles_ids: orderId, //номер заказа
         fields_ids: "[55892]",

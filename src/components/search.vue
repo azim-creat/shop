@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       title: "Поиск",
-      render_search_list: {},
+      render_search_list: [],
       s: "",
     };
   },
@@ -46,7 +46,7 @@ export default {
       var objects = this.$store.state.storeItems;
 
       function searchFor(toSearch) {
-        var results = {};
+        var results = [];
         toSearch = trimString(toSearch); // trim it
         for (const key in objects) {
           if (objects.hasOwnProperty(key)) {
@@ -58,7 +58,7 @@ export default {
                     .toLowerCase()
                     .indexOf(toSearch.toLowerCase()) != -1
                 ) {
-                  results[key] = objects[key];
+                  results.push(objects[key]);
                 }
               }
             }
