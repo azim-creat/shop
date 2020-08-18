@@ -1,12 +1,12 @@
 <template>
-  <div id="scroll-observer"></div>
+  <img id="scroll-observer" class="preloder" :src="require('../assets/preloader.svg')" />
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   methods: {
-    ...mapActions(['NEXT_PAGE']),
+    ...mapActions(["NEXT_PAGE"]),
     debounce(func, wait, immediate) {
       let timeout;
 
@@ -18,19 +18,16 @@ export default {
           timeout = null;
           if (!immediate) func.apply(context, args);
         };
-
         const callNow = immediate && !timeout;
-
         clearTimeout(timeout);
-
         timeout = setTimeout(later, wait);
-
         if (callNow) func.apply(context, args);
       };
     },
   },
   mounted() {
-    const next = this.debounce(this.NEXT_PAGE, 1000);
+    self = this;
+    const next = this.debounce(this.NEXT_PAGE, 5000);
 
     const options = {
       rootMargin: "10px",
@@ -40,7 +37,7 @@ export default {
     const callbackObserver = function (entries, observer) {
       console.log("[ENTRIES]", entries);
       entries.forEach((element) => {
-        next();
+        self.NEXT_PAGE();
       });
     };
 
@@ -51,9 +48,10 @@ export default {
 </script>
 
 <style>
-#scroll-observer {
-  background-color: red;
-  height: 150px;
-  width: 10px;
+.preloder {
+  width: 60%;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
 }
 </style>

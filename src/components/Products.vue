@@ -1,16 +1,8 @@
 <template>
   <div class="products-container ios-fix">
-    <ViewToggle
-      v-if="Object.keys(render_list).length !== 0"
-      :setViewMode="setViewMode"
-      :view_mode="view_mode"
-    />
+    <ViewToggle v-if="render_list.length !== 0" :setViewMode="setViewMode" :view_mode="view_mode" />
 
-    <div
-      class="view-wrapper ios-fix"
-      :class="view_mode"
-      v-if="Object.keys(render_list).length !== 0"
-    >
+    <div class="view-wrapper ios-fix" :class="view_mode" v-if="render_list.length !== 0">
       <div v-for="(data,index) in render_list" :key="index">
         {{index}}
         <ProductGrid
@@ -46,24 +38,13 @@
       </div>
     </div>
 
-    <div
-      class="view-wrapper"
-      :class="view_mode"
-      v-if="showSkeletons && Object.keys(render_list).length == 0"
-    >
+    <div class="view-wrapper" :class="view_mode" v-if="showSkeletons &&render_list.length == 0">
       <div v-for="n in 30" :key="n">
-        <ListSkeleton v-if="view_mode === 'list' && Object.keys(render_list).length == 0" />
-        <GridSkeleton v-else-if="view_mode === 'grid' && Object.keys(render_list).length == 0" />
-        <SingleSkeleton v-else-if="view_mode === 'single' && Object.keys(render_list).length == 0" />
+        <ListSkeleton v-if="view_mode === 'list' &&render_list.length == 0" />
+        <GridSkeleton v-else-if="view_mode === 'grid' && render_list.length == 0" />
+        <SingleSkeleton v-else-if="view_mode === 'single' && render_list.length == 0" />
       </div>
     </div>
-
-    <img
-      v-if="preloader_show && Object.keys(render_list).length !== 0 && !Object.keys(render_list).length == to_render.length"
-      class="preloder"
-      :src="require('../assets/preloader.svg')"
-      alt
-    />
   </div>
 </template>
 
@@ -106,15 +87,11 @@ export default {
     increaseItem(id) {
       this.$store.dispatch("INCREASE", id);
     },
-    
   },
-  watch: {
-    
-  },
+  watch: {},
   beforeMount() {},
   mounted() {
     const self = this;
-    
   },
 };
 </script> 
@@ -123,13 +100,6 @@ export default {
 .products-container {
   width: 100%;
   min-height: 100%;
-  background-color: blue;
-}
-.preloder {
-  width: 60%;
-  text-align: center;
-  display: block;
-  margin: 0 auto;
 }
 
 .list_ {

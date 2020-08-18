@@ -182,7 +182,6 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
-      // синхронизируем ключи объекта и profile_id
       const newStoreItems = [];
       const newStoreItemsKeys = [];
       // 468 цена
@@ -283,7 +282,9 @@ export const store = new Vuex.Store({
     },
 
     FETCH_FROM_SERVER: async ({ commit, state }) => {
-      if (state.enable_request == false) return;
+      if (state.enable_request == false) {
+        return
+      }
 
       state.enable_request = false;
       const resp = await Request({

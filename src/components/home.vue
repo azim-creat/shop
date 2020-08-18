@@ -55,8 +55,5 @@ export default {
   position: relative;
 }
 
-.infiniteScroll {
-  position: absolute;
-  bottom: -200px;
-}
+
 </style>
