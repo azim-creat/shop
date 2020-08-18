@@ -11,7 +11,8 @@
       :class="view_mode"
       v-if="Object.keys(render_list).length !== 0"
     >
-      <div v-for="(data,index) in to_render" :key="index">
+      <div v-for="(data,index) in render_list" :key="index">
+        {{index}}
         <ProductGrid
           v-if=" view_mode === 'grid'"
           :title="data.productTitle"
@@ -57,8 +58,6 @@
       </div>
     </div>
 
-    <div id="observer_bottom"></div>
-
     <img
       v-if="preloader_show && Object.keys(render_list).length !== 0 && !Object.keys(render_list).length == to_render.length"
       class="preloder"
@@ -80,7 +79,7 @@ import SingleSkeleton from "@/components/Skeletons/SingleSkeleton";
 export default {
   name: "Products",
   props: {
-    render_list: Object,
+    render_list: Array,
     showSkeletons: { type: Boolean, default: true },
   },
   components: {
@@ -94,9 +93,6 @@ export default {
   data() {
     return {
       view_mode: "list",
-      to_render: [],
-      chashed_items: [],
-      last_index: 0,
       preloader_show: true,
     };
   },
@@ -110,67 +106,15 @@ export default {
     increaseItem(id) {
       this.$store.dispatch("INCREASE", id);
     },
-    addItems() {
-      if (this.chashed_items[this.last_index] === undefined) {
-        if (this.last_index > 0) this.preloader_show = false;
-        return;
-      }
-      this.to_render = this.to_render.concat(
-        this.chashed_items[this.last_index]
-      );
-      this.last_index++;
-    },
-    segmentation(val) {
-      let obj_keys = Object.keys(val);
-      let segmented = [];
-      let one_segment = [];
-      for (let index = 0; index < obj_keys.length; index++) {
-        if (index && index % 50 === 0) {
-          segmented.push(one_segment);
-          one_segment = [];
-        }
-        const obj_key = obj_keys[index];
-        one_segment.push(val[obj_key]);
-        if (index === obj_keys.length - 1) {
-          segmented.push(one_segment);
-        }
-      }
-      this.chashed_items = segmented;
-      this.addItems();
-    },
+    
   },
   watch: {
-    render_list(val) {
-      this.to_render = [];
-      this.chashed_items = [];
-      this.last_index = 0;
-
-      this.segmentation(val);
-    },
+    
   },
   beforeMount() {},
   mounted() {
     const self = this;
-    setTimeout(() => {
-      self.segmentation(self.render_list);
-    }, 100);
-
-    const options = {
-      rootMargin: "10px",
-      threshold: 0,
-    };
-
-    const callbackObserver = function (entries, observer) {
-      entries.forEach((element) => {
-        if (element.isIntersecting) {
-          self.addItems();
-        }
-      });
-    };
-
-    let observerBottom = new IntersectionObserver(callbackObserver, options);
-
-    observerBottom.observe(document.getElementById("observer_bottom"));
+    
   },
 };
 </script> 
@@ -178,6 +122,8 @@ export default {
 <style scoped>
 .products-container {
   width: 100%;
+  min-height: 100%;
+  background-color: blue;
 }
 .preloder {
   width: 60%;

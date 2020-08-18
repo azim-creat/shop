@@ -7,21 +7,14 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     cartItems: {},
-    categoryItems: {
-      // "01_1": {
-      //   id: "01_1",
-      //   productTitle: "Категория 1",
-      //   count: 1245,
-      //   parent_id: false,
-      //   image: require("../assets/images/product1.jpg"),
-      //   childs: false
-      // },
-    },
-    storeItems: {},
-    // общее количество товаров в корзине и их цена
+    categoryItems: {},
+    storeItems: [],
+    storeItemsKeys: [],
     popUpItem: {},
     total: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    pagination: { from: 0, to: 200 },
+    enable_request: true
   },
 
   getters: {
@@ -32,7 +25,8 @@ export const store = new Vuex.Store({
     getStoreItemsById: state => id => {
       return state.storeItems[id];
     },
-    CategoryItems: state => state.categoryItems
+    CategoryItems: state => state.categoryItems,
+    enable_request: state => state.enable_request
   },
 
   mutations: {
@@ -189,7 +183,8 @@ export const store = new Vuex.Store({
 
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
       // синхронизируем ключи объекта и profile_id
-      const newObj = {};
+      const newStoreItems = [];
+      const newStoreItemsKeys = [];
       // 468 цена
       // 863 группа
       // 865 подгруппа тип
@@ -201,46 +196,39 @@ export const store = new Vuex.Store({
 
       for (const key in arrayFromServer) {
         if (arrayFromServer.hasOwnProperty(key)) {
+          const newItem = {};
           const objectFromServer = arrayFromServer[key];
-          // newObj[key] = arrayFromServer[key];
-          newObj[key] = {};
-          newObj[key].categoryCode = arrayFromServer[key].field_863;
-          newObj[key].id = objectFromServer.profile_id;
-          newObj[key].price = parseInt(objectFromServer.field_468, 10);
-          newObj[key].productTitle =
+
+          newItem.categoryCode = objectFromServer.field_863;
+          newItem.id = objectFromServer.profile_id;
+          newItem.price = parseInt(objectFromServer.field_468, 10);
+          newItem.productTitle =
             objectFromServer.full_name || objectFromServer.field_111;
-          newObj[key].image = require("../assets/images/product3.jpg");
-          newObj[key].product_img = [
+          newItem.image = require("../assets/images/product3.jpg");
+          newItem.product_img = [
             require("../assets/images/product3.jpg"),
             require("../assets/images/product1.jpg"),
             require("../assets/images/product3.jpg"),
             require("../assets/images/product4.jpg")
           ];
-
-          // newObj[key].tags = {
-          //   // amount of each size
-          //   23: { title: 23, quantity: 0 },
-          //   24: { title: 24, quantity: 0 },
-          //   25: { title: 25, quantity: 0 }
-          // };
-
-          newObj[key].description = [
-            "серьги женские",
-            "цвет металла: красное золото, вставка белое золото",
-            "10 брилиантов 0,02 карата, 2 брилианта 0,095 карат",
-            "вес 2,7 гр",
-            "производитель Россия",
-            "проба 585 "
+          newItem.description = [
+            newItem.field_868,
+            newItem.field_866,
+            newItem.field_1000012
           ];
-
-          // if (Object.keys(newObj).length > 500) break;
+          newStoreItems.push(newItem);
+          newStoreItemsKeys.push(newItem.id);
         }
       }
 
-      state.storeItems = newObj;
+      state.storeItems = newStoreItems;
+      state.storeItemsKeys = newStoreItemsKeys;
     },
     CREATE_CATEGORIES_STORAGE: (state, categories) => {
       state.categoryItems = categories;
+    },
+    NEXT_PAGE: (state, payload) => {
+      state.pagination = payload;
     }
   },
 
@@ -294,14 +282,22 @@ export const store = new Vuex.Store({
       commit("CLEAN_EMPTY_CART_ITEMS", {});
     },
 
-    FETCH_FROM_SERVER: async ({ commit }) => {
+    FETCH_FROM_SERVER: async ({ commit, state }) => {
+      if (state.enable_request == false) return;
+
+      state.enable_request = false;
       const resp = await Request({
         task: "profiles.getRows",
         testik: 1,
-        user_id: 674,
-        key: "mcTnaftuzoHzWJV",
+        //user_id: 674,
+        // key: "mcTnaftuzoHzWJV",
         type_id: 14,
         fields_ids: "[468,863,865,868,111,866,1000012]",
+
+        limit: JSON.stringify([
+          Object.keys(state.storeItems).length,
+          Object.keys(state.storeItems).length + 50
+        ]),
         filter: JSON.stringify([
           {
             field: 111,
@@ -316,33 +312,40 @@ export const store = new Vuex.Store({
         // 866 цвет
         // 1000012 проба
         // full_name - назание
-      }).then(resp => {
-        const value = resp.data.value;
-        let categoriesClone = {};
+      })
+        .then(resp => {
+          state.enable_request = true;
+          console.log("[FETCHED]");
+          const value = resp.data.value;
+          let categoriesClone = {};
 
-        const categoryTemplate = {
-          id: "myid",
-          count: 0,
-          parent_id: false,
-          image: require("../assets/images/product1.jpg"),
-          childs: false
-        };
-        for (const key in value) {
-          if (value.hasOwnProperty(key)) {
-            let catId = value[key].field_863;
-            if (categoriesClone.hasOwnProperty(catId)) {
-              categoriesClone[catId].count++;
-            } else {
-              categoriesClone[catId] = { ...categoryTemplate };
-              categoriesClone[catId].id = catId;
+          const categoryTemplate = {
+            id: "myid",
+            count: 0,
+            parent_id: false,
+            image: require("../assets/images/product1.jpg"),
+            childs: false
+          };
+          for (const key in value) {
+            if (value.hasOwnProperty(key)) {
+              let catId = value[key].field_863;
+              if (categoriesClone.hasOwnProperty(catId)) {
+                categoriesClone[catId].count++;
+              } else {
+                categoriesClone[catId] = { ...categoryTemplate };
+                categoriesClone[catId].id = catId;
+              }
             }
           }
-        }
 
-        const ans = resp.data.value;
-        commit("FETCH_FROM_SERVER", ans);
-        commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
-      });
+          const ans = resp.data.value;
+          commit("FETCH_FROM_SERVER", ans);
+          commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
+        })
+        .catch(e => {
+          state.enable_request = true;
+          console.log(e);
+        });
     },
     CREATE_ORDER: (state, orderId) => {
       const dateOptions = {
@@ -366,6 +369,16 @@ export const store = new Vuex.Store({
         all_orders.unshift(new_order);
         localStorage.setItem("orders", JSON.stringify(all_orders));
       }
+    },
+    NEXT_PAGE: ({ commit, state, dispatch }) => {
+      const paginationClone = { ...state.pagination };
+      console.log(paginationClone);
+      paginationClone.from += 50;
+      paginationClone.to += 50;
+      console.log("[FETCHING]");
+
+      commit("NEXT_PAGE", paginationClone);
+      dispatch("FETCH_FROM_SERVER");
     }
   }
 });

@@ -2,19 +2,21 @@
   <div class="home">
     <h1 class="name_category">{{title}}</h1>
 
-    <Products :render_list="StoreItems"/>
-    
+    <Products :render_list="StoreItems" />
+    <InfiniteScrollTrigger class="infiniteScroll" />
   </div>
 </template>
 
 <script>
 import Products from "./Products";
+import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
 import { mapGetters } from "vuex";
 
 export default {
   name: "home",
   components: {
     Products,
+    InfiniteScrollTrigger,
   },
   data() {
     return {
@@ -53,6 +55,8 @@ export default {
   position: relative;
 }
 
-
-
+.infiniteScroll {
+  position: absolute;
+  bottom: -200px;
+}
 </style>
