@@ -9,7 +9,8 @@
       <div class="product_img" :style="`background-image: url(${main_img})`"></div>
       <div class="product_add_images">
         <img @click="openModalImage($event)" class="product_add_img" v-lazy="ITEM.image" />
-        <img @click="openModalImage($event)"
+        <img
+          @click="openModalImage($event)"
           class="product_add_img"
           v-for="(product_img, index) in ITEM.product_img"
           :key="index"
@@ -28,7 +29,13 @@
             <span class="size" :class="{active:(getCurrentSize('xl'))}">XL</span>
           </div>
           <div class="controls noSelect">
-            <input class="noSelect" :class="{'isNotVisible': getQuantity() == '0' }" type="button" value="-" @click="decrease(prodID)" />
+            <input
+              class="noSelect"
+              :class="{'isNotVisible': getQuantity() == '0' }"
+              type="button"
+              value="-"
+              @click="decrease(prodID)"
+            />
             <span :class="{'isNotVisible': getQuantity() == '0' }">{{getQuantity()}}</span>
             <input class="noSelect" type="button" value="+" @click="increase(prodID)" />
           </div>
@@ -53,12 +60,12 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      main_img: "" ,
-    }
+      main_img: "",
+    };
   },
   methods: {
-    openModalImage(e){
-        this.main_img = e.target.src;
+    openModalImage(e) {
+      this.main_img = e.target.src;
     },
 
     setParent(item, index) {
@@ -77,7 +84,7 @@ export default {
     },
     getQuantity() {
       let item_in_cart = this.CartItems[this.ITEM.id];
-      if(item_in_cart === undefined) return 0
+      if (item_in_cart === undefined) return 0;
       if (typeof item_in_cart === "number") {
         return item_in_cart;
       } else if (typeof item_in_cart === "object") {
@@ -98,15 +105,15 @@ export default {
     },
   },
   mounted() {
-   this.main_img = this.ITEM.image
+    this.main_img = this.ITEM.image;
   },
   computed: {
-    ...mapGetters(["CartItems", "StoreItems"]),
+    ...mapGetters(["CartItems", "StoreItems", "getStoreItemsById"]),
     prodID() {
       return this.$route.params.id;
     },
     ITEM() {
-      return this.$store.state.storeItems[this.prodID];
+      return this.getStoreItemsById(this.prodID);
     },
   },
 };

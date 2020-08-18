@@ -23,7 +23,10 @@ export const store = new Vuex.Store({
     Total: state => state.total,
     TotalPrice: state => state.totalPrice,
     getStoreItemsById: state => id => {
-      return state.storeItems[id];
+      return state.storeItems[state.storeItemsKeys.indexOf(id)];
+    },
+    getCardItem: state => {
+      return () => {};
     },
     CategoryItems: state => state.categoryItems,
     enable_request: state => state.enable_request
@@ -74,34 +77,32 @@ export const store = new Vuex.Store({
       state.cartItems = clone;
     },
 
-    INCREASE: (state, id) => {
-      let item = state.storeItems[id];
+    INCREASE: (state, item) => {
       if (item.tags) {
         state.popUpItem = item;
       } else {
-        if (state.cartItems[id]) {
-          ++state.cartItems[id];
+        if (state.cartItems[item.id]) {
+          ++state.cartItems[item.id];
         } else {
-          state.cartItems[id] = 1;
+          state.cartItems[item.id] = 1;
         }
       }
       let clone = { ...state.cartItems };
       state.cartItems = clone;
     },
 
-    DECREASE: (state, id) => {
-      let item = state.storeItems[id];
+    DECREASE: (state, item) => {
       if (item.tags) {
         state.popUpItem = item;
       } else {
-        if (state.cartItems[id]) {
-          --state.cartItems[id];
+        if (state.cartItems[item.id]) {
+          --state.cartItems[item.id];
         } else {
-          state.cartItems[id] = 0;
+          state.cartItems[item.id] = 0;
         }
       }
-      if (state.cartItems[id] == 0) {
-        delete state.cartItems[id];
+      if (state.cartItems[item.id] == 0) {
+        delete state.cartItems[item.id];
       }
 
       let clone = { ...state.cartItems };
@@ -211,9 +212,9 @@ export const store = new Vuex.Store({
             require("../assets/images/product4.jpg")
           ];
           newItem.description = [
-            newItem.field_868,
-            newItem.field_866,
-            newItem.field_1000012
+            newItem.field_868 || "-",
+            newItem.field_866 || "-",
+            newItem.field_1000012 || "-"
           ];
           newStoreItems.push(newItem);
           newStoreItemsKeys.push(newItem.id);
@@ -263,12 +264,17 @@ export const store = new Vuex.Store({
       }
       commit("SET_SIZE", { size, id });
     },
+
+    //TODO: передавать объект. присваивать объект в мутации
     INCREASE: ({ commit, getters }, itemId) => {
-      commit("INCREASE", itemId);
+      const item = getters.getStoreItemsById(itemId);
+      commit("INCREASE", item);
     },
     DECREASE: ({ commit, getters }, itemId) => {
-      commit("DECREASE", itemId);
+      const item = getters.getStoreItemsById(itemId);
+      commit("DECREASE", item);
     },
+
     INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
       commit("INCREASE_FROM_POP_UP", tagId);
     },
@@ -283,7 +289,7 @@ export const store = new Vuex.Store({
 
     FETCH_FROM_SERVER: async ({ commit, state }) => {
       if (state.enable_request == false) {
-        return
+        return;
       }
 
       state.enable_request = false;
