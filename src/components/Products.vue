@@ -4,7 +4,6 @@
 
     <div class="view-wrapper ios-fix" :class="view_mode" v-if="render_list.length !== 0">
       <div v-for="(data,index) in render_list" :key="index">
-        {{index}}
         <ProductGrid
           v-if=" view_mode === 'grid'"
           :title="data.productTitle"
