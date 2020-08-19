@@ -25,15 +25,18 @@
     <span v-if="getCategoryItems[0]=='empty'">ничего нет</span>
 
     <Products v-if="parent  && getCategoryItems[0]!=='empty'" :render_list="getCategoryItems" />
+    <InfiniteScrollTrigger :toTrigger="CATEGORIES_NEXT_PAGE" :parameters="this.parent.id" />
   </div>
 </template>
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import Products from "@/components/Products";
+import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
 export default {
   name: "categoryes",
   components: {
     Products,
+    InfiniteScrollTrigger,
   },
 
   data() {
@@ -48,7 +51,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["FETCH_ITEMS_BY_CAT"]),
+    ...mapActions(["FETCH_ITEMS_BY_CAT", "CATEGORIES_NEXT_PAGE"]),
     ...mapMutations(["CLEAR_CATEGORIES_ITEMS"]),
     setParent(item, index) {
       this.parent = item;

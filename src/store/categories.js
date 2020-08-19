@@ -65,10 +65,7 @@ export const categoriesModule = {
         testik: 1,
         type_id: 14,
         fields_ids: "[468,863,865,868,111,866,1000012]",
-        limit: JSON.stringify([
-          rootState.storeItems.length,
-          rootState.storeItems.length + 50
-        ]),
+        limit: JSON.stringify([state.items.length, state.items.length + 50]),
         filter: JSON.stringify([
           {
             field: 863,
@@ -91,13 +88,43 @@ export const categoriesModule = {
               state
             );
             console.log("[RESP]", resp);
-            commit("FETCH_FETCH_ITEMS_BY_CAT", { newItems, newItemsKeys });
+            commit("FETCH_FETCH_ITEMS_BY_CAT", {
+              newItems,
+              newItemsKeys
+            });
           } else {
             commit("FETCH_FETCH_ITEMS_BY_CAT", {
               newItems: ["empty"],
               newItemsKeys: ["empty"]
             });
           }
+        })
+        .catch(e => console.error(e));
+    },
+    CATEGORIES_NEXT_PAGE: async ({ commit, state, rootState }, catId) => {
+      await Request({
+        task: "profiles.getRows",
+        testik: 1,
+        type_id: 14,
+        fields_ids: "[468,863,865,868,111,866,1000012]",
+        limit: JSON.stringify([state.items.length, state.items.length + 50]),
+        filter: JSON.stringify([
+          {
+            field: 863,
+            value: catId
+          }
+        ])
+        // 468 цена
+        // 863 группа
+        // 865 подгруппа тип
+        // 868 размер
+        // 111
+        // 866 цвет
+        // 1000012 проба
+        // full_name - назание
+      })
+        .then(resp => {
+          console.log(resp);
         })
         .catch(e => console.error(e));
     }

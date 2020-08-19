@@ -282,7 +282,7 @@ export const store = new Vuex.Store({
 
     FETCH_FROM_SERVER: async ({ commit, state, dispatch }) => {
       if (state.enable_request == false) return;
-
+      console.log("FETCH_FROM_SERVER");
       state.enable_request = false;
       await Request({
         task: "profiles.getRows",
@@ -294,7 +294,7 @@ export const store = new Vuex.Store({
 
         limit: JSON.stringify([
           state.storeItems.length,
-          state.storeItems.length + 50
+          state.storeItems.length += 50
         ]),
         filter: JSON.stringify([
           {
@@ -315,6 +315,7 @@ export const store = new Vuex.Store({
           state.enable_request = true;
 
           const ans = resp.data.value;
+          console.log("FETCH_FROM_SERVER", ans);
           commit("FETCH_FROM_SERVER", ans);
         })
         .catch(e => {
@@ -346,11 +347,7 @@ export const store = new Vuex.Store({
       }
     },
     NEXT_PAGE: ({ commit, state, dispatch }) => {
-      const paginationClone = { ...state.pagination };
-      console.log(paginationClone);
-      paginationClone.from += 50;
-      paginationClone.to += 50;
-      console.log("[FETCHING]");
+      console.log("[NEXT_PAGE vuex action]");
       dispatch("FETCH_FROM_SERVER");
     }
   }

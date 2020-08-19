@@ -12,12 +12,13 @@
       v-model="s"
       size="40px"
     />
+    <button @click="searchFromServer()">проверить</button>
     <Products :render_list="render_search_list" :showSkeletons="false" />
   </div>
 </template>
 <script>
 import Products from "./Products";
-
+import Request from "../request/request";
 export default {
   name: "search",
   components: {
@@ -68,7 +69,22 @@ export default {
         return results;
       }
 
-      this.render_search_list = searchFor(s);
+      this.render_search_list = this.searchFromServer(s);
+    },
+    async searchFromServer(s) {
+      await Request({
+        task: "profiles.getRows",
+        testik: 1,
+        type_id: 14,
+        fields_ids: "[468,863,865,868,111,866,1000012]",
+        limit: JSON.stringify([0, 3]),
+        search_text: s,
+        search_fields: "[111]",
+      })
+        .then((result) => {
+          console.log("[SEARCH]", s, result);
+        })
+        .catch((e) => console.error(e));
     },
   },
 };
