@@ -146,8 +146,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch("FETCH_FROM_SERVER");
+    this.$store.dispatch("FETCH_CATEGORIES");
   },
-
 };
 </script>
 
@@ -169,7 +169,7 @@ export default {
 * {
   -webkit-overflow-scrolling: auto !important;
 }
-.ios_fix{
+.ios_fix {
   -webkit-overflow-scrolling: auto !important;
 }
 body {
@@ -206,7 +206,7 @@ body {
   display: none;
 }
 .isNotVisible {
-  display: none;  
+  display: none;
 }
 
 .app {

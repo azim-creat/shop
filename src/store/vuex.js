@@ -1,13 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Request from "../request/request";
-
+import { categoriesModule } from "./categories";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
     cartItems: {},
-    categoryItems: {},
     storeItems: [],
     storeItemsKeys: [],
     popUpItem: {},
@@ -16,7 +15,9 @@ export const store = new Vuex.Store({
     pagination: { from: 0, to: 200 },
     enable_request: true
   },
-
+  modules: {
+    categories: categoriesModule
+  },
   getters: {
     CartItems: state => state.cartItems,
     StoreItems: state => state.storeItems,
@@ -28,7 +29,7 @@ export const store = new Vuex.Store({
     getCardItem: state => {
       return () => {};
     },
-    CategoryItems: state => state.categoryItems,
+    CategoryItems: state => state.categories.categoryItems,
     enable_request: state => state.enable_request
   },
 
@@ -223,9 +224,6 @@ export const store = new Vuex.Store({
 
       state.storeItems = newStoreItems;
       state.storeItemsKeys = newStoreItemsKeys;
-    },
-    CREATE_CATEGORIES_STORAGE: (state, categories) => {
-      state.categoryItems = categories;
     }
   },
 
@@ -282,11 +280,11 @@ export const store = new Vuex.Store({
       commit("CLEAN_EMPTY_CART_ITEMS", {});
     },
 
-    FETCH_FROM_SERVER: async ({ commit, state }) => {
+    FETCH_FROM_SERVER: async ({ commit, state, dispatch }) => {
       if (state.enable_request == false) return;
 
       state.enable_request = false;
-      const resp = await Request({
+      await Request({
         task: "profiles.getRows",
         testik: 1,
         //user_id: 674,
@@ -315,32 +313,10 @@ export const store = new Vuex.Store({
       })
         .then(resp => {
           state.enable_request = true;
-          console.log("[FETCHED]");
-          const value = resp.data.value;
-          let categoriesClone = {};
-
-          const categoryTemplate = {
-            id: "myid",
-            count: 0,
-            parent_id: false,
-            image: require("../assets/images/product1.jpg"),
-            childs: false
-          };
-          for (const key in value) {
-            if (value.hasOwnProperty(key)) {
-              let catId = value[key].field_863;
-              if (categoriesClone.hasOwnProperty(catId)) {
-                categoriesClone[catId].count++;
-              } else {
-                categoriesClone[catId] = { ...categoryTemplate };
-                categoriesClone[catId].id = catId;
-              }
-            }
-          }
 
           const ans = resp.data.value;
           commit("FETCH_FROM_SERVER", ans);
-          commit("CREATE_CATEGORIES_STORAGE", categoriesClone);
+
         })
         .catch(e => {
           state.enable_request = true;
