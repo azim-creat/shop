@@ -243,6 +243,9 @@ body {
 .nav-item {
   padding: 10px;
   text-align: center;
+  flex: 1;
+  overflow: hidden;
+  max-width: fit-content;
 }
 .nav-item a {
   text-decoration: none;
@@ -261,6 +264,9 @@ body {
 .nav-item a span {
   position: relative;
   display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .nav-item.active a span:before {
   display: block;
@@ -304,6 +310,7 @@ body {
   height: fit-content;
   padding: 10px 20px;
   position: relative;
+  max-width: fit-content;
 }
 .nav-item-basket img {
   height: 25px;

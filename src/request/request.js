@@ -6,10 +6,11 @@ export default function(params) {
     for (let i in params) {
       formData.append(i, params[i]);
     }
-
+    
     try {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://gold-city.kz/request.php");
+      // xhr.open("POST", "http://gold-city.kz/demo/request.php");
+      xhr.open("POST", "https://mariomarket.kz/request.php");
 
       xhr.onload = () => {
         if (xhr.status === 200) {
