@@ -1,10 +1,19 @@
 import Request from "../request/request";
+import toLocalStructure from "./utils/toLocalStructure";
 
 export const categoriesModule = {
-  state: () => ({ categoryItems: {} }),
+  state: () => ({ categoryNames: {}, items: [], itemsKeys: [] }),
   mutations: {
     CREATE_CATEGORIES_STORAGE: (state, categories) => {
-      state.categoryItems = categories;
+      state.categoryNames = categories;
+    },
+    FETCH_FETCH_ITEMS_BY_CAT: (state, newItems) => {
+      state.items = newItems.newItems;
+      state.itemsKeys = newItems.newItemsKeys;
+    },
+    CLEAR_CATEGORIES_ITEMS: state => {
+      state.items = [];
+      state.itemsKeys = [];
     }
   },
   actions: {
@@ -25,7 +34,7 @@ export const categoriesModule = {
           let categoriesClone = {};
           let catId;
 
-          //console.log(rootState);
+          console.log(resp);
           const categoryTemplate = {
             id: "myid",
             full_name: "",
@@ -50,12 +59,54 @@ export const categoriesModule = {
           console.error(e);
         });
     },
+    FETCH_ITEMS_BY_CAT: async ({ commit, state, rootState }, catId) => {
+      await Request({
+        task: "profiles.getRows",
+        testik: 1,
+        type_id: 14,
+        fields_ids: "[468,863,865,868,111,866,1000012]",
+        limit: JSON.stringify([
+          rootState.storeItems.length,
+          rootState.storeItems.length + 50
+        ]),
+        filter: JSON.stringify([
+          {
+            field: 863,
+            value: catId.toString()
+          }
+        ])
+        // 468 цена
+        // 863 группа
+        // 865 подгруппа тип
+        // 868 размер
+        // 111
+        // 866 цвет
+        // 1000012 проба
+        // full_name - назание
+      })
+        .then(resp => {
+          if (resp.data.count != 0) {
+            const { newItems, newItemsKeys } = toLocalStructure(
+              resp.data.value,
+              state
+            );
+            console.log("[RESP]", resp);
+            commit("FETCH_FETCH_ITEMS_BY_CAT", { newItems, newItemsKeys });
+          } else {
+            commit("FETCH_FETCH_ITEMS_BY_CAT", {
+              newItems: ["empty"],
+              newItemsKeys: ["empty"]
+            });
+          }
+        })
+        .catch(e => console.error(e));
+    }
   },
-  getters: {}
+  getters: {
+    getCategoryNames: state => state.categoryNames,
+    getCategoryItems: state => state.items,
+    getCategoryItemById: state => id => {
+      return state.items[state.itemsKeys.indexOf(id)];
+    }
+  }
 };
-// filter: JSON.stringify([
-//   {
-//     field: 863,
-//     value: "10528"
-//   }
-// ]);

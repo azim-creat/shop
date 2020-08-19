@@ -29,7 +29,7 @@ export const store = new Vuex.Store({
     getCardItem: state => {
       return () => {};
     },
-    CategoryItems: state => state.categories.categoryItems,
+
     enable_request: state => state.enable_request
   },
 
@@ -188,7 +188,7 @@ export const store = new Vuex.Store({
       const newStoreItemsKeys = [...state.storeItemsKeys];
       // 468 цена
       // 863 группа
-      // 865 подгруппа тип
+      // 865 подгруппа / тип
       // 868 размер
       // 111
       // 866 цвет
@@ -316,7 +316,6 @@ export const store = new Vuex.Store({
 
           const ans = resp.data.value;
           commit("FETCH_FROM_SERVER", ans);
-
         })
         .catch(e => {
           state.enable_request = true;

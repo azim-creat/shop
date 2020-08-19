@@ -4,15 +4,14 @@
     <div class="category-item__parent" v-if="parent" @click="backToParent()">
       <span class="category-item__arrow-right__parent_arrow"></span>
       <span class="category-item__title">
-        <h3>{{parent.productTitle}} {{parent.id}} </h3>
+        <h3>{{parent.productTitle}} {{parent.id}}</h3>
         <h5>{{parent.count}} товаров</h5>
       </span>
     </div>
-
-    <div class="category-items" v-if="!Object.keys(renderElements).length">
+    <div class="category-items" v-if="parent == false">
       <div
         class="category-item"
-        v-for="(item,index) in CategoryItems"
+        v-for="(item,index) in getCategoryNames"
         :key="index"
         @click="setParent(item,index)"
       >
@@ -23,17 +22,20 @@
         </span>
       </div>
     </div>
-    <Products v-if="parent" :render_list="renderElements" />
+    <span v-if="getCategoryItems[0]=='empty'">ничего нет</span>
+
+    <Products v-if="parent  && getCategoryItems[0]!=='empty'" :render_list="getCategoryItems" />
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Products from "@/components/Products";
 export default {
   name: "categoryes",
   components: {
     Products,
   },
+
   data() {
     return {
       title: "Home",
@@ -46,6 +48,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["FETCH_ITEMS_BY_CAT"]),
+    ...mapMutations(["CLEAR_CATEGORIES_ITEMS"]),
     setParent(item, index) {
       this.parent = item;
       this.childs = item.childs;
@@ -58,6 +62,7 @@ export default {
     },
     backToParent() {
       //   this.childs = this.childs.parent_id;
+      this.CLEAR_CATEGORIES_ITEMS();
       let clone = this.products;
       this.renderElements = {};
 
@@ -98,20 +103,13 @@ export default {
       }
     },
     collectCategoryItems(id) {
-      const output = {};
-      for (const key in this.StoreItems) {
-        if (this.StoreItems.hasOwnProperty(key)) {
-          const element = this.StoreItems[key];
-          if (element.categoryCode == id) {
-            output[key] = element;
-          }
-        }
-      }
-      this.renderElements = { ...output };
+      this.FETCH_ITEMS_BY_CAT(id);
     },
   },
 
-  computed: { ...mapGetters(["CategoryItems", "StoreItems"]) },
+  computed: {
+    ...mapGetters(["getCategoryNames", "getCategoryItems", "StoreItems"]),
+  },
   mounted() {
     this.childs = this.products;
     console.log("mounted");
@@ -163,7 +161,7 @@ export default {
 .category-item {
   display: flex;
   flex: 1;
-  margin: 0 ;
+  margin: 0;
   background: #000000;
   border-radius: 12px;
   overflow: hidden;
