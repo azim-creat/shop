@@ -294,7 +294,7 @@ export const store = new Vuex.Store({
 
         limit: JSON.stringify([
           state.storeItems.length,
-          state.storeItems.length += 50
+          state.storeItems.length + 50
         ]),
         filter: JSON.stringify([
           {
