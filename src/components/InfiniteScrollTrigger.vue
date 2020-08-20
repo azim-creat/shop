@@ -1,5 +1,8 @@
 <template>
-  <img :id="id_par" class="preloder" :src="require('../assets/preloader.svg')" />
+  <div>
+    <div :id="id_par"></div>
+    <img v-show="is_show_loader"  class="preloder" :src="require('../assets/preloader.svg')" />
+  </div>
 </template>
 
 <script>
@@ -8,7 +11,11 @@ export default {
   props:{
     id_par: String
   },
-
+  data() {
+    return {
+      is_show_loader:false,
+    }
+  },
   methods: {
     ...mapActions(["NEXT_PAGE"]),
     debounce(func, wait, immediate) {
@@ -44,8 +51,14 @@ export default {
 
       entries.forEach((element) => {
         if(element.isIntersecting){
-          debugger
+          self.is_show_loader = true
           self.NEXT_PAGE();
+          setTimeout(() => {
+            self.is_show_loader = false
+          }, 5000);
+        }
+        else{
+          self.is_show_loader = false
         }
 
       });
