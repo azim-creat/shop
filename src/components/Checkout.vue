@@ -108,6 +108,7 @@ export default {
             full_name: item.productTitle + " id" + key,
             price: item.price,
             profile_id: key,
+            
           };
         }
       }
