@@ -88,6 +88,7 @@ export default {
       "StoreItems",
       "getStoreItemsById",
       "getCatsCachedItem",
+      "getSearchCachedItem",
     ]),
     TOTAL() {
       const cart = this.$store.state.cartItems;
@@ -109,6 +110,9 @@ export default {
           let item_cost = this.getStoreItemsById(key);
           if (item_cost == undefined) {
             item_cost = this.getCatsCachedItem(key);
+            if (item_cost == undefined) {
+              item_cost = this.getSearchCachedItem(key);
+            }
           }
           item_cost = item_cost.price;
           if (typeof element === "number") {
@@ -156,6 +160,9 @@ export default {
           let element = this.getStoreItemsById(key);
           if (element == undefined) {
             element = this.getCatsCachedItem(key);
+            if (element == undefined) {
+              element = this.getSearchCachedItem(key);
+            }
           }
           ans.push(element);
         }

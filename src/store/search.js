@@ -2,7 +2,7 @@ import Request from "../request/request";
 import toLocalStructure from "./utils/toLocalStructure";
 
 export const searchModule = {
-  state: () => ({ items: [], itemsKeys: [], pending: false }),
+  state: () => ({ items: [], itemsKeys: [], pending: false, cache: {} }),
   mutations: {
     DO_SEARCH: (state, results) => {
       state.items = results.newItems;
@@ -11,6 +11,9 @@ export const searchModule = {
     CLEAR_SEARCH_RESULTS: state => {
       state.items = [];
       state.itemsKeys = [];
+    },
+    ADD_SEARCH_ITEM_TO_CACHE: (state, itemToCache) => {
+      state.cache[itemToCache.id] = itemToCache;
     }
   },
   actions: {
@@ -44,10 +47,19 @@ export const searchModule = {
           state.pending = false;
           console.error(e);
         });
+    },
+    ADD_SEARCH_ITEM_TO_CACHE: ({ commit }, item) => {
+      commit("ADD_SEARCH_ITEM_TO_CACHE", item);
     }
   },
   getters: {
     searchResults: state => state.items,
-    isSearchPending: state => state.pending
+    getSearchItemById: state => id => {
+      return state.items[state.itemsKeys.indexOf(id)];
+    },
+    isSearchPending: state => state.pending,
+    getSearchCachedItem: state => id => {
+      return state.cache[id];
+    }
   }
 };

@@ -82,7 +82,7 @@ export const store = new Vuex.Store({
     },
 
     INCREASE: (state, item) => {
-      if (false) {
+      if (item.tags) {
         state.popUpItem = item;
       } else {
         if (state.cartItems[item.id]) {
@@ -267,6 +267,12 @@ export const store = new Vuex.Store({
       let item = getters.getStoreItemsById(itemId);
       if (item == undefined) {
         item = getters.getCategoryItemById(itemId);
+        if (item == undefined) {
+          item = getters.getSearchItemById(itemId);
+          dispatch("ADD_SEARCH_ITEM_TO_CACHE", item);
+          commit("INCREASE", item);
+          return;
+        }
         dispatch("ADD_CAT_ITEM_TO_CACHE", item);
       }
       commit("INCREASE", item);
@@ -275,6 +281,11 @@ export const store = new Vuex.Store({
       let item = getters.getStoreItemsById(itemId);
       if (item == undefined) {
         item = getters.getCategoryItemById(itemId);
+        if (item == undefined) {
+          item = getters.getSearchItemById(itemId);
+          commit("DECREASE", item);
+          return;
+        }
       }
       commit("DECREASE", item);
     },
