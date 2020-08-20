@@ -2,6 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Request from "../request/request";
 import { categoriesModule } from "./categories";
+import { searchModule } from "./search";
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -16,7 +18,8 @@ export const store = new Vuex.Store({
     enable_request: true
   },
   modules: {
-    categories: categoriesModule
+    categories: categoriesModule,
+    search: searchModule
   },
   getters: {
     CartItems: state => state.cartItems,
@@ -252,12 +255,30 @@ export const store = new Vuex.Store({
       commit("SET_SIZE", { size, id });
     },
 
-    INCREASE: ({ commit, getters }, itemId) => {
-      const item = getters.getStoreItemsById(itemId);
+    INCREASE: ({ commit, getters, dispatch }, itemId) => {
+      let item = getters.getStoreItemsById(itemId);
+      if (item == undefined) {
+        item = getters.getCategoryItemById(itemId);
+        if (item == undefined) {
+          item = getters.getSearchItemById(itemId);
+          dispatch("ADD_SEARCH_ITEM_TO_CACHE", item);
+          commit("INCREASE", item);
+          return;
+        }
+        dispatch("ADD_CAT_ITEM_TO_CACHE", item);
+      }
       commit("INCREASE", item);
     },
     DECREASE: ({ commit, getters }, itemId) => {
-      const item = getters.getStoreItemsById(itemId);
+      let item = getters.getStoreItemsById(itemId);
+      if (item == undefined) {
+        item = getters.getCategoryItemById(itemId);
+        if (item == undefined) {
+          item = getters.getSearchItemById(itemId);
+          commit("DECREASE", item);
+          return;
+        }
+      }
       commit("DECREASE", item);
     },
     INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
@@ -274,6 +295,7 @@ export const store = new Vuex.Store({
 
     FETCH_FROM_SERVER: async ({ commit, state, dispatch }) => {
       if (state.enable_request == false) return;
+      console.log("FETCH_FROM_SERVER");
       state.enable_request = false;
 
       await Request({
@@ -289,6 +311,7 @@ export const store = new Vuex.Store({
         .then(resp => {
           state.enable_request = true;
           const ans = resp.data.value;
+          console.log("FETCH_FROM_SERVER", ans);
           commit("FETCH_FROM_SERVER", ans);
         })
         .catch(e => {

@@ -3,7 +3,7 @@
     <h1 class="name_category">Поиск</h1>
     <input
       type="search"
-      @keyup="search($event.target.value)"
+      @input="debouncedSearch($event.target.value)"
       class="search__tag"
       :class="{filled:s}"
       id="gsearch"
@@ -12,13 +12,25 @@
       v-model="s"
       size="40px"
     />
+<<<<<<< HEAD
     <button @click="searchFromServer()">проверить</button>
     <Products :render_list="render_search_list" :showSkeletons="false" />
+=======
+    <h2 v-if="isSearchPending">Ищем</h2>
+    <h2 v-else-if="searchResults[0] =='no results'">Ничего не найдено</h2>
+    <Products :render_list="searchResults" :showSkeletons="false" v-else />
+>>>>>>> sultan
   </div>
 </template>
 <script>
 import Products from "./Products";
+<<<<<<< HEAD
 import Request from "../request/request";
+=======
+import { mapActions, mapGetters } from "vuex";
+import { debounce } from "debounce";
+
+>>>>>>> sultan
 export default {
   name: "search",
   components: {
@@ -33,6 +45,13 @@ export default {
   },
 
   methods: {
+    ...mapActions(["DO_SEARCH"]),
+    async searchFromServer(s) {
+      if (s == "") {
+        return;
+      }
+      this.DO_SEARCH(s);
+    },
     search(s) {
       console.log(s);
 
@@ -86,6 +105,13 @@ export default {
         })
         .catch((e) => console.error(e));
     },
+  },
+  computed: {
+    ...mapGetters(["searchResults", "isSearchPending"]),
+  },
+
+  created() {
+    this.debouncedSearch = debounce(this.searchFromServer, 500);
   },
 };
 </script>

@@ -87,6 +87,8 @@ export default {
       "TotalPrice",
       "StoreItems",
       "getStoreItemsById",
+      "getCatsCachedItem",
+      "getSearchCachedItem",
     ]),
     TOTAL() {
       const cart = this.$store.state.cartItems;
@@ -105,7 +107,14 @@ export default {
       for (const key in cart) {
         if (cart.hasOwnProperty(key)) {
           const element = cart[key];
-          const item_cost = this.getStoreItemsById(key).price;
+          let item_cost = this.getStoreItemsById(key);
+          if (item_cost == undefined) {
+            item_cost = this.getCatsCachedItem(key);
+            if (item_cost == undefined) {
+              item_cost = this.getSearchCachedItem(key);
+            }
+          }
+          item_cost = item_cost.price;
           if (typeof element === "number") {
             ans += element * item_cost;
           } else if (typeof element === "object") {
@@ -148,7 +157,13 @@ export default {
       let ans = [];
       for (const key in this.CartItems) {
         if (this.CartItems.hasOwnProperty(key)) {
-          const element = this.getStoreItemsById(key);
+          let element = this.getStoreItemsById(key);
+          if (element == undefined) {
+            element = this.getCatsCachedItem(key);
+            if (element == undefined) {
+              element = this.getSearchCachedItem(key);
+            }
+          }
           ans.push(element);
         }
       }

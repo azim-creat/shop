@@ -117,6 +117,9 @@ export default {
     this.childs = this.products;
     console.log("mounted");
   },
+  destroyed() {
+    this.CLEAR_CATEGORIES_ITEMS();
+  },
 };
 </script>
     

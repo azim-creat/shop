@@ -61,7 +61,11 @@ export default {
       const self = this;
 
       return Request({
+<<<<<<< HEAD
         task: "profiles.getRows",
+=======
+        task: "profile.getRows",
+>>>>>>> sultan
         testik: 1,
         //    user_id: 674,
         // key: "mcTnaftuzoHzWJV",
