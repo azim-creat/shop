@@ -59,14 +59,18 @@ export default {
 
     checkOrderStatus(orderId) {
       const self = this;
-
+  console.log(orderId, 'orderIdorderIdorderIdorderIdorderIdorderId')
       return Request({
-        task: "profile.getRows",
-        testik: 1,
+        task: "profiles.getRows",
+        // testik: 1,
         type_id: 10000,
         profiles_ids: orderId,
         fields_ids: "[55892]",
       })
+
+
+
+
         .then((ans) => {
           const dateOptions = {
             year: "numeric",
