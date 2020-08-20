@@ -5,7 +5,7 @@
       <span class="category-item__arrow-right__parent_arrow"></span>
       <span class="category-item__title">
         <h3>{{parent.productTitle}} {{parent.id}}</h3>
-        <h5>{{parent.count}} товаров</h5>
+        <!-- <h5>{{parent.count}} товаров</h5> -->
       </span>
     </div>
     <div class="category-items" v-if="parent == false">
@@ -18,11 +18,11 @@
         <div class="category-item__img" :style="`background-image: url(.${image})`"></div>
         <span class="category-item__title">
           <h3>{{item.full_name}}</h3>
-          <h5>{{item.count}} товаров</h5>
+          <!-- <h5>{{item.count}} товаров</h5> -->
         </span>
       </div>
     </div>
-    <span v-if="getCategoryItems[0]=='empty'">ничего нет</span>
+    <span v-if="getCategoryItems[0]=='empty'"><h4>товаров не найдено</h4></span>
 
     <Products v-if="parent  && getCategoryItems[0]!=='empty'" :render_list="getCategoryItems" />
     <InfiniteScrollTrigger id_par="observer_cat_page" :toTrigger="CATEGORIES_NEXT_PAGE" :parameters="this.parent.id" />
@@ -192,7 +192,7 @@ export default {
   justify-content: center;
 }
 .category-item__title h3 {
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 .category-item__title h5 {
   margin-top: 5px;
