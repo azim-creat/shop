@@ -59,7 +59,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getStoreItemsById"]),
+    ...mapGetters(["getStoreItemsById", "getCatsCachedItem"]),
   },
   methods: {
     validatePhone: function () {
@@ -95,11 +95,11 @@ export default {
       for (const key in basket) {
         if (basket.hasOwnProperty(key)) {
           const element = basket[key];
-
+          let item = this.getStoreItemsById(key) || this.getCatsCachedItem(key);
           basket_to_send[key] = {
             count: element,
-            full_name: this.getStoreItemsById(key).productTitle + " id" + key,
-            price: this.getStoreItemsById(key).price,
+            full_name: item.productTitle + " id" + key,
+            price: item.price,
             profile_id: key,
           };
         }
