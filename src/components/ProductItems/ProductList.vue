@@ -6,7 +6,8 @@
     <div class="description">
       <div class="description-text">
         <h3>{{ title }}</h3>
-        <span class="price">{{price || '1000' }} KZT</span>
+        <p class="price">{{`${price} KZT` || 'Цена не установлена' }}</p>
+        <span>id {{itemId}}</span>
       </div>
       <div class="tags">
         <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
@@ -114,6 +115,10 @@ h3 {
 
 .description-text {
   max-width: 93px;
+}
+.price {
+
+  margin-bottom: 5px;
 }
 
 .tags .tag:first-child {

@@ -5,7 +5,8 @@
         <div class="details">
           <div>
             <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
-            <span class="price">{{ price|| 'Цена не указана' }} KZT</span>
+            <p class="price">{{ price|| 'Цена не указана' }} KZT</p>
+            <span>id {{itemId}}</span>
           </div>
           <div class="tags">
             <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
@@ -126,6 +127,7 @@ h3 {
 
 .price {
   font-size: 12px;
+  margin-bottom: 0;
 }
 
 .details {
@@ -153,6 +155,7 @@ h3 {
 }
 .controls span {
   font-size: 12px;
+  margin-bottom: 0;
 }
 input {
   height: 30px;

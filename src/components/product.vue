@@ -3,6 +3,7 @@
     <div class="product_header">
       <h1 class="product_title">{{ITEM.productTitle}}</h1>
       <h4 class="product_price">{{ITEM.price }} KZT</h4>
+      <h4 class="product_price">id {{ITEM.id }}</h4>
     </div>
 
     <div class="product_images">
