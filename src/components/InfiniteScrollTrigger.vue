@@ -47,8 +47,6 @@ export default {
 
     const callbackObserver = function (entries, observer) {
       console.log("[ENTRIES]", entries);
-          debugger
-
       entries.forEach((element) => {
         if(element.isIntersecting){
           self.is_show_loader = true

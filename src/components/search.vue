@@ -12,25 +12,17 @@
       v-model="s"
       size="40px"
     />
-<<<<<<< HEAD
-    <button @click="searchFromServer()">проверить</button>
-    <Products :render_list="render_search_list" :showSkeletons="false" />
-=======
     <h2 v-if="isSearchPending">Ищем</h2>
     <h2 v-else-if="searchResults[0] =='no results'">Ничего не найдено</h2>
     <Products :render_list="searchResults" :showSkeletons="false" v-else />
->>>>>>> sultan
   </div>
 </template>
 <script>
 import Products from "./Products";
-<<<<<<< HEAD
 import Request from "../request/request";
-=======
 import { mapActions, mapGetters } from "vuex";
 import { debounce } from "debounce";
 
->>>>>>> sultan
 export default {
   name: "search",
   components: {
@@ -89,21 +81,6 @@ export default {
       }
 
       this.render_search_list = this.searchFromServer(s);
-    },
-    async searchFromServer(s) {
-      await Request({
-        task: "profiles.getRows",
-        testik: 1,
-        type_id: 14,
-        fields_ids: "[468,863,865,868,111,866,1000012]",
-        limit: JSON.stringify([0, 3]),
-        search_text: s,
-        search_fields: "[111]",
-      })
-        .then((result) => {
-          console.log("[SEARCH]", s, result);
-        })
-        .catch((e) => console.error(e));
     },
   },
   computed: {

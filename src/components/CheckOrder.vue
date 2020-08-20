@@ -61,16 +61,10 @@ export default {
       const self = this;
 
       return Request({
-<<<<<<< HEAD
-        task: "profiles.getRows",
-=======
         task: "profile.getRows",
->>>>>>> sultan
         testik: 1,
-        //    user_id: 674,
-        // key: "mcTnaftuzoHzWJV",
         type_id: 10000,
-        profiles_ids: orderId, //номер заказа
+        profiles_ids: orderId,
         fields_ids: "[55892]",
       })
         .then((ans) => {

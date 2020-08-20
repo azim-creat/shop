@@ -9,9 +9,7 @@ export default function(params) {
     
     try {
       const xhr = new XMLHttpRequest();
-      // xhr.open("POST", "http://gold-city.kz/demo/request.php");
-      xhr.open("POST", "https://mariomarket.kz/request.php");
-
+      xhr.open("POST", "https://demo.zovi.kz/request.php");
       xhr.onload = () => {
         if (xhr.status === 200) {
           let res = JSON.parse(xhr.responseText);

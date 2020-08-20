@@ -21,7 +21,7 @@ const toLocalStructure = (data, state) => {
       newItem.price = parseInt(objectFromServer.field_468, 10);
       newItem.productTitle =
         objectFromServer.full_name || objectFromServer.field_111;
-      newItem.image = require("../../assets/images/product3.jpg");
+      newItem.image = objectFromServer.field_701 ?  `https://my.zoomiya.com/crm/files/172/${objectFromServer.field_701}` :  require("../../assets/images/no_img.svg");
       newItem.product_img = [
         require("../../assets/images/product3.jpg"),
         require("../../assets/images/product1.jpg"),

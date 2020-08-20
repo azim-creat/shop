@@ -121,8 +121,6 @@ export default {
       return Request({
         task: "profiles.append",
         testik: 1,
-        user_id: 674,
-        key: "mcTnaftuzoHzWJV",
         type_id: 10000,
         full_name: "Заявка от " + data.name + " на " + date, //
         fields: JSON.stringify({
