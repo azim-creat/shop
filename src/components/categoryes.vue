@@ -4,7 +4,7 @@
     <div class="category-item__parent" v-if="parent" @click="backToParent()">
       <span class="category-item__arrow-right__parent_arrow"></span>
       <span class="category-item__title">
-        <h3>{{parent.productTitle}} {{parent.id}}</h3>
+        <h3>{{parent.full_name}} </h3>
         <!-- <h5>{{parent.count}} товаров</h5> -->
       </span>
     </div>
