@@ -1,6 +1,5 @@
 export default function(params) {
   return new Promise((resolve, reject) => {
-    // let APP_PASS_KEY = localStorage.getItem("App-Pass-Key") || "";
 
     let formData = new FormData();
     for (let i in params) {
