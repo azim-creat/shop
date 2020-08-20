@@ -2,6 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Request from "../request/request";
 import { categoriesModule } from "./categories";
+import { searchModule } from "./search";
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -16,7 +18,8 @@ export const store = new Vuex.Store({
     enable_request: true
   },
   modules: {
-    categories: categoriesModule
+    categories: categoriesModule,
+    search: searchModule
   },
   getters: {
     CartItems: state => state.cartItems,
@@ -263,7 +266,7 @@ export const store = new Vuex.Store({
     INCREASE: ({ commit, getters, dispatch }, itemId) => {
       let item = getters.getStoreItemsById(itemId);
       if (item == undefined) {
-        item = getters.getCategoryItemById(itemId); 
+        item = getters.getCategoryItemById(itemId);
         dispatch("ADD_CAT_ITEM_TO_CACHE", item);
       }
       commit("INCREASE", item);
