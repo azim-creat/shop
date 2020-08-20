@@ -61,7 +61,7 @@ export default {
       const self = this;
 
       return Request({
-        task: "getGroups",
+        task: "profiles.getRows",
         testik: 1,
         //    user_id: 674,
         // key: "mcTnaftuzoHzWJV",

@@ -265,7 +265,7 @@ body {
   position: relative;
   display: block;
   max-width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   text-overflow: ellipsis;
 }
 .nav-item.active a span:before {

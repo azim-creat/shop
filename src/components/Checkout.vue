@@ -94,8 +94,8 @@ export default {
 
           basket_to_send[key] = {
             count: element,
-            full_name: all_items[key].productTitle + " id" + key,
-            price: all_items[key].price,
+            full_name: 'all_items[key].productTitle + " id" + key',
+            price: 'all_items[key].price',
             profile_id: key,
           };
         }
@@ -115,7 +115,8 @@ export default {
         full_name: "Заявка от " + data.name + " на " + date, //
         fields: JSON.stringify({
           111: "Заявка от " + data.name + " на " + date, //название заявки
-          1001: 64126, // тип сделки: Заявка
+          // 1001: 64126, // тип сделки: Заявка
+          1001: 138255, // тип сделки: Заявка
           // 58626:  // корзина товаров,
           // 55892
           121: data.phone,
