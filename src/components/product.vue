@@ -3,7 +3,7 @@
     <div class="product_header">
       <h1 class="product_title">{{ITEM.productTitle}}</h1>
       <h4 class="product_price">{{ITEM.price }} KZT</h4>
-      <h4 class="product_price">id {{ITEM.id }}</h4>
+      <h4 class="product_price">#{{ITEM.articul }}</h4>
     </div>
 
     <div class="product_images">
@@ -114,7 +114,7 @@ export default {
       return this.$route.params.id;
     },
     ITEM() {
-      return this.getStoreItemsById(this.prodID);
+      return this.getStoreItemsById(this.prodID)
     },
   },
 };

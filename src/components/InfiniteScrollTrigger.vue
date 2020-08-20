@@ -1,23 +1,25 @@
 <template>
   <div>
     <div :id="id_par"></div>
-    <img v-show="is_show_loader"  class="preloder" :src="require('../assets/preloader.svg')" />
+    <img v-show="is_show_loader" class="preloder" :src="require('../assets/preloader.svg')" />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 export default {
-  props:{
-    id_par: String
+  props: {
+    id_par: String,
+    toTrigger: Function,
+    parameters: [String, Number],
   },
   data() {
     return {
-      is_show_loader:false,
-    }
+      is_show_loader: false,
+    };
   },
   methods: {
-    ...mapActions(["NEXT_PAGE"]),
+    //...mapActions(["NEXT_PAGE"]),
     debounce(func, wait, immediate) {
       let timeout;
 
@@ -48,17 +50,15 @@ export default {
     const callbackObserver = function (entries, observer) {
       console.log("[ENTRIES]", entries);
       entries.forEach((element) => {
-        if(element.isIntersecting){
-          self.is_show_loader = true
-          self.NEXT_PAGE();
+        if (element.isIntersecting) {
+          self.is_show_loader = true;
+          self.toTrigger(self.parameters);
           setTimeout(() => {
-            self.is_show_loader = false
+            self.is_show_loader = false;
           }, 5000);
+        } else {
+          self.is_show_loader = false;
         }
-        else{
-          self.is_show_loader = false
-        }
-
       });
     };
 

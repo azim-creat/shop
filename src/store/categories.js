@@ -2,7 +2,13 @@ import Request from "../request/request";
 import toLocalStructure from "./utils/toLocalStructure";
 
 export const categoriesModule = {
-  state: () => ({ categoryNames: {}, items: [], itemsKeys: [], cache: {} }),
+  state: () => ({
+    categoryNames: {},
+    items: [],
+    itemsKeys: [],
+    cache: {},
+    almostEnd: false
+  }),
   mutations: {
     CREATE_CATEGORIES_STORAGE: (state, categories) => {
       state.categoryNames = categories;
@@ -59,6 +65,7 @@ export const categoriesModule = {
         task: "profiles.getRows",
         testik: 1,
         type_id: 14,
+        get_creation_datetime: 1,
         fields_ids: "[468,863,865,868,111,866,1000012]",
         limit: JSON.stringify([state.items.length, state.items.length + 50]),
         filter: JSON.stringify([
@@ -78,11 +85,14 @@ export const categoriesModule = {
       })
         .then(resp => {
           if (resp.data.count != 0) {
+            if (resp.data.count < 50) {
+              state.almostEnd = true;
+            }
             const { newItems, newItemsKeys } = toLocalStructure(
               resp.data.value,
               state
             );
-            console.log("[RESP]", resp);
+            console.log("[FETCH_ITEMS_BY_CAT]", resp);
             commit("FETCH_FETCH_ITEMS_BY_CAT", {
               newItems,
               newItemsKeys
@@ -101,6 +111,7 @@ export const categoriesModule = {
         task: "profiles.getRows",
         testik: 1,
         type_id: 14,
+        get_creation_datetime: 1,
         fields_ids: "[468,863,865,868,111,866,1000012]",
         limit: JSON.stringify([state.items.length, state.items.length + 50]),
         filter: JSON.stringify([

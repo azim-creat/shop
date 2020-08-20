@@ -30,7 +30,7 @@ export const store = new Vuex.Store({
       return state.storeItems[state.storeItemsKeys.indexOf(id)];
     },
     getCardItem: state => {
-      return () => { };
+      return () => {};
     },
 
     enable_request: state => state.enable_request
@@ -189,24 +189,30 @@ export const store = new Vuex.Store({
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
       const newStoreItems = [...state.storeItems];
       const newStoreItemsKeys = [...state.storeItemsKeys];
-     
+
       for (const key in arrayFromServer) {
         if (arrayFromServer.hasOwnProperty(key)) {
           const newItem = {};
           const objectFromServer = arrayFromServer[key];
 
+          newItem.articul =
+            objectFromServer.creation_datetime_unix +
+            objectFromServer.profile_id;
           newItem.categoryCode = objectFromServer.field_863;
           newItem.id = objectFromServer.profile_id;
           newItem.price = parseInt(objectFromServer.field_468, 10);
-          newItem.productTitle = objectFromServer.full_name || objectFromServer.field_111;
-          newItem.image = objectFromServer.field_701 ?  `https://my.zoomiya.com/crm/files/172/${objectFromServer.field_701}` :  require("../assets/images/no_img.svg");
+          newItem.productTitle =
+            objectFromServer.full_name || objectFromServer.field_111;
+          newItem.image = objectFromServer.field_701
+            ? `https://my.zoomiya.com/crm/files/172/${objectFromServer.field_701}`
+            : require("../assets/images/no_img.svg");
           newItem.product_img = [
             require("../assets/images/product3.jpg"),
             require("../assets/images/product1.jpg"),
             require("../assets/images/product3.jpg"),
             require("../assets/images/product4.jpg")
           ];
-          
+
           newItem.description = [
             newItem.field_868 || "-",
             newItem.field_866 || "-",
@@ -307,6 +313,7 @@ export const store = new Vuex.Store({
           state.storeItems.length,
           state.storeItems.length + 50
         ]),
+        get_creation_datetime: 1
       })
         .then(resp => {
           state.enable_request = true;

@@ -16,6 +16,8 @@ const toLocalStructure = (data, state) => {
       const newItem = {};
       const objectFromServer = data[key];
 
+      newItem.articul =
+        objectFromServer.creation_datetime_unix + objectFromServer.profile_id;
       newItem.categoryCode = objectFromServer.field_863;
       newItem.id = objectFromServer.profile_id;
       newItem.price = parseInt(objectFromServer.field_468, 10);

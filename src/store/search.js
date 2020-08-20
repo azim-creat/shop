@@ -27,7 +27,8 @@ export const searchModule = {
         fields_ids: "[468,863,865,868,111,866,1000012]",
         limit: JSON.stringify([0, 50]),
         search_text: s,
-        search_fields: "[111]"
+        search_fields: "[111]",
+        get_creation_datetime: 1
       })
         .then(ans => {
           state.pending = false;

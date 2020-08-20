@@ -6,7 +6,7 @@
           <div>
             <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
             <p class="price">{{ price|| 'Цена не указана' }} KZT</p>
-            <span>id {{itemId}}</span>
+            <span>#{{articul}}</span>
           </div>
           <div class="tags">
             <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
@@ -39,6 +39,7 @@ export default {
     itemId: [Number, String],
     tags: Object,
     price: Number,
+    articul: String,
     decrease: Function,
     increase: Function,
   },

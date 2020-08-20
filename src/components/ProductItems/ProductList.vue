@@ -7,7 +7,7 @@
       <div class="description-text">
         <h3>{{ title }}</h3>
         <p class="price">{{`${price} KZT` || 'Цена не установлена' }}</p>
-        <span>id {{itemId}}</span>
+        <span>#{{articul}}</span>
       </div>
       <div class="tags">
         <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
@@ -38,6 +38,7 @@ export default {
     add: Function,
     itemId: [Number, String],
     price: Number,
+    articul: String,
     tags: Object,
     decrease: Function,
     increase: Function,
@@ -117,7 +118,6 @@ h3 {
   max-width: 93px;
 }
 .price {
-
   margin-bottom: 5px;
 }
 

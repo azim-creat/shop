@@ -4,7 +4,7 @@
     <div class="category-item__parent" v-if="parent" @click="backToParent()">
       <span class="category-item__arrow-right__parent_arrow"></span>
       <span class="category-item__title">
-        <h3>{{parent.full_name}} </h3>
+        <h3>{{parent.full_name}}</h3>
         <!-- <h5>{{parent.count}} товаров</h5> -->
       </span>
     </div>
@@ -22,10 +22,16 @@
         </span>
       </div>
     </div>
-    <span v-if="getCategoryItems[0]=='empty'"><h4>товаров не найдено</h4></span>
+    <span v-if="getCategoryItems[0]=='empty'">
+      <h4>товаров не найдено</h4>
+    </span>
 
     <Products v-if="parent  && getCategoryItems[0]!=='empty'" :render_list="getCategoryItems" />
-    <InfiniteScrollTrigger id_par="observer_cat_page" :toTrigger="CATEGORIES_NEXT_PAGE" :parameters="this.parent.id" />
+    <InfiniteScrollTrigger
+      id_par="observer_cat_page"
+      :toTrigger="FETCH_ITEMS_BY_CAT"
+      :parameters="this.parent.id"
+    />
   </div>
 </template>
 <script>

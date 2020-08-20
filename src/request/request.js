@@ -12,7 +12,6 @@ export default function(params) {
       xhr.onload = () => {
         if (xhr.status === 200) {
           let res = JSON.parse(xhr.responseText);
-          debugger
           if ((res && res.success && res.success === true) || !res.error) {
             resolve(res);
           } else {
