@@ -59,10 +59,10 @@ export default {
 
     checkOrderStatus(orderId) {
       const self = this;
-
+  console.log(orderId, 'orderIdorderIdorderIdorderIdorderIdorderId')
       return Request({
-        task: "profile.getRows",
-        testik: 1,
+        task: "profiles.getRows",
+        // testik: 1,
         type_id: 10000,
         profiles_ids: orderId,
         fields_ids: "[55892]",
@@ -77,7 +77,6 @@ export default {
             minute: "numeric",
           };
           const ISOregexp = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-
           const value = ans.data.value[orderId];
           let full_date = value.full_name;
           const date = full_date.match(ISOregexp)[0];
