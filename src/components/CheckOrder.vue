@@ -67,10 +67,6 @@ export default {
         profiles_ids: orderId,
         fields_ids: "[55892]",
       })
-
-
-
-
         .then((ans) => {
           const dateOptions = {
             year: "numeric",
@@ -81,7 +77,6 @@ export default {
             minute: "numeric",
           };
           const ISOregexp = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-
           const value = ans.data.value[orderId];
           let full_date = value.full_name;
           const date = full_date.match(ISOregexp)[0];
