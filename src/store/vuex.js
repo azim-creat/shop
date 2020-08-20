@@ -27,7 +27,7 @@ export const store = new Vuex.Store({
       return state.storeItems[state.storeItemsKeys.indexOf(id)];
     },
     getCardItem: state => {
-      return () => {};
+      return () => { };
     },
 
     enable_request: state => state.enable_request
@@ -186,15 +186,7 @@ export const store = new Vuex.Store({
     FETCH_FROM_SERVER: (state, arrayFromServer) => {
       const newStoreItems = [...state.storeItems];
       const newStoreItemsKeys = [...state.storeItemsKeys];
-      // 468 цена
-      // 863 группа
-      // 865 подгруппа / тип
-      // 868 размер
-      // 111
-      // 866 цвет
-      // 1000012 проба
-      // full_name - назание
-
+     
       for (const key in arrayFromServer) {
         if (arrayFromServer.hasOwnProperty(key)) {
           const newItem = {};
@@ -203,15 +195,15 @@ export const store = new Vuex.Store({
           newItem.categoryCode = objectFromServer.field_863;
           newItem.id = objectFromServer.profile_id;
           newItem.price = parseInt(objectFromServer.field_468, 10);
-          newItem.productTitle =
-            objectFromServer.full_name || objectFromServer.field_111;
-          newItem.image = require("../assets/images/product3.jpg");
+          newItem.productTitle = objectFromServer.full_name || objectFromServer.field_111;
+          newItem.image = objectFromServer.field_701 ?  `https://my.zoomiya.com/crm/files/132/${objectFromServer.field_701}` :  require("../assets/images/product3.jpg");
           newItem.product_img = [
             require("../assets/images/product3.jpg"),
             require("../assets/images/product1.jpg"),
             require("../assets/images/product3.jpg"),
             require("../assets/images/product4.jpg")
           ];
+          
           newItem.description = [
             newItem.field_868 || "-",
             newItem.field_866 || "-",
@@ -282,46 +274,29 @@ export const store = new Vuex.Store({
 
     FETCH_FROM_SERVER: async ({ commit, state, dispatch }) => {
       if (state.enable_request == false) return;
-
       state.enable_request = false;
+
       await Request({
         task: "profiles.getRows",
         testik: 1,
-        //user_id: 674,
-        // key: "mcTnaftuzoHzWJV",
         type_id: 14,
-        fields_ids: "[468,863,865,868,111,866,1000012]",
-
+        fields_ids: "[468,863,865,868,111,866,1000012,701]",
         limit: JSON.stringify([
           state.storeItems.length,
           state.storeItems.length + 50
         ]),
-        filter: JSON.stringify([
-          {
-            field: 111,
-            cond: "[FULL]"
-          }
-        ])
-        // 468 цена
-        // 863 группа
-        // 865 подгруппа тип
-        // 868 размер
-        // 111
-        // 866 цвет
-        // 1000012 проба
-        // full_name - назание
       })
         .then(resp => {
           state.enable_request = true;
-
           const ans = resp.data.value;
           commit("FETCH_FROM_SERVER", ans);
         })
         .catch(e => {
           state.enable_request = true;
-          console.log(e);
+          console.error(e);
         });
     },
+
     CREATE_ORDER: (state, orderId) => {
       const dateOptions = {
         year: "numeric",
@@ -346,11 +321,7 @@ export const store = new Vuex.Store({
       }
     },
     NEXT_PAGE: ({ commit, state, dispatch }) => {
-      const paginationClone = { ...state.pagination };
-      console.log(paginationClone);
-      paginationClone.from += 50;
-      paginationClone.to += 50;
-      console.log("[FETCHING]");
+      console.log("[NEXT_PAGE vuex action]");
       dispatch("FETCH_FROM_SERVER");
     }
   }

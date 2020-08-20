@@ -177,6 +177,7 @@ export default {
   justify-content: space-between;
   overflow: hidden;
   position: relative;
+  padding-bottom: 150px;
 }
 .Cart > div:first-child:not(.empty) {
   overflow: scroll;

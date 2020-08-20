@@ -1,10 +1,14 @@
 <template>
-  <img id="scroll-observer" class="preloder" :src="require('../assets/preloader.svg')" />
+  <img :id="id_par" class="preloder" :src="require('../assets/preloader.svg')" />
 </template>
 
 <script>
 import { mapActions } from "vuex";
 export default {
+  props:{
+    id_par: String
+  },
+
   methods: {
     ...mapActions(["NEXT_PAGE"]),
     debounce(func, wait, immediate) {
@@ -36,13 +40,19 @@ export default {
 
     const callbackObserver = function (entries, observer) {
       console.log("[ENTRIES]", entries);
+          debugger
+
       entries.forEach((element) => {
-        self.NEXT_PAGE();
+        if(element.isIntersecting){
+          debugger
+          self.NEXT_PAGE();
+        }
+
       });
     };
 
     let scrollObserver = new IntersectionObserver(callbackObserver, options);
-    scrollObserver.observe(document.getElementById("scroll-observer"));
+    scrollObserver.observe(document.getElementById(this.id_par));
   },
 };
 </script>

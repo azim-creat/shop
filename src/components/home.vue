@@ -3,7 +3,7 @@
     <h1 class="name_category">{{title}}</h1>
 
     <Products :render_list="StoreItems" />
-    <InfiniteScrollTrigger class="infiniteScroll" />
+    <InfiniteScrollTrigger id_par="observer_home_page" class="infiniteScroll" />
   </div>
 </template>
 

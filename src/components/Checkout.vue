@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import vSelect from "vue-select";
 import Request from "../request/request";
 
@@ -56,6 +57,9 @@ export default {
       orderId: undefined,
       isLoading: undefined,
     };
+  },
+  computed: {
+    ...mapGetters(["getStoreItemsById"]),
   },
   methods: {
     validatePhone: function () {
@@ -94,8 +98,8 @@ export default {
 
           basket_to_send[key] = {
             count: element,
-            full_name: 'all_items[key].productTitle + " id" + key',
-            price: 'all_items[key].price',
+            full_name: this.getStoreItemsById(key).productTitle + " id" + key,
+            price: this.getStoreItemsById(key).price,
             profile_id: key,
           };
         }
@@ -114,11 +118,8 @@ export default {
         type_id: 10000,
         full_name: "Заявка от " + data.name + " на " + date, //
         fields: JSON.stringify({
-          111: "Заявка от " + data.name + " на " + date, //название заявки
-          // 1001: 64126, // тип сделки: Заявка
-          1001: 138255, // тип сделки: Заявка
-          // 58626:  // корзина товаров,
-          // 55892
+          111: "Заявка от " + data.name + " на " + date,
+          1001: 138255,
           121: data.phone,
           2: date,
           126: data.address,
@@ -228,7 +229,7 @@ input.valid {
 }
 .vs__dropdown-toggle {
   padding: 22px 10px 12px;
- padding-right: 7px;
+  padding-right: 7px;
   background: white;
   display: flex;
   justify-content: space-between;
