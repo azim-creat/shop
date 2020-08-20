@@ -2,7 +2,7 @@ import Request from "../request/request";
 import toLocalStructure from "./utils/toLocalStructure";
 
 export const categoriesModule = {
-  state: () => ({ categoryNames: {}, items: [], itemsKeys: [] }),
+  state: () => ({ categoryNames: {}, items: [], itemsKeys: [], cache: {} }),
   mutations: {
     CREATE_CATEGORIES_STORAGE: (state, categories) => {
       state.categoryNames = categories;
@@ -14,6 +14,9 @@ export const categoriesModule = {
     CLEAR_CATEGORIES_ITEMS: state => {
       state.items = [];
       state.itemsKeys = [];
+    },
+    ADD_CAT_ITEM_TO_CACHE: (state, itemToCache) => {
+      state.cache[itemToCache.id] = itemToCache;
     }
   },
   actions: {
@@ -127,6 +130,9 @@ export const categoriesModule = {
           console.log(resp);
         })
         .catch(e => console.error(e));
+    },
+    ADD_CAT_ITEM_TO_CACHE: ({ commit, state, rootState }, item) => {
+      commit("ADD_CAT_ITEM_TO_CACHE", item);
     }
   },
   getters: {
@@ -134,6 +140,9 @@ export const categoriesModule = {
     getCategoryItems: state => state.items,
     getCategoryItemById: state => id => {
       return state.items[state.itemsKeys.indexOf(id)];
+    },
+    getCatsCachedItem: state => id => {
+      return state.cache[id];
     }
   }
 };

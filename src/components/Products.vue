@@ -84,6 +84,8 @@ export default {
       this.$store.dispatch("DECREASE", id);
     },
     increaseItem(id) {
+
+
       this.$store.dispatch("INCREASE", id);
     },
   },

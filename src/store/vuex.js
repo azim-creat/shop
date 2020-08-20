@@ -79,7 +79,7 @@ export const store = new Vuex.Store({
     },
 
     INCREASE: (state, item) => {
-      if (item.tags) {
+      if (false) {
         state.popUpItem = item;
       } else {
         if (state.cartItems[item.id]) {
@@ -260,12 +260,19 @@ export const store = new Vuex.Store({
       commit("SET_SIZE", { size, id });
     },
 
-    INCREASE: ({ commit, getters }, itemId) => {
-      const item = getters.getStoreItemsById(itemId);
+    INCREASE: ({ commit, getters, dispatch }, itemId) => {
+      let item = getters.getStoreItemsById(itemId);
+      if (item == undefined) {
+        item = getters.getCategoryItemById(itemId); 
+        dispatch("ADD_CAT_ITEM_TO_CACHE", item);
+      }
       commit("INCREASE", item);
     },
     DECREASE: ({ commit, getters }, itemId) => {
-      const item = getters.getStoreItemsById(itemId);
+      let item = getters.getStoreItemsById(itemId);
+      if (item == undefined) {
+        item = getters.getCategoryItemById(itemId);
+      }
       commit("DECREASE", item);
     },
     INCREASE_FROM_POP_UP: ({ commit, getters }, tagId) => {
