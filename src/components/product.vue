@@ -1,19 +1,19 @@
 <template>
   <div class="product">
     <div class="product_header">
-      <h1 class="product_title">{{ITEM.productTitle}}</h1>
-      <h4 class="product_price">{{ITEM.price }} KZT</h4>
-      <h4 class="product_price">#{{ITEM.articul }}</h4>
+      <h1 class="product_title">{{data.productTitle}}</h1>
+      <h4 class="product_price">{{data.price }} KZT</h4>
+      <h4 class="product_price">#{{data.articul }}</h4>
     </div>
 
     <div class="product_images">
       <div class="product_img" :style="`background-image: url(${main_img})`"></div>
       <div class="product_add_images">
-        <img @click="openModalImage($event)" class="product_add_img" v-lazy="ITEM.image" />
+        <img @click="openModalImage($event)" class="product_add_img" v-lazy="data.image" />
         <img
           @click="openModalImage($event)"
           class="product_add_img"
-          v-for="(product_img, index) in ITEM.product_img"
+          v-for="(product_img, index) in data.product_img"
           :key="index"
           v-lazy="product_img"
         />
@@ -23,7 +23,7 @@
     <div class="product_chose_grid">
       <div class="product_choose noSelect">
         <div class="product_choose_size">
-          <div class="sizes" v-show="ITEM.tags">
+          <div class="sizes" v-show="data.tags">
             <span class="size" :class="{active:(getCurrentSize('s'))}">S</span>
             <span class="size" :class="{active:( getCurrentSize('m'))}">M</span>
             <span class="size" :class="{active:(getCurrentSize('l'))}">L</span>
@@ -48,7 +48,7 @@
       <div class="product_description">
         <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
         <ul>
-          <li v-for="(descrip, index) in ITEM.description" :key="index">
+          <li v-for="(descrip, index) in data.description" :key="index">
             <span>{{descrip}}</span>
           </li>
         </ul>
@@ -62,6 +62,7 @@ export default {
   data() {
     return {
       main_img: "",
+      data: null,
     };
   },
   methods: {
@@ -84,7 +85,7 @@ export default {
       }
     },
     getQuantity() {
-      let item_in_cart = this.CartItems[this.ITEM.id];
+      let item_in_cart = this.CartItems[this.data.id];
       if (item_in_cart === undefined) return 0;
       if (typeof item_in_cart === "number") {
         return item_in_cart;
@@ -106,20 +107,23 @@ export default {
     },
   },
   mounted() {
-    this.main_img = this.ITEM.image;
+    this.main_img = this.data.image;
   },
   computed: {
     ...mapGetters(["CartItems", "StoreItems", "getStoreItemsById"]),
     prodID() {
-      return this.$route.params.id;
+      return this.$route.params.data.id;
     },
     ITEM() {
-      return this.getStoreItemsById(this.prodID)
+      return this.getStoreItemsById(this.prodID);
     },
+  },
+  created() {
+    this.data = this.$route.params.data;
   },
 };
 </script>
-    
+
 <style scoped>
 .wrapper {
   background: #efefef;

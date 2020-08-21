@@ -1,7 +1,7 @@
 <template>
   <div class="product-item" v-lazy:background-image="image">
     <div class="overlay">
-      <router-link :to="`/product/${itemId}`">
+      <div class="goToProduct" @click="goToProduct">
         <div class="details">
           <div>
             <h3 @click="goTodetail(data.productId)">{{title || "Без названия"}}</h3>
@@ -12,7 +12,7 @@
             <span class="tag" v-for="(tag, tag_index) of tags" :key="tag_index">{{tag.title}}</span>
           </div>
         </div>
-      </router-link>
+      </div>
       <div class="controls">
         <input
           class="noSelect"
@@ -39,6 +39,7 @@ export default {
     itemId: [Number, String],
     tags: Object,
     price: Number,
+    item: Object,
     articul: String,
     decrease: Function,
     increase: Function,
@@ -70,6 +71,12 @@ export default {
         }
         return sum;
       }
+    },
+    goToProduct() {
+      this.$router.push({
+        name: "product",
+        params: { data: this.$props.item },
+      });
     },
   },
   computed: { ...mapGetters(["CartItems"]) },
@@ -171,6 +178,10 @@ input[value="-"] {
 input[value="+"] {
   background: linear-gradient(246.58deg, #ff0099 -162.71%, #ff4d00 163.83%);
   color: white;
+}
+
+.goToProduct {
+  cursor: pointer;
 }
 
 @media (max-width: 320px) {

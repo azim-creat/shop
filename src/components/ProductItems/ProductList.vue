@@ -1,8 +1,7 @@
 <template>
   <div class="product-item">
-    <router-link :to="`/product/${itemId}`">
-      <img class="noSelect" v-lazy="image" />
-    </router-link>
+    <img class="noSelect" v-lazy="image" @click="goToProduct" />
+
     <div class="description">
       <div class="description-text">
         <h3>{{ title }}</h3>
@@ -40,6 +39,7 @@ export default {
     price: Number,
     articul: String,
     tags: Object,
+    item: Object,
     decrease: Function,
     increase: Function,
   },
@@ -69,6 +69,12 @@ export default {
     decreaseQuantity(itemId) {
       this.currentId = itemId;
       this.show_modal = true;
+    },
+    goToProduct() {
+      this.$router.push({
+        name: "product",
+        params: { data: this.$props.item },
+      });
     },
     ...mapActions({
       increace: "INCREASE_ITEM_QUANTITY",

@@ -95,8 +95,6 @@ export default {
 
 
 <style scoped>
-.search {
-}
 
 input {
   border: 2px solid black;

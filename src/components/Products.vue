@@ -10,6 +10,7 @@
           :image="data.image"
           :itemId="data.id"
           :price="data.price"
+          :item="data"
         />
         <ProductSingle
           v-else-if="view_mode === 'single'"
@@ -19,6 +20,7 @@
           :price="data.price"
           :articul="data.articul"
           :tags="data.tags"
+          :item="data"
           :quantity="data.quantity"
           :decrease="decreaseItem"
           :increase="increaseItem"
@@ -32,6 +34,7 @@
           :price="data.price"
           :articul="data.articul"
           :tags="data.tags"
+          :item="data"
           :quantity="data.quantity"
           :decrease="decreaseItem"
           :increase="increaseItem"
@@ -220,14 +223,3 @@ export default {
   -webkit-overflow-scrolling: auto !important;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
