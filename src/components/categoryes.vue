@@ -124,7 +124,7 @@ export default {
     console.log("mounted");
   },
   destroyed() {
-    this.CLEAR_CATEGORIES_ITEMS();
+    // this.CLEAR_CATEGORIES_ITEMS();
   },
 };
 </script>

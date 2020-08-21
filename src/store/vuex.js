@@ -263,8 +263,8 @@ export const store = new Vuex.Store({
 
     INCREASE: ({ commit, getters, dispatch }, itemId) => {
       let item = getters.getStoreItemsById(itemId);
+      debugger;
       if (item == undefined) {
-        dispatch("ADD_CAT_ITEM_TO_CACHE", item);
         item = getters.getCategoryItemById(itemId);
         if (item == undefined) {
           item = getters.getSearchItemById(itemId);
@@ -272,6 +272,7 @@ export const store = new Vuex.Store({
           commit("INCREASE", item);
           return;
         }
+        dispatch("ADD_CAT_ITEM_TO_CACHE", item);
       }
       commit("INCREASE", item);
     },

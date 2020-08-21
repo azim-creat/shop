@@ -38,6 +38,8 @@ export const categoriesModule = {
         task: "getGroups"
       })
         .then(resp => {
+          commit("CLEAR_CATEGORIES_ITEMS");
+
           const value = resp.data.value;
           let categoriesClone = {};
           let catId;
