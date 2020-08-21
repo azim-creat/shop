@@ -44,7 +44,6 @@ export const categoriesModule = {
           let categoriesClone = {};
           let catId;
 
-          console.log(resp);
           const categoryTemplate = {
             id: "myid",
             full_name: "",

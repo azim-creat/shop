@@ -5,7 +5,6 @@
       <span class="category-item__arrow-right__parent_arrow"></span>
       <span class="category-item__title">
         <h3>{{parent.full_name}}</h3>
-        <!-- <h5>{{parent.count}} товаров</h5> -->
       </span>
     </div>
     <div class="category-items" v-if="parent == false">
@@ -18,7 +17,6 @@
         <div class="category-item__img" :style="`background-image: url(.${image})`"></div>
         <span class="category-item__title">
           <h3>{{item.full_name}}</h3>
-          <!-- <h5>{{item.count}} товаров</h5> -->
         </span>
       </div>
     </div>
@@ -122,9 +120,6 @@ export default {
   mounted() {
     this.childs = this.products;
     console.log("mounted");
-  },
-  destroyed() {
-    // this.CLEAR_CATEGORIES_ITEMS();
   },
 };
 </script>
