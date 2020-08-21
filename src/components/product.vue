@@ -3,7 +3,6 @@
     <div class="product_header">
       <h1 class="product_title">{{data.productTitle}}</h1>
       <h4 class="product_price">{{data.price }} KZT</h4>
-      <h4 class="product_price">#{{data.articul }}</h4>
     </div>
 
     <div class="product_images">
@@ -46,6 +45,7 @@
 
     <div class="product_dis">
       <div class="product_description">
+        <h4 class="product_price">#{{data.articul }}</h4>
         <h4 style="margin-bottom:16px">ХАРАКТЕРИСТИКИ</h4>
         <ul>
           <li v-for="(descrip, index) in data.description" :key="index">
