@@ -14,8 +14,15 @@ export const categoriesModule = {
       state.categoryNames = categories;
     },
     FETCH_FETCH_ITEMS_BY_CAT: (state, newItems) => {
-      state.items = newItems.newItems;
-      state.itemsKeys = newItems.newItemsKeys;
+      if (newItems.newItems[0] == "empty") return;
+      let newCatItems = [...state.items];
+      let newCatItemsKeys = [...state.itemsKeys];
+
+      newCatItems = newCatItems.concat(newItems.newItems);
+      newCatItemsKeys = newCatItemsKeys.concat(newItems.newItemsKeys);
+
+      state.items = newCatItems;
+      state.itemsKeys = newCatItemsKeys;
     },
     CLEAR_CATEGORIES_ITEMS: state => {
       state.items = [];
@@ -71,7 +78,7 @@ export const categoriesModule = {
         filter: JSON.stringify([
           {
             field: 863,
-            value: catId.toString()
+            value: catId
           }
         ])
         // 468 цена

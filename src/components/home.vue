@@ -3,14 +3,18 @@
     <h1 class="name_category">{{title}}</h1>
 
     <Products :render_list="StoreItems" />
-    <InfiniteScrollTrigger id_par="observer_home_page" class="infiniteScroll" />
+    <InfiniteScrollTrigger
+      id_par="observer_home_page"
+      class="infiniteScroll"
+      :toTrigger="FETCH_FROM_SERVER"
+    />
   </div>
 </template>
 
 <script>
 import Products from "./Products";
 import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "home",
@@ -27,6 +31,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["FETCH_FROM_SERVER"]),
     setViewMode(new_view_mode) {
       this.view_mode = new_view_mode;
     },
